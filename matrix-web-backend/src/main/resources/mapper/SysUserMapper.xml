@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.forezp.modules.system.mapper.SysUserMapper">
+
+
+    <resultMap id="userBaseMap" type="sysUser">
+        <id column="su_id" property="id"></id>
+        <result property="updateTime" column="su_update_time"></result>
+    </resultMap>
+
+    <resultMap id="userMap" type="sysUser" extends="userBaseMap">
+
+        <result column="su_user_id" property="userId"></result>
+        <result property="realname" column="su_realname"></result>
+        <result property="type" column="su_type"></result>
+        <result property="mobile" column="su_mobile"></result>
+        <result property="email" column="su_email"></result>
+        <result property="remarks" column="su_remarks"></result>
+        <result property="status" column="su_status"></result>
+        <result property="workStatus" column="su_work_status"></result>
+        <result property="avatar" column="su_avatar"></result>
+        <result property="loginName" column="su_login_name"></result>
+
+    </resultMap>
+
+    <select id="searchUsers" resultMap="userMap">
+        SELECT
+        su.id AS su_id,su.user_id AS su_user_id,su.realname AS su_realname,
+        su.type AS su_type,su.mobile AS su_mobile,su.email AS su_email,
+        su.remarks AS su_remarks,su.status AS su_status,su.update_time AS su_update_time,su.work_status AS
+        su_work_status,su.login_name AS su_login_name,su.avatar AS su_avatar,su.remarks AS su_remarks
+        FROM sys_user AS su
+        <where>
+            <if test="status != null">
+                su.status = #{status}
+            </if>
+
+            <if test="orgId != null">
+                AND su.user_id IN ( SELECT DISTINCT(suo.user_id) FROM sys_user_org suo WHERE suo.org_id  LIKE concat(#{orgId},'%') )
+            </if>
+
+            <if test="realname != null">
+                AND su.realname like CONCAT('%',#{realname},'%')
+            </if>
+
+            <if test="roleId != null">
+                AND su.user_id IN( SELECT DISTINCT(sur.user_id) FROM sys_user_role sur WHERE sur.role_id= #{roleId} )
+            </if>
+
+        </where>
+        ORDER BY su.user_id DESC
+
+    </select>
+
+
+</mapper>
