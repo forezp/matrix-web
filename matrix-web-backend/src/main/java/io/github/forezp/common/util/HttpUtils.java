@@ -1,6 +1,7 @@
 package io.github.forezp.common.util;
 
 
+import io.github.forezp.permission.auth.AuthHolder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -18,11 +19,16 @@ public class HttpUtils {
      * @return HttpServletRequest
      */
     public static HttpServletRequest getHttpServletRequest() {
+        HttpServletRequest servletRequest=null;
         try {
-            return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+             servletRequest= ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         } catch (Exception e) {
-            return null;
+
         }
+        if(servletRequest==null){
+            servletRequest= AuthHolder.get();
+        }
+        return servletRequest;
     }
 
 

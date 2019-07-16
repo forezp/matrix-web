@@ -23,6 +23,7 @@ service.interceptors.request.use(
     if (token) {
       console.log("request header token:"+token)
       console.log(guid())
+      config.headers['requestId'] = guid()
       config.headers['Authorization'] = token // 让每个请求携带自定义token 请根据实际情况自行修改
     }
     // config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'

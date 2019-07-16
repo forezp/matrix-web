@@ -26,7 +26,7 @@
 		<mybatisplus.spring.boot.version>1.0.5</mybatisplus.spring.boot.version>
 		<mybatisplus.version>2.2.0</mybatisplus.version>
 		<mysql.version>5.1.38</mysql.version>
-		<swagger.version>2.7.0</swagger.version>
+		<swagger.version>2.2.2</swagger.version>
 		<scrorpio.version>1.0.1</scrorpio.version>
 		<velocity.version>2.0</velocity.version>
 		<freemaker.version>2.3.23</freemaker.version>

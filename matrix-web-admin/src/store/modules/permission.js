@@ -9,7 +9,7 @@ import { asyncRouterMap, constantRouterMap } from '@/router'
  */
 function hasMenu(menus, route) {
   if (route.path) {
-    return menus.some(menu => (menu[4].indexOf(route.path) >= 0) )
+    return menus.some(menu => (menu[16].indexOf(route.path) >= 0) )
   } else {
     return true
   }

@@ -6,11 +6,10 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.dto.RespDTO;
 import io.github.forezp.common.exception.AriesException;
-import io.github.forezp.common.util.HttpUtils;
-import io.github.forezp.common.util.JWTUtils;
-import io.github.forezp.common.util.MD5Utils;
-import io.github.forezp.common.util.PageUtils;
+import io.github.forezp.common.util.*;
+import io.github.forezp.modules.system.entity.SysMenu;
 import io.github.forezp.modules.system.entity.SysUser;
+import io.github.forezp.modules.system.service.SysMenuService;
 import io.github.forezp.modules.system.service.SysUserService;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static io.github.forezp.common.exception.ErrorCode.PWD_ERROR;
@@ -40,10 +40,13 @@ import static io.github.forezp.common.exception.ErrorCode.USER_NOT_EXIST;
 @RequestMapping("/user")
 public class SysUserController {
 
-    Logger logger= LoggerFactory.getLogger(SysUserController.class);
+    LogUtils LOG=new LogUtils(SysUserController.class);
 
     @Autowired
     SysUserService sysUserService;
+
+    @Autowired
+    SysMenuService sysMenuService;
 
     @GetMapping("/pagelist")
     public RespDTO searchUsers(@RequestParam int page, @RequestParam int pageSize) {
@@ -56,7 +59,7 @@ public class SysUserController {
     @PostMapping("/login")
     public RespDTO login(@RequestParam String username, @RequestParam String password) {
 
-        logger.info("login parmas: {},{}",username,password);
+        LOG.info("login parmas: {},{}",username,password);
         SysUser user=sysUserService.selectOne(Condition.create().eq( "user_id", username ));
         if(user==null){
             throw new AriesException(USER_NOT_EXIST);
@@ -73,7 +76,7 @@ public class SysUserController {
 
 
             result.put("token", jwt);
-            logger.info("login success,{}",jwt);
+            LOG.info("login success,{}",jwt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,30 +89,36 @@ public class SysUserController {
     @GetMapping("/info")
     public RespDTO info() {
 
-        String token=null;
-        try {
-             token= HttpUtils.getHeaders(HttpUtils.getHttpServletRequest()).get("Authorization");
+//        String token=null;
+//        try {
+//             token= HttpUtils.getHeaders(HttpUtils.getHttpServletRequest()).get("Authorization");
+//
+//        }catch (Exception e){
+//          ExceptionUtils.printRootCauseStackTrace(e);
+//        }
+//
+//        if(StringUtils.isEmpty(token)){
+//            throw new AriesException(TOKEN_ISNULL);
+//        }
+//        try {
+//            Claims claims=JWTUtils.parseJWT(token);
+//            if(claims!=null){
+//                String id=claims.getId();
+//                String userId=claims.getSubject();
+//
+//            }
+//        } catch (Exception e) {
+//            ExceptionUtils.printRootCauseStackTrace(e);
+//        }
 
-        }catch (Exception e){
-          ExceptionUtils.printRootCauseStackTrace(e);
-        }
+        Map<String,Object> result=new HashMap<>();
+        List<SysMenu> menus=sysMenuService.selectList(Condition.create().eq("ismenu",1));
 
-        if(StringUtils.isEmpty(token)){
-            throw new AriesException(TOKEN_ISNULL);
-        }
-        try {
-            Claims claims=JWTUtils.parseJWT(token);
-            if(claims!=null){
-                String id=claims.getId();
-                String userId=claims.getSubject();
+        LOG.info("menuList size:"+menus.size());
+        result.put("menus",menus);
+        result.put("roles","administrator");
 
-            }
-        } catch (Exception e) {
-            ExceptionUtils.printRootCauseStackTrace(e);
-        }
-
-
-        return RespDTO.onSuc( null );
+        return RespDTO.onSuc( result );
     }
 
 }
