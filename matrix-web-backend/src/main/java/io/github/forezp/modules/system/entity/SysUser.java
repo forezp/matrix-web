@@ -1,6 +1,8 @@
 package io.github.forezp.modules.system.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
 import java.io.Serializable;
 
 /**
@@ -9,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author forezp
- * @since 2018-08-03
+ * @since 2019-07-17
  */
 public class SysUser implements Serializable {
 
@@ -18,21 +20,22 @@ public class SysUser implements Serializable {
     /**
      * 用户编号
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
      * 用户名
      */
     private String userId;
     /**
-     * 真实姓名
-     */
-    private String realname;
-    /**
      * 密码，需加密存储
      */
     private String password;
     /**
-     * 类型
+     * 真实姓名
+     */
+    private String realname;
+    /**
+     * 类型,1管理员 2.员工 3.普通用户
      */
     private Integer type;
     /**
@@ -89,20 +92,20 @@ public class SysUser implements Serializable {
         this.userId = userId;
     }
 
-    public String getRealname() {
-        return realname;
-    }
-
-    public void setRealname(String realname) {
-        this.realname = realname;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
     }
 
     public Integer getType() {
@@ -190,8 +193,8 @@ public class SysUser implements Serializable {
         return "SysUser{" +
         ", id=" + id +
         ", userId=" + userId +
-        ", realname=" + realname +
         ", password=" + password +
+        ", realname=" + realname +
         ", type=" + type +
         ", mobile=" + mobile +
         ", email=" + email +

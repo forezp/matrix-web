@@ -19,7 +19,7 @@ public class GeneratorServiceEntity {
     public void generateCode() {
         String packageName = "io.github.forezp.modules.system";
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, packageName, "sys_menu");
+        generateByTables(serviceNameStartWithI, packageName, "sys_user","sys_user_role","sys_role","sys_role_menu","sys_menu");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) {
