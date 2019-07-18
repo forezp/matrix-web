@@ -10,7 +10,7 @@ public class RequestHolder {
 
     public static final String REQUEST_SERVLET="requestServlet";
 
-    public static final String REQUEST_ID="requestId";
+    public static final String REQUEST_ID="REQUEST_ID";
 
     public static final String START_TIME="startTime";
 

@@ -1,6 +1,8 @@
 package io.github.forezp.common.dto;
 
-import io.github.forezp.permission.auth.RequestHolder;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.MDC;
 
 import java.io.Serializable;
 
@@ -17,11 +19,11 @@ public class RespDTO<T> implements Serializable {
 
     public static RespDTO onSuc(Object data) {
         RespDTO resp = new RespDTO();
-        if (RequestHolder.get() != null) {
-            if (RequestHolder.get().get(REQUEST_ID) != null) {
-                resp.requestId = RequestHolder.get().get(REQUEST_ID).toString();
-            }
+        String requestId = MDC.get(REQUEST_ID);
+        if (!StringUtils.isEmpty(requestId)) {
+            resp.requestId = requestId;
         }
+        resp.message="sucess";
         resp.data = data;
         return resp;
     }
