@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by forezp on 2019/7/21.
  */
-public class SysOrgDTO extends SysOrg {
+public class  SysOrgDTO extends SysOrg {
 
 
     List<SysOrgDTO> children;
@@ -29,4 +29,7 @@ public class SysOrgDTO extends SysOrg {
     public void setDepth(int depth) {
         this.depth = depth;
     }
+
+
+
 }
