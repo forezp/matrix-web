@@ -1,9 +1,8 @@
-package io.github.forezp.interceptor;
+package io.github.forezp.aop;
 
 
 import io.github.forezp.common.constant.ApiConstants;
 import io.github.forezp.common.util.LogUtils;
-import io.github.forezp.modules.system.entity.SysMenu;
 import io.github.forezp.permission.auth.RequestHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;

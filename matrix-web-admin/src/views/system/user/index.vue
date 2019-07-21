@@ -3,10 +3,10 @@
     <div class="block">
       <el-row  :gutter="20">
         <el-col :span="6">
-          <el-input v-model="listQuery.account" placeholder="请输入帐号"></el-input>
+          <el-input v-model="listQuery.userId" placeholder="请输入帐号"></el-input>
         </el-col>
         <el-col :span="6">
-          <el-input v-model="listQuery.name" placeholder="请输入姓名"></el-input>
+          <el-input v-model="listQuery.realname" placeholder="请输入姓名"></el-input>
         </el-col>
         <el-col :span="6">
           <el-button type="success" icon="el-icon-search" @click.native="search">{{ $t('button.search') }}</el-button>
@@ -36,29 +36,29 @@
 
       <el-table-column label="账号">
         <template slot-scope="scope">
-          {{scope.row.account}}
+          {{scope.row.userId}}
         </template>
       </el-table-column>
       <el-table-column label="姓名">
         <template slot-scope="scope">
-          {{scope.row.name}}
+          {{scope.row.realname}}
         </template>
       </el-table-column>
-      <el-table-column label="性别">
-        <template slot-scope="scope">
-          {{scope.row.sexName}}
-        </template>
-      </el-table-column>
-      <el-table-column label="角色">
-        <template slot-scope="scope">
-          {{scope.row.roleName}}
-        </template>
-      </el-table-column>
-      <el-table-column label="部门">
-        <template slot-scope="scope">
-          {{scope.row.deptName}}
-        </template>
-      </el-table-column>
+      <!--<el-table-column label="性别">-->
+        <!--<template slot-scope="scope">-->
+          <!--{{scope.row.sexName}}-->
+        <!--</template>-->
+      <!--</el-table-column>-->
+      <!--<el-table-column label="角色">-->
+        <!--<template slot-scope="scope">-->
+          <!--{{scope.row.roleName}}-->
+        <!--</template>-->
+      <!--</el-table-column>-->
+      <!--<el-table-column label="部门">-->
+        <!--<template slot-scope="scope">-->
+          <!--{{scope.row.deptName}}-->
+        <!--</template>-->
+      <!--</el-table-column>-->
       <el-table-column label="邮箱">
         <template slot-scope="scope">
           {{scope.row.email}}
@@ -66,7 +66,7 @@
       </el-table-column>
       <el-table-column label="电话">
         <template slot-scope="scope">
-          {{scope.row.phone}}
+          {{scope.row.mobile}}
         </template>
       </el-table-column>
       <el-table-column label="创建时间">
@@ -76,7 +76,7 @@
       </el-table-column>
       <el-table-column label="状态">
         <template slot-scope="scope">
-          {{scope.row.statusName}}
+          {{scope.row.status}}
         </template>
       </el-table-column>
 
@@ -103,12 +103,12 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="账户" prop="account">
-              <el-input v-model="form.account" minlength=1></el-input>
+              <el-input v-model="form.userId" minlength=1></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name"  minlength=1></el-input>
+              <el-input v-model="form.realname"  minlength=1></el-input>
             </el-form-item>
           </el-col>
 

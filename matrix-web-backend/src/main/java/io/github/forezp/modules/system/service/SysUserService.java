@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface SysUserService extends IService<SysUser> {
 
-    PageResultsDTO searchUsers(int page, int pageSize);
+    PageResultsDTO searchUsers(int page, int pageSize, String userid, String realname);
 
     SysUser login(String username, String password);
 

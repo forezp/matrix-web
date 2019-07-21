@@ -1,26 +1,14 @@
-package io.github.forezp.modules.system.entity;
+package io.github.forezp.modules.system.vo.domain;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import io.github.forezp.common.base.BaseEntity;
 
-import java.util.Date;
 import java.io.Serializable;
-import java.util.List;
 
 /**
- * <p>
- * 菜单
- * </p>
- *
- * @author forezp
- * @since 2019-07-17
+ * Created by forezp on 2019/7/20.
  */
-public class SysMenu extends BaseEntity implements Serializable {
+public class SysMenuAddDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @TableField(value = "id")
-    private Long id;
     private String code;
     private String pcode;
     private String url;
@@ -33,17 +21,6 @@ public class SysMenu extends BaseEntity implements Serializable {
     private String pcodes;
     private Integer status;
     private String tips;
-
-
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;
@@ -139,35 +116,5 @@ public class SysMenu extends BaseEntity implements Serializable {
 
     public void setTips(String tips) {
         this.tips = tips;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "SysMenu{" +
-        ", id=" + id +
-        ", code=" + code +
-        ", pcode=" + pcode +
-        ", url=" + url +
-        ", icon=" + icon +
-        ", ismenu=" + ismenu +
-        ", isopen=" + isopen +
-        ", levels=" + levels +
-        ", name=" + name +
-        ", num=" + num +
-        ", pcodes=" + pcodes +
-        ", status=" + status +
-        ", tips=" + tips +
-        ", createBy=" + createBy +
-        ", createTime=" + createTime +
-        ", updateBy=" + updateBy +
-        ", updateTime=" + updateTime +
-        "}";
-    }
-
-    @Override
-    protected Serializable pkVal() {
-        return id;
     }
 }

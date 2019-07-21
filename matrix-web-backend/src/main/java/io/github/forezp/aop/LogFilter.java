@@ -1,4 +1,4 @@
-package io.github.forezp.permission.auth;
+package io.github.forezp.aop;
 
 
 import io.github.forezp.common.constant.ApiConstants;
@@ -28,7 +28,7 @@ import static io.github.forezp.permission.auth.RequestHolder.REQUEST_ID;
 @Component
 @WebFilter(urlPatterns = "/*", filterName = "authFilter")
 @Slf4j
-public class AuthFilter implements Filter {
+public class LogFilter implements Filter {
 
 
     @Autowired
@@ -58,10 +58,10 @@ public class AuthFilter implements Filter {
             }
             MDC.put(REQUEST_ID,requestId);
             String uri = httpServletRequest.getRequestURI();
-            log.info(uri);
+            log.info("requst start ,"+method+" "+uri);
             long starTime = ClockUtil.currentTimeMillis();
             filterChain.doFilter(servletRequest, servletResponse);
-            log.info(uri + " request takes:" + (ClockUtil.currentTimeMillis() - starTime) + "ms");
+            log.info("requst end ,"+uri + " request takes:" + (ClockUtil.currentTimeMillis() - starTime) + "ms");
             MDC.clear();
         }
 

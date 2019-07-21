@@ -2,6 +2,9 @@ package io.github.forezp.modules.system.service;
 
 import io.github.forezp.modules.system.entity.SysMenu;
 import com.baomidou.mybatisplus.service.IService;
+import io.github.forezp.modules.system.vo.dto.SysMenuDTO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2019-07-16
  */
 public interface SysMenuService extends IService<SysMenu> {
+
+    List<SysMenuDTO> generateMenuTree(List<SysMenu> menus);
 
 }

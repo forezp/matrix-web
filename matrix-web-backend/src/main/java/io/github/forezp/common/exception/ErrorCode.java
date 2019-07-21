@@ -11,7 +11,9 @@ public enum ErrorCode {
     ERROR_ARGS( 1002, "参数不符合要求" ),
     USER_NOT_EXIST(1003, "该用户不存在"),
     PWD_ERROR(1004,"用户密码错误"),
-    TOKEN_ISNULL(1005,"用户的token为空")
+    TOKEN_ISNULL(1005,"用户的token为空"),
+    INSERT_DATA_FAIL(1006,"插入数据失败"),
+    DELETE_DATA_FAIL(1007,"删除数据失败")
     ;
 
 

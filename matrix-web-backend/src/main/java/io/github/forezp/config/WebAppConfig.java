@@ -1,7 +1,7 @@
 package io.github.forezp.config;
 
 
-import io.github.forezp.interceptor.SecurityInterceptor;
+import io.github.forezp.aop.SecurityInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;

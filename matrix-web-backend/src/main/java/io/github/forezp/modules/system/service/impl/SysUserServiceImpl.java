@@ -34,34 +34,23 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     SysUserMapper sysUserMapper;
 
-    public PageResultsDTO searchUsers(int page, int pageSize) {
+    public PageResultsDTO searchUsers(int page, int pageSize, String userId, String realname) {
 
         Map paramMap = new HashMap<>();
-        Page<SysUser> userPage = new Page<>( page, pageSize );
-//
-//        if (StringUtils.isNotBlank(orgId)) {
-//            paramMap.put("orgId", orgId);
-//        }
-//        if (StringUtils.isNotBlank(realname)) {
-//            paramMap.put("realname", realname);
-//        }
-//        if (StringUtils.isNotBlank(roleName)) {
-//            paramMap.put("roleName", roleName);
-//        }
-//        if (StringUtils.isNotBlank(orgName)) {
-//            paramMap.put("orgName", orgName);
-//        }
-//
-//        if (StringUtils.isNotBlank(roleId)) {
-//            paramMap.put("roleId", roleId);
-//        }
+        Page<SysUser> userPage = new Page<>(page, pageSize);
 
-        //    paramMap.put("status", status);
+        if (StringUtils.isNotBlank(realname)) {
+            paramMap.put("realname", realname);
+        }
+        if (StringUtils.isNotBlank(userId)) {
+            paramMap.put("user_id", userId);
+        }
+        paramMap.put("status", 1);
 
-        List<SysUser> sysUsers = sysUserMapper.searchUsers( userPage, paramMap );
-        PageResultsDTO result = new PageResultsDTO( page, pageSize );
-        result.setTotalCount( userPage.getTotal() );
-        result.setList( sysUsers );
+        List<SysUser> sysUsers = sysUserMapper.searchUsers(userPage, paramMap);
+        PageResultsDTO result = new PageResultsDTO(page, pageSize);
+        result.setTotalCount(userPage.getTotal());
+        result.setList(sysUsers);
         return result;
 
     }
@@ -69,13 +58,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUser login(String username, String password) {
 
-        List<SysUser> userList = sysUserMapper.selectList( Condition.create().eq( "username", username ) );
+        List<SysUser> userList = sysUserMapper.selectList(Condition.create().eq("username", username));
         if (userList == null || userList.size() == 0) {
-            throw new AriesException( ErrorCode.USER_NOT_EXIST );
+            throw new AriesException(ErrorCode.USER_NOT_EXIST);
         }
-        SysUser sysUser=userList.get( 0 );
+        SysUser sysUser = userList.get(0);
 
-        if(sysUser.getPassword().equals( MD5Utils.encrypt( password ) )){
+        if (sysUser.getPassword().equals(MD5Utils.encrypt(password))) {
 
         }
 

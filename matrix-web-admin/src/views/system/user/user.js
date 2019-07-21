@@ -34,17 +34,17 @@ export default {
       isAdd: true,
       form: {
         id: '',
-        account: '',
-        name: '',
+        userId: '',
+        realname: '',
         birthday: '',
         sex: 1,
         email: '',
         password: '',
-        rePassword: '',
         dept: '',
-        status: true,
+        status: 1,
         deptid: 1,
-        deptName: ''
+        deptName: '',
+        mobile: ''
       },
       rules: {
         account: [
@@ -61,9 +61,9 @@ export default {
       },
       listQuery: {
         page: 1,
-        limit: 20,
-        account: undefined,
-        name: undefined
+        pageSize: 20,
+        userId: undefined,
+        realname: undefined
       },
       total: 0,
       list: null,
@@ -94,9 +94,9 @@ export default {
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        this.list = response.data.records
+        this.list = response.data.list
         this.listLoading = false
-        this.total = response.data.total
+        this.total = response.data.totalCount
       })
     },
     search() {
@@ -136,8 +136,8 @@ export default {
     resetForm() {
       this.form = {
         id: '',
-        account: '',
-        name: '',
+        userId: '',
+        realname: '',
         birthday: '',
         sex: 1,
         email: '',
@@ -179,7 +179,7 @@ export default {
               //冻结
               form.status = 2
             }
-            form.birthday = parseTime(form.birthday, '{y}-{m}-{d}')
+            // form.birthday = parseTime(form.birthday, '{y}-{m}-{d}')
             form.createtime = parseTime(form.createtime)
             saveUser(form).then(response => {
               this.$message({

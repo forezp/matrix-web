@@ -15,27 +15,27 @@ export default {
       showTree: false,
       defaultProps: {
         id: 'id',
-        label: 'simplename',
+        label: 'simpleName',
         children: 'children'
       },
       form: {
         id: '',
-        simplename: '',
-        fullname: '',
+        simpleName: '',
+        fullName: '',
         pid: '',
-        num: '',
-        tips: ''
+        order: '',
+        comments: ''
       },
       rules: {
-        simplename: [
+        simpleName: [
           { required: true, message: '请输入菜单名称', trigger: 'blur' },
           { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
         ],
-        fullname: [
+        fullName: [
           { required: true, message: '请输入编码', trigger: 'blur' },
           { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
         ],
-        num: [
+        order: [
           { required: true, message: '请输入排序', trigger: 'blur' }
         ]
       }
@@ -56,7 +56,7 @@ export default {
     handleNodeClick(data, node) {
       console.log(data)
       this.form.pid = data.id
-      this.form.pname = data.simplename
+      this.form.pname = data.simpleName
       this.showTree = false
     },
     checkSel() {
@@ -80,7 +80,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           console.log('form', self.form)
-          const menuData = {id:self.form.id,simplename:self.form.simplename,fullname:self.form.fullname,num:self.form.num,pid:self.form.pid,tips:self.form.tips}//self.form
+          const menuData = {id:self.form.id,simpleName:self.form.simpleName,fullName:self.form.fullName,order:self.form.order,pid:self.form.pid,comments:self.form.comments}//self.form
           menuData.parent = null
           save(menuData).then(response => {
             console.log(response)

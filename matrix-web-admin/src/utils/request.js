@@ -21,8 +21,6 @@ service.interceptors.request.use(
   config => {
     var token = getToken()
     if (token) {
-      console.log("request header token:"+token)
-      console.log(guid())
       config.headers['requestId'] = guid()
       config.headers['Authorization'] = token // 让每个请求携带自定义token 请根据实际情况自行修改
     }

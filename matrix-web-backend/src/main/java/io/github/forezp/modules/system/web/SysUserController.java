@@ -1,7 +1,6 @@
 package io.github.forezp.modules.system.web;
 
 
-
 import com.baomidou.mybatisplus.mapper.Condition;
 import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.dto.RespDTO;
@@ -40,7 +39,7 @@ import static io.github.forezp.common.exception.ErrorCode.USER_NOT_EXIST;
 @RequestMapping("/user")
 public class SysUserController {
 
-    LogUtils LOG=new LogUtils(SysUserController.class);
+    LogUtils LOG = new LogUtils(SysUserController.class);
 
     @Autowired
     SysUserService sysUserService;
@@ -49,41 +48,39 @@ public class SysUserController {
     SysMenuService sysMenuService;
 
     @GetMapping("/pagelist")
-    public RespDTO searchUsers(@RequestParam int page, @RequestParam int pageSize) {
-        PageUtils.check( page, pageSize );
-        PageResultsDTO sysUsers = sysUserService.searchUsers( page, pageSize);
+    public RespDTO searchUsers(@RequestParam int page, @RequestParam int pageSize, @RequestParam(required = false) String userId, @RequestParam (required = false)String realname) {
+        PageUtils.check(page, pageSize);
+        PageResultsDTO sysUsers = sysUserService.searchUsers(page, pageSize, userId, realname);
 
-        return RespDTO.onSuc( sysUsers );
+        return RespDTO.onSuc(sysUsers);
     }
 
     @PostMapping("/login")
     public RespDTO login(@RequestParam String username, @RequestParam String password) {
 
-        LOG.info("login parmas: {},{}",username,password);
-        SysUser user=sysUserService.selectOne(Condition.create().eq( "user_id", username ));
-        if(user==null){
+        LOG.info("login parmas: {},{}", username, password);
+        SysUser user = sysUserService.selectOne(Condition.create().eq("user_id", username));
+        if (user == null) {
             throw new AriesException(USER_NOT_EXIST);
         }
-        if(!user.getPassword().equals(MD5Utils.encrypt(password))){
+        if (!user.getPassword().equals(MD5Utils.encrypt(password))) {
             throw new AriesException(PWD_ERROR);
         }
         //登录成功
-        String jwt ;
+        String jwt;
         Map<String, String> result = new HashMap<>(1);
 
         try {
-            jwt = JWTUtils.createJWT( user.getId()+"", user.getUserId(), 599999999L );
+            jwt = JWTUtils.createJWT(user.getId() + "", user.getUserId(), 599999999L);
 
 
             result.put("token", jwt);
-            LOG.info("login success,{}",jwt);
+            LOG.info("login success,{}", jwt);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return RespDTO.onSuc( result);
+        return RespDTO.onSuc(result);
     }
-
-
 
 
     @GetMapping("/info")
@@ -111,14 +108,14 @@ public class SysUserController {
 //            ExceptionUtils.printRootCauseStackTrace(e);
 //        }
 
-        Map<String,Object> result=new HashMap<>();
-        List<SysMenu> menus=sysMenuService.selectList(Condition.create().eq("ismenu",1));
+        Map<String, Object> result = new HashMap<>();
+        List<SysMenu> menus = sysMenuService.selectList(Condition.create().eq("ismenu", 1));
 
-        LOG.info("menuList size:"+menus.size());
-        result.put("menus",menus);
-        result.put("roles","administrator");
+        LOG.info("menuList size:" + menus.size());
+        result.put("menus", menus);
+        result.put("roles", "administrator");
 
-        return RespDTO.onSuc( result );
+        return RespDTO.onSuc(result);
     }
 
 }

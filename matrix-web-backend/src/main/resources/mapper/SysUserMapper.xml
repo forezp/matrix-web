@@ -27,19 +27,18 @@
         SELECT
         su.id AS su_id,su.user_id AS su_user_id,su.realname AS su_realname,
         su.type AS su_type,su.mobile AS su_mobile,su.email AS su_email,
-        su.remarks AS su_remarks,su.status AS su_status,su.update_time AS su_update_time,su.work_status AS
-        su_work_status,su.login_name AS su_login_name,su.avatar AS su_avatar,su.remarks AS su_remarks
+        su.remarks AS su_remarks,su.status AS su_status,su.update_time AS su_update_time,su.remarks AS su_remarks
         FROM sys_user AS su
         <where>
-            <if test="status != null">
+            <if test="status != null ">
                 su.status = #{status}
             </if>
 
-            <if test="orgId != null">
-                AND su.user_id IN ( SELECT DISTINCT(suo.user_id) FROM sys_user_org suo WHERE suo.org_id  LIKE concat(#{orgId},'%') )
+            <if test="usrId != null and userId !=''">
+                AND su.user_id = #{usrId} )
             </if>
 
-            <if test="realname != null">
+            <if test="realname != null and realname !=''">
                 AND su.realname like CONCAT('%',#{realname},'%')
             </if>
 

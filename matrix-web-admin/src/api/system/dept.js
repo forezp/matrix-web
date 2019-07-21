@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function tree() {
   return request({
-    url: '/dept/tree',
+    url: '/sysOrg/tree',
     method: 'get',
   })
 }
 
 export function list() {
   return request({
-    url: '/dept/list',
+    url: '/sysOrg/tree',
     method: 'get',
   })
 }

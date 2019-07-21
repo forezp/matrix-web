@@ -2,22 +2,43 @@ import request from '@/utils/request'
 
 export function getList() {
   return request({
-    url: '/menu/list',
+    url: '/sysMenu/list',
     method: 'get'
   })
 }
 
 export function save(params) {
+  console.log(params)
   return request({
-    url: '/menu',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    transformRequest: [function(data) {
+      data = JSON.stringify(data)
+      console.log(data)
+      return data
+    }],
+    url: '/sysMenu',
     method: 'post',
-    params: params
+    params: {},
+    data: {
+      'code': params.code,
+      'pcode': params.pcode,
+      'url': params.url,
+      'icon': params.icon,
+      'ismenu': params.ismenu,
+      'isopen': params.isopen,
+      'levels': params.levels,
+      'name': params.name,
+      'num': params.num,
+      'status': params.status
+    }
   })
 }
 
 export function delMenu(id) {
   return request({
-    url: '/menu',
+    url: '/sysMenu',
     method: 'delete',
     params: {
       id: id
