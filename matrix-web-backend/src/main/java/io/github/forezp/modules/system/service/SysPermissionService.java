@@ -1,7 +1,7 @@
 package io.github.forezp.modules.system.service;
 
 import io.github.forezp.modules.system.entity.SysPermission;
-import com.baomidou.mybatisplus.service.IService;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 

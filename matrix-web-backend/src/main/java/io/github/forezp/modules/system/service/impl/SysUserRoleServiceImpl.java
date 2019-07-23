@@ -3,7 +3,7 @@ package io.github.forezp.modules.system.service.impl;
 import io.github.forezp.modules.system.entity.SysUserRole;
 import io.github.forezp.modules.system.mapper.SysUserRoleMapper;
 import io.github.forezp.modules.system.service.SysUserRoleService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

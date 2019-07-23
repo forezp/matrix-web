@@ -38,6 +38,12 @@
       width="70%">
       <el-form ref="form" :model="form" :rules="rules" label-width="120px">
         <el-row>
+
+          <el-col :span="12">
+            <el-form-item label="部门Id" prop="orgId">
+              <el-input v-model="form.orgId" minlength=1></el-input>
+            </el-form-item>
+          </el-col>
           <el-col :span="12">
             <el-form-item label="名称" prop="simpleName">
               <el-input v-model="form.simpleName" minlength=1></el-input>
@@ -71,6 +77,32 @@
                        class="input-tree">
               </el-tree>
 
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="12">
+            <el-form-item label="级别" >
+              <el-input
+                placeholder="请选择级别"
+                v-model="form.levelName"
+                readonly="readonly"
+                @click.native="showLevelTree = !showLevelTree">
+              </el-input>
+              <el-tree v-if="showLevelTree"
+                       empty-text="暂无数据"
+                       :expand-on-click-node="false"
+                       :data="levelData"
+                       :props="defaultLevelProps"
+                       @node-click="handleLevelNodeClick"
+                       class="input-tree">
+              </el-tree>
+
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="12">
+            <el-form-item label="备注" prop="remarks">
+              <el-input type="text" v-model="form.remarks"></el-input>
             </el-form-item>
           </el-col>
 

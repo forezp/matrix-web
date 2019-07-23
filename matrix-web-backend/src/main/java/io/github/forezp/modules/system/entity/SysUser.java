@@ -1,8 +1,11 @@
 package io.github.forezp.modules.system.entity;
 
-import com.baomidou.mybatisplus.enums.IdType;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
+
 import java.io.Serializable;
 
 /**

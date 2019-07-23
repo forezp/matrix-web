@@ -1,7 +1,7 @@
 package io.github.forezp.modules.system.mapper;
 
 import io.github.forezp.modules.system.entity.SysPermission;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

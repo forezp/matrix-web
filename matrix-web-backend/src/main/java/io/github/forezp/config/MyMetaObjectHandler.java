@@ -1,6 +1,7 @@
 package io.github.forezp.config;
 
-import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
+
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Date;
 /**
  * Created by forezp on 2018/8/3.
  */
-public class MyMetaObjectHandler extends MetaObjectHandler {
+public class MyMetaObjectHandler implements MetaObjectHandler {
 
 
     @Override

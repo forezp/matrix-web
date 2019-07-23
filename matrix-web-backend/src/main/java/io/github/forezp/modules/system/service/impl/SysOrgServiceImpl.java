@@ -4,7 +4,7 @@ import io.github.forezp.common.constant.CommonConstants;
 import io.github.forezp.modules.system.entity.SysOrg;
 import io.github.forezp.modules.system.mapper.SysOrgMapper;
 import io.github.forezp.modules.system.service.SysOrgService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.forezp.modules.system.vo.dto.SysOrgDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class SysOrgServiceImpl extends ServiceImpl<SysOrgMapper, SysOrg> impleme
     @Override
     public List<SysOrgDTO> listOrgTree() {
 
-        List<SysOrg> sysOrgs = selectList(null);
+        List<SysOrg> sysOrgs = list(null);
         List<SysOrgDTO> list = treeSort(sysOrgs, CommonConstants.TREE_TOP_PARENT_ID, 1);
 
         return list;

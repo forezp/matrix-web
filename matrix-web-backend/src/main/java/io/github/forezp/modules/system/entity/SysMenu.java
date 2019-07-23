@@ -1,6 +1,7 @@
 package io.github.forezp.modules.system.entity;
 
-import com.baomidou.mybatisplus.annotations.TableField;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.github.forezp.common.base.BaseEntity;
 
 import java.util.Date;
@@ -166,8 +167,5 @@ public class SysMenu extends BaseEntity implements Serializable {
         "}";
     }
 
-    @Override
-    protected Serializable pkVal() {
-        return id;
-    }
+
 }

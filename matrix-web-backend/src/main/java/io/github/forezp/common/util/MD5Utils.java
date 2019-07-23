@@ -14,7 +14,8 @@ public class MD5Utils {
         return Hashing.md5().newHasher().putString( rawStr, Charsets.UTF_8 ).hash().toString();
     }
 
-    public static void main(String[] args) {
-        System.out.println(MD5Utils.encrypt("123456"));
-    }
+//    public static void main(String[] args) {
+//        System.out.println(MD5Utils.encrypt("123456"));
+//    }
+
 }

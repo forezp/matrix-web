@@ -1,7 +1,8 @@
 package io.github.forezp.modules.system.service.impl;
 
-import com.baomidou.mybatisplus.mapper.Condition;
-import com.baomidou.mybatisplus.plugins.Page;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.exception.AriesException;
 import io.github.forezp.common.exception.ErrorCode;
@@ -9,7 +10,7 @@ import io.github.forezp.common.util.MD5Utils;
 import io.github.forezp.modules.system.entity.SysUser;
 import io.github.forezp.modules.system.mapper.SysUserMapper;
 import io.github.forezp.modules.system.service.SysUserService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,8 +58,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUser login(String username, String password) {
-
-        List<SysUser> userList = sysUserMapper.selectList(Condition.create().eq("username", username));
+        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", username);
+        List<SysUser> userList = sysUserMapper.selectList(queryWrapper);
         if (userList == null || userList.size() == 0) {
             throw new AriesException(ErrorCode.USER_NOT_EXIST);
         }

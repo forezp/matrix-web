@@ -1,9 +1,10 @@
 package io.github.forezp.modules.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.forezp.modules.system.entity.SysMenu;
 import io.github.forezp.modules.system.mapper.SysMenuMapper;
 import io.github.forezp.modules.system.service.SysMenuService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+
 import io.github.forezp.modules.system.vo.dto.SysMenuDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

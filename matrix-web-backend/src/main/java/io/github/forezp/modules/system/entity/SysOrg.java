@@ -1,5 +1,7 @@
 package io.github.forezp.modules.system.entity;
 
+import io.github.forezp.common.base.BaseEntity;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -11,7 +13,7 @@ import java.io.Serializable;
  * @author forezp
  * @since 2019-07-21
  */
-public class SysOrg implements Serializable {
+public class SysOrg extends BaseEntity{
 
     private static final long serialVersionUID = 1L;
 
@@ -36,22 +38,7 @@ public class SysOrg implements Serializable {
      * 组织状态1表示正常使用，0表示停用
      */
     private Integer status;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 创建人id
-     */
-    private String createBy;
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-    /**
-     * 更新人
-     */
-    private String updateBy;
+
     /**
      * 预留字段（排序使用）
      */
@@ -188,4 +175,6 @@ public class SysOrg implements Serializable {
         ", remarks=" + remarks +
         "}";
     }
+
+
 }

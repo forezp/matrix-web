@@ -1,7 +1,8 @@
 package io.github.forezp.modules.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import io.github.forezp.modules.system.entity.SysMenu;
-import com.baomidou.mybatisplus.service.IService;
+
 import io.github.forezp.modules.system.vo.dto.SysMenuDTO;
 
 import java.util.List;

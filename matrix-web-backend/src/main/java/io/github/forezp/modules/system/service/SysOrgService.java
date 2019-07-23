@@ -1,7 +1,7 @@
 package io.github.forezp.modules.system.service;
 
 import io.github.forezp.modules.system.entity.SysOrg;
-import com.baomidou.mybatisplus.service.IService;
+import com.baomidou.mybatisplus.extension.service.IService;
 import io.github.forezp.modules.system.vo.dto.SysOrgDTO;
 
 import java.util.List;

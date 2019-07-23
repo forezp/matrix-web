@@ -1,7 +1,8 @@
 package io.github.forezp.modules.system.web;
 
 
-import com.baomidou.mybatisplus.mapper.Condition;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.dto.RespDTO;
 import io.github.forezp.common.exception.AriesException;
@@ -10,11 +11,7 @@ import io.github.forezp.modules.system.entity.SysMenu;
 import io.github.forezp.modules.system.entity.SysUser;
 import io.github.forezp.modules.system.service.SysMenuService;
 import io.github.forezp.modules.system.service.SysUserService;
-import io.jsonwebtoken.Claims;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.github.forezp.common.exception.ErrorCode.PWD_ERROR;
-import static io.github.forezp.common.exception.ErrorCode.TOKEN_ISNULL;
+
 import static io.github.forezp.common.exception.ErrorCode.USER_NOT_EXIST;
 
 
@@ -59,7 +56,9 @@ public class SysUserController {
     public RespDTO login(@RequestParam String username, @RequestParam String password) {
 
         LOG.info("login parmas: {},{}", username, password);
-        SysUser user = sysUserService.selectOne(Condition.create().eq("user_id", username));
+        QueryWrapper<SysUser> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("user_id", username);
+        SysUser user = sysUserService.getOne(queryWrapper);
         if (user == null) {
             throw new AriesException(USER_NOT_EXIST);
         }
@@ -109,7 +108,9 @@ public class SysUserController {
 //        }
 
         Map<String, Object> result = new HashMap<>();
-        List<SysMenu> menus = sysMenuService.selectList(Condition.create().eq("ismenu", 1));
+        QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("ismenu", 1);
+        List<SysMenu> menus = sysMenuService.list(queryWrapper);
 
         LOG.info("menuList size:" + menus.size());
         result.put("menus", menus);

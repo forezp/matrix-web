@@ -18,13 +18,20 @@ export default {
         label: 'simpleName',
         children: 'children'
       },
+      showLevelTree: false,
+      defaultLevelProps: {
+        label: 'name',
+        children: 'children'
+      },
       form: {
         id: '',
         simpleName: '',
         fullName: '',
         pid: '',
         order: '',
-        comments: ''
+        remarks: '',
+        level: '',
+        levelName: ''
       },
       rules: {
         simpleName: [
@@ -38,8 +45,17 @@ export default {
         order: [
           { required: true, message: '请输入排序', trigger: 'blur' }
         ]
-      }
-
+      },
+      levelData: [
+        { id: 10, level: '10', name: '总公司' },
+        { id: 11, level: '11', name: '中心' },
+        { id: 12, level: '12', name: '部门' },
+        { id: 13, level: '13', name: '室' },
+        { id: 20, level: '20', name: '分公司' },
+        { id: 21, level: '21', name: '分公司中心' },
+        { id: 22, level: '22', name: '分公司部门' },
+        { id: 23, level: '23', name: '分公司室' }
+      ]
     }
   },
   created() {
@@ -58,6 +74,12 @@ export default {
       this.form.pid = data.id
       this.form.pname = data.simpleName
       this.showTree = false
+    },
+    handleLevelNodeClick(data, node) {
+      console.log(data)
+      this.form.level = data.level
+      this.form.levelName = data.name
+      this.showLevelTree = false
     },
     checkSel() {
       if (this.selRow && this.selRow.id) {
@@ -80,7 +102,8 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           console.log('form', self.form)
-          const menuData = {id:self.form.id,simpleName:self.form.simpleName,fullName:self.form.fullName,order:self.form.order,pid:self.form.pid,comments:self.form.comments}//self.form
+          // const menuData = {id:self.form.id,simpleName:self.form.simpleName,fullName:self.form.fullName,order:self.form.order,pid:self.form.pid,comments:self.form.comments}//self.form
+          const menuData = self.form
           menuData.parent = null
           save(menuData).then(response => {
             console.log(response)
