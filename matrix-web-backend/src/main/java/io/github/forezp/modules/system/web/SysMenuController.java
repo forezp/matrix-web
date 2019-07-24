@@ -31,7 +31,7 @@ public class SysMenuController {
 
     @GetMapping("/sysMenu/list")
     public RespDTO getMenuList() {
-        List<SysMenu> menus = sysMenuService.selectList(null);
+        List<SysMenu> menus = sysMenuService.list(null);
         List<SysMenuDTO> treeMenu= sysMenuService.generateMenuTree(menus);
         return RespDTO.onSuc(treeMenu);
     }
@@ -41,7 +41,7 @@ public class SysMenuController {
 
         SysMenu sysMenu=new SysMenu();
         BeanUtils.copyProperties(sysMenuAdd,sysMenu);
-        if(sysMenuService.insert(sysMenu)){
+        if(sysMenuService.save(sysMenu)){
             return RespDTO.onSuc(null);
         }else {
             throw new AriesException(ErrorCode.INSERT_DATA_FAIL);
@@ -51,7 +51,7 @@ public class SysMenuController {
 
     @DeleteMapping("/sysMenu")
     public RespDTO deleteMenu(Long id){
-        if(sysMenuService.deleteById(id)){
+        if(sysMenuService.removeById(id)){
             return RespDTO.onSuc(null);
         }else {
 

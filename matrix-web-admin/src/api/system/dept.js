@@ -41,7 +41,7 @@ export function save(params) {
       'fullName': params.fullName,
       'orgId': params.orgId,
       'pid': params.pid,
-      'order': params.order,
+      'sortNo': params.sortNo,
       'level': params.level,
       'remarks': params.remarks
     }

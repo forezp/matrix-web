@@ -56,8 +56,8 @@
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="排序" prop="order">
-              <el-input type="number" v-model="form.order"></el-input>
+            <el-form-item label="排序" prop="sortNo">
+              <el-input type="number" v-model="form.sortNo"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">

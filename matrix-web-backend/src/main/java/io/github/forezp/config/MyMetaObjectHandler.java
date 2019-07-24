@@ -3,39 +3,35 @@ package io.github.forezp.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 /**
  * Created by forezp on 2018/8/3.
  */
+@Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
 
+    Logger logger= LoggerFactory.getLogger(MyMetaObjectHandler.class);
 
     @Override
     public void insertFill(MetaObject metaObject) {
-//
-//        System.out.println("*************************");
-//        System.out.println("insert fill");
-//        System.out.println("*************************");
-//
-//        // 测试下划线
-//        Object testType = getFieldValByName("createBy", metaObject);//mybatis-plus版本2.0.9+
-//        System.out.println("createBy=" + testType);
-//        if (testType == null) {
-//            setFieldValByName("createBy", "forezp", metaObject);//mybatis-plus版本2.0.9+
-//        }
-//
-//        setFieldValByName("createTime", new Date(), metaObject);
-//        setFieldValByName("updateTime", new Date(), metaObject);
-//        setFieldValByName("updateBy", new Date(), metaObject);
+        logger.info("start insert fill ....");
+        this.setFieldValByName("createBy", "Forezp", metaObject);//版本号3.0.6以及之前的版本
+        this.setFieldValByName("createTime", new Date(System.currentTimeMillis()), metaObject);
+        this.setFieldValByName("updateBy", "forezp", metaObject);
+        this.setFieldValByName("updateTime", new Date(System.currentTimeMillis()), metaObject);
+        //this.setInsertFieldValByName("operator", "Jerry", metaObject);//@since 快照：3.0.7.2-SNAPSHOT， @since 正式版暂未发布3.0.7
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-
-//        setFieldValByName("updateTime", new Date(), metaObject);
-//        setFieldValByName("updateBy", "forezp", metaObject);
+        logger.info("start update fill ....");
+        this.setFieldValByName("updateBy", "forezp", metaObject);
+        this.setFieldValByName("updateTime", new Date(), metaObject);
 
     }
 }

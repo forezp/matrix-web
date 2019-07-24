@@ -49,7 +49,7 @@ public class SysOrgController {
         BeanUtils.copy(sysOrgAddDomain, sysOrg);
         Long endCopyBeanTime=System.currentTimeMillis();
         logger.info("copy bean takes {} ms",(endCopyBeanTime-startTime));
-        if (sysOrgService.insert(sysOrg)) {
+        if (sysOrgService.save(sysOrg)) {
             logger.info("insert  data takes {} ms",(System.currentTimeMillis()-endCopyBeanTime));
             return RespDTO.onSuc(null);
         } else {
@@ -61,7 +61,7 @@ public class SysOrgController {
     public RespDTO deleteOrg(Long id) {
 
         if (id != null) {
-            if (sysOrgService.deleteById(id)) {
+            if (sysOrgService.removeById(id)) {
                 return RespDTO.onSuc(null);
             } else {
                 throw new AriesException(ErrorCode.DELETE_DATA_FAIL);

@@ -1,26 +1,17 @@
 package io.github.forezp.common.base;
 
-
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by chen on 2017/5/24.
- * <p>
- * <p>
- * Describe:
- */
-public abstract class BaseEntity<T extends Model> extends Model implements Serializable {
-    protected static final long serialVersionUID = -564501695301206237L;
-    /**
-     * id
-     */
+@Data
+public class BaseEntity {
+
+
     @TableId(value = "id", type = IdType.ID_WORKER)
     protected Long id;
 
@@ -45,45 +36,4 @@ public abstract class BaseEntity<T extends Model> extends Model implements Seria
     @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     protected String updateBy;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
 }

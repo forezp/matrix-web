@@ -28,7 +28,7 @@ export default {
         simpleName: '',
         fullName: '',
         pid: '',
-        order: '',
+        sortNo: '',
         remarks: '',
         level: '',
         levelName: ''
