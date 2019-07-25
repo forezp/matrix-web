@@ -44,7 +44,7 @@ public class MysqlGenerator {
 //        throw new MybatisPlusException("请输入正确的" + tip + "！");
 //    }
 
-   public static String[] tableNames={"sys_user","sys_role","sys_menu","sys_role_menu","sys_org"};
+   public static String[] tableNames={"sys_log"};
     /**
      * RUN THIS
      */

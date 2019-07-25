@@ -11,44 +11,43 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author forezp
- * @since 2019-07-24
+ * @since 2019-07-26
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class SysRole extends BaseEntity {
+public class SysLog extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+    private String requestId;
 
     /**
-     * 角色编号
+     * 请求方法
      */
-    private String roleId;
+    private String method;
 
     /**
-     * 角色名称
+     * 请求路径
      */
-    private String name;
+    private String url;
 
     /**
-     * 1普通用户2管理员角色3任务分配
+     * 操作者ip
      */
-    private Integer type;
+    private String ip;
+
+    private String request;
+
+    private Integer resonseCode;
+
+    private Long  duration;
 
     /**
-     * 备注
+     * 响应内容
      */
-    private String remarks;
+    private String response;
 
-    /**
-     * 状态0 停用1 启用2 锁定
-     */
-    private Boolean status;
 
-    /**
-     * 创建人id
-     */
-    private String createBy;
 
 
 }

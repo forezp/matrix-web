@@ -4,6 +4,9 @@ package io.github.forezp.aop;
 import io.github.forezp.common.constant.ApiConstants;
 import io.github.forezp.common.util.HttpUtils;
 import io.github.forezp.common.util.JWTUtils;
+import io.github.forezp.modules.system.entity.SysLog;
+import io.github.forezp.modules.system.service.SysLogService;
+import io.github.forezp.permission.auth.RequestHolder;
 import io.github.forezp.permission.whiteurl.WhiteUrlFinder;
 import io.github.forezp.scrorpio.time.ClockUtil;
 import io.jsonwebtoken.Claims;
@@ -17,27 +20,23 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
-import static io.github.forezp.permission.auth.RequestHolder.REQUEST_ID;
+import static io.github.forezp.permission.auth.RequestHolder.*;
 
 /**
  * Created by forezp on 2018/8/6.
  */
 
 @Component
-@WebFilter(urlPatterns = "/*", filterName = "authFilter")
+@WebFilter(urlPatterns = "/*", filterName = "logFilter")
 @Slf4j
 public class LogFilter implements Filter {
 
-
     @Autowired
-    WhiteUrlFinder whiteUrlFinder;
-
-    private static final String AUTH = "authorization";
-    private static final String BIG_AUTH = "Authorization";
-    private static final String BEARER = "Bearer ";
-    private static final String ERROR_MSG = "{\"code\":\"1\",\"msg\":\"you have no permission to access\"}";
+    SysLogService sysLogService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -47,7 +46,6 @@ public class LogFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        httpServletRequest.getMethod();
         String method = httpServletRequest.getMethod();
         if (ApiConstants.HTTP_METHOD_OPTIONS.equals(method)) {
             filterChain.doFilter(servletRequest, servletResponse);
@@ -56,13 +54,20 @@ public class LogFilter implements Filter {
             if (StringUtils.isEmpty(requestId)) {
                 requestId = UUID.randomUUID().toString();
             }
-            MDC.put(REQUEST_ID,requestId);
+
+            MDC.put(REQUEST_ID, requestId);
+            RequestHolder.get().putIfAbsent(REQUEST_SERVLET, httpServletRequest);
+            RequestHolder.get().putIfAbsent(START_TIME, System.currentTimeMillis());
+
             String uri = httpServletRequest.getRequestURI();
-            log.info("requst start ,"+method+" "+uri);
+            log.info("requst start ," + method + " " + uri);
             long starTime = ClockUtil.currentTimeMillis();
             filterChain.doFilter(servletRequest, servletResponse);
-            log.info("requst end ,"+uri + " request takes:" + (ClockUtil.currentTimeMillis() - starTime) + "ms");
+            Long duration = ClockUtil.currentTimeMillis() - starTime;
+            log.info("requst end ," + uri + " request takes:" + duration + "ms");
+            saveSysLog(createSysLog(httpServletRequest, duration, requestId));
             MDC.clear();
+            RequestHolder.remove();
         }
 
     }
@@ -72,19 +77,34 @@ public class LogFilter implements Filter {
 
     }
 
-    private void writeNoPermission(ServletResponse servletResponse) {
-        try {
-            servletResponse.getWriter().write(ERROR_MSG);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void saveSysLog(SysLog sysLog) {
+        sysLogService.save(sysLog);
     }
 
-    private String getToken(HttpServletRequest httpServletRequest) {
-        String token = HttpUtils.getHeaders(httpServletRequest).get(AUTH);
-        if (StringUtils.isEmpty(token)) {
-            token = HttpUtils.getHeaders(httpServletRequest).get(BIG_AUTH);
+    private SysLog createSysLog(HttpServletRequest request, Long duration, String requestId) {
+
+        String method = request.getMethod();
+        Map<String, String> params = HttpUtils.getParams(request);
+        String paramsStr = params.toString();
+
+        SysLog sysLog = new SysLog();
+        // sysLog.setCreateBy(UserUtils.getCurrentPrinciple());
+        sysLog.setUrl(request.getRequestURI());
+        sysLog.setIp(HttpUtils.getIpAddress(request));
+        if (RequestHolder.get().get(RESP_CODE) != null) {
+            sysLog.setResonseCode((Integer) RequestHolder.get().get(RESP_CODE));
         }
-        return token;
+        if (RequestHolder.get().get(RESP_DTO) != null) {
+            sysLog.setResponse((String) RequestHolder.get().get(RESP_DTO));
+        }
+//        sysLog.setCreateTime(new Date());
+        sysLog.setDuration(duration);
+
+
+        sysLog.setRequest(paramsStr);
+        sysLog.setMethod(method);
+        sysLog.setRequestId(requestId);
+
+        return sysLog;
     }
 }

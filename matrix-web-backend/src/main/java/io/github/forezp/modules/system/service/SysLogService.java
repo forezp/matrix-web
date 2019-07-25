@@ -1,6 +1,6 @@
 package io.github.forezp.modules.system.service;
 
-import io.github.forezp.modules.system.entity.SysOrg;
+import io.github.forezp.modules.system.entity.SysLog;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author forezp
- * @since 2019-07-24
+ * @since 2019-07-26
  */
-public interface SysOrgService extends IService<SysOrg> {
+public interface SysLogService extends IService<SysLog> {
 
 }

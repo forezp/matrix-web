@@ -14,6 +14,10 @@ public class RequestHolder {
 
     public static final String START_TIME="startTime";
 
+    public static final String RESP_DTO="respDto";
+
+    public static final String RESP_CODE="respCode";
+
     private static ThreadLocal<ConcurrentHashMap<String ,Object>> claimsThreadLocal = new ThreadLocal<ConcurrentHashMap<String ,Object>>(){
 
         @Override
@@ -30,4 +34,6 @@ public class RequestHolder {
     public static void remove() {
         claimsThreadLocal.remove();
     }
+
+
 }
