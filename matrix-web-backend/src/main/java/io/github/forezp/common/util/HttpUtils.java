@@ -1,7 +1,6 @@
 package io.github.forezp.common.util;
 
 
-
 import com.alibaba.druid.util.StringUtils;
 import io.github.forezp.common.exception.AriesException;
 import io.github.forezp.permission.auth.RequestHolder;
@@ -15,6 +14,7 @@ import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static io.github.forezp.common.constant.CommonConstants.STRANGER;
 import static io.github.forezp.common.exception.ErrorCode.TOKEN_ISNULL;
 import static io.github.forezp.permission.auth.RequestHolder.REQUEST_SERVLET;
 
@@ -27,14 +27,14 @@ public class HttpUtils {
      * @return HttpServletRequest
      */
     public static HttpServletRequest getHttpServletRequest() {
-        HttpServletRequest servletRequest=null;
+        HttpServletRequest servletRequest = null;
         try {
-             servletRequest= ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            servletRequest = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         } catch (Exception e) {
 
         }
-        if(servletRequest==null){
-            servletRequest= (HttpServletRequest) RequestHolder.get().get(REQUEST_SERVLET);
+        if (servletRequest == null) {
+            servletRequest = (HttpServletRequest) RequestHolder.get().get(REQUEST_SERVLET);
         }
         return servletRequest;
     }
@@ -138,7 +138,6 @@ public class HttpUtils {
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
         return basePath;
     }
-
 
 
 

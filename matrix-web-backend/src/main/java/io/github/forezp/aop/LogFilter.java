@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
+import static io.github.forezp.common.constant.CommonConstants.AURHORIZATION;
+import static io.github.forezp.common.constant.CommonConstants.UPPER_AURHORIZATION;
 import static io.github.forezp.permission.auth.RequestHolder.*;
 
 /**
@@ -50,26 +52,43 @@ public class LogFilter implements Filter {
         if (ApiConstants.HTTP_METHOD_OPTIONS.equals(method)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            String requestId = httpServletRequest.getHeader("requestId");
-            if (StringUtils.isEmpty(requestId)) {
-                requestId = UUID.randomUUID().toString();
-            }
-
-            MDC.put(REQUEST_ID, requestId);
-            RequestHolder.get().putIfAbsent(REQUEST_SERVLET, httpServletRequest);
-            RequestHolder.get().putIfAbsent(START_TIME, System.currentTimeMillis());
-
+            initRequestHolder(httpServletRequest);
             String uri = httpServletRequest.getRequestURI();
             log.info("requst start ," + method + " " + uri);
             long starTime = ClockUtil.currentTimeMillis();
             filterChain.doFilter(servletRequest, servletResponse);
             Long duration = ClockUtil.currentTimeMillis() - starTime;
             log.info("requst end ," + uri + " request takes:" + duration + "ms");
-            saveSysLog(createSysLog(httpServletRequest, duration, requestId));
-            MDC.clear();
-            RequestHolder.remove();
+            sysLogService.saveLogAsync(sysLogService.createSysLog(httpServletRequest, duration, getRequestId(httpServletRequest)));
+            clearRequestHolder();
         }
 
+    }
+
+    private String getRequestId(HttpServletRequest httpServletRequest) {
+        String requestId = httpServletRequest.getHeader("requestId");
+        if (StringUtils.isEmpty(requestId)) {
+            requestId = UUID.randomUUID().toString();
+        }
+        return requestId;
+    }
+
+    private void clearRequestHolder() {
+        MDC.clear();
+        RequestHolder.remove();
+    }
+
+    private void initRequestHolder(HttpServletRequest httpServletRequest) {
+
+        MDC.put(REQUEST_ID, getRequestId(httpServletRequest));
+        String token = httpServletRequest.getHeader(AURHORIZATION);
+        if (StringUtils.isEmpty(token)) {
+            token = httpServletRequest.getHeader(UPPER_AURHORIZATION);
+        }
+        RequestHolder.get().putIfAbsent(REQUEST_SERVLET, httpServletRequest);
+        if (!StringUtils.isEmpty(token)) {
+            RequestHolder.get().putIfAbsent(CURRENT_TOKEN, token);
+        }
     }
 
     @Override
@@ -77,34 +96,5 @@ public class LogFilter implements Filter {
 
     }
 
-    private void saveSysLog(SysLog sysLog) {
-        sysLogService.save(sysLog);
-    }
 
-    private SysLog createSysLog(HttpServletRequest request, Long duration, String requestId) {
-
-        String method = request.getMethod();
-        Map<String, String> params = HttpUtils.getParams(request);
-        String paramsStr = params.toString();
-
-        SysLog sysLog = new SysLog();
-        // sysLog.setCreateBy(UserUtils.getCurrentPrinciple());
-        sysLog.setUrl(request.getRequestURI());
-        sysLog.setIp(HttpUtils.getIpAddress(request));
-        if (RequestHolder.get().get(RESP_CODE) != null) {
-            sysLog.setResonseCode((Integer) RequestHolder.get().get(RESP_CODE));
-        }
-        if (RequestHolder.get().get(RESP_DTO) != null) {
-            sysLog.setResponse((String) RequestHolder.get().get(RESP_DTO));
-        }
-//        sysLog.setCreateTime(new Date());
-        sysLog.setDuration(duration);
-
-
-        sysLog.setRequest(paramsStr);
-        sysLog.setMethod(method);
-        sysLog.setRequestId(requestId);
-
-        return sysLog;
-    }
 }

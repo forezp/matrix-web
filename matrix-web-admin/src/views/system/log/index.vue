@@ -11,7 +11,7 @@
                           style="width: 100%;"></el-date-picker>
         </el-col>
         <el-col :span="4">
-          <el-input v-model="listQuery.logName" placeholder="日志名称"></el-input>
+          <el-input v-model="listQuery.createBy" placeholder="操作者"></el-input>
         </el-col>
         <el-col :span="4">
           <el-select v-model="listQuery.logType" placeholder="日志类型">

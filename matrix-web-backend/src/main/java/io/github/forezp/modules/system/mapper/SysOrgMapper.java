@@ -13,7 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2019-07-21
  */
 @Mapper
-
 public interface SysOrgMapper extends BaseMapper<SysOrg> {
 
 }

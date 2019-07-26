@@ -18,6 +18,8 @@ public class RequestHolder {
 
     public static final String RESP_CODE="respCode";
 
+    public static final String CURRENT_TOKEN="currentToken";
+
     private static ThreadLocal<ConcurrentHashMap<String ,Object>> claimsThreadLocal = new ThreadLocal<ConcurrentHashMap<String ,Object>>(){
 
         @Override

@@ -4,6 +4,7 @@ package io.github.forezp.aop;
 import io.github.forezp.common.constant.ApiConstants;
 import io.github.forezp.common.util.HttpUtils;
 import io.github.forezp.common.util.LogUtils;
+import io.github.forezp.common.util.UserUtils;
 import io.github.forezp.permission.auth.RequestHolder;
 import io.github.forezp.permission.whiteurl.WhiteUrlFinder;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 
+import static io.github.forezp.common.constant.CommonConstants.AURHORIZATION;
+import static io.github.forezp.common.constant.CommonConstants.UPPER_AURHORIZATION;
 import static io.github.forezp.permission.auth.RequestHolder.REQUEST_ID;
 import static io.github.forezp.permission.auth.RequestHolder.REQUEST_SERVLET;
 import static io.github.forezp.permission.auth.RequestHolder.START_TIME;
@@ -45,9 +48,8 @@ public class SecurityInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        String token = request.getHeader("authorization");
-
-        LOG.info("requst uri:"+request.getRequestURI()+",request token:" + token);
+        String token = UserUtils.getCurrentToken();
+        LOG.info("requst uri:" + request.getRequestURI() + ",request token:" + token);
         if (StringUtils.isEmpty(token)) {
             // printResponse(request,response);
         }
