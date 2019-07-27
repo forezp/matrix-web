@@ -7,14 +7,17 @@ import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.dto.RespDTO;
 import io.github.forezp.common.exception.AriesException;
 import io.github.forezp.common.util.*;
+import io.github.forezp.modules.system.entity.SysLoginLog;
 import io.github.forezp.modules.system.entity.SysMenu;
 import io.github.forezp.modules.system.entity.SysUser;
+import io.github.forezp.modules.system.service.SysLoginLogService;
 import io.github.forezp.modules.system.service.SysMenuService;
 import io.github.forezp.modules.system.service.SysUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +47,11 @@ public class SysUserController {
     @Autowired
     SysMenuService sysMenuService;
 
+    @Autowired
+    SysLoginLogService sysLoginLogService;
+
     @GetMapping("/pagelist")
-    public RespDTO searchUsers(@RequestParam int page, @RequestParam int pageSize, @RequestParam(required = false) String userId, @RequestParam (required = false)String realname) {
+    public RespDTO searchUsers(@RequestParam int page, @RequestParam int pageSize, @RequestParam(required = false) String userId, @RequestParam(required = false) String realname) {
         PageUtils.check(page, pageSize);
         PageResultsDTO sysUsers = sysUserService.searchUsers(page, pageSize, userId, realname);
 
@@ -56,29 +62,43 @@ public class SysUserController {
     public RespDTO login(@RequestParam String username, @RequestParam String password) {
 
         LOG.info("login parmas: {},{}", username, password);
-        QueryWrapper<SysUser> queryWrapper=new QueryWrapper<>();
+        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", username);
         SysUser user = sysUserService.getOne(queryWrapper);
         if (user == null) {
+            saveSysLoginLog(username, null, false);
             throw new AriesException(USER_NOT_EXIST);
         }
         if (!user.getPassword().equals(MD5Utils.encrypt(password))) {
+            saveSysLoginLog(username, null, false);
             throw new AriesException(PWD_ERROR);
         }
         //登录成功
         String jwt;
         Map<String, String> result = new HashMap<>(1);
-
         try {
             jwt = JWTUtils.createJWT(user.getId() + "", user.getUserId(), 599999999L);
-
-
             result.put("token", jwt);
             LOG.info("login success,{}", jwt);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        saveSysLoginLog(username, user.getRealname(), true);
         return RespDTO.onSuc(result);
+    }
+
+    private void saveSysLoginLog(String username, String realname, boolean isLoginSuccess) {
+        SysLoginLog sysLoginLog = new SysLoginLog();
+        sysLoginLog.setIp(HttpUtils.getIpAddress());
+        sysLoginLog.setLoginName(username);
+        sysLoginLog.setRealname(realname);
+        if (isLoginSuccess) {
+            sysLoginLog.setStatus(1);
+        } else {
+            sysLoginLog.setStatus(2);
+        }
+        sysLoginLog.setLoginTime(new Date());
+        sysLoginLogService.save(sysLoginLog);
     }
 
 

@@ -1,6 +1,6 @@
 package io.github.forezp.modules.system.mapper;
 
-import io.github.forezp.modules.system.entity.SysLog;
+import io.github.forezp.modules.system.entity.SysLoginLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author forezp
- * @since 2019-07-26
+ * @since 2019-07-27
  */
-public interface SysLogMapper extends BaseMapper<SysLog> {
+public interface SysLoginLogMapper extends BaseMapper<SysLoginLog> {
 
 }

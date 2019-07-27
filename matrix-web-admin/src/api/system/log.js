@@ -2,15 +2,18 @@ import request from '@/utils/request'
 
 export function getList(params) {
   return request({
-    url: '/log/list',
+    url: '/syslog/pagelist',
     method: 'get',
     params
   })
 }
 
-export function clear() {
+export function clear(ids) {
   return request({
-    url: '/log',
-    method: 'delete'
+    url: '/syslog/currentpage',
+    method: 'delete',
+    params: {
+      ids: ids
+    }
   })
 }

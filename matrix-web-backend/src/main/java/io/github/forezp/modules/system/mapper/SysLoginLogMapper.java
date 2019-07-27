@@ -3,25 +3,24 @@ package io.github.forezp.modules.system.mapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.forezp.modules.system.entity.SysLog;
+import io.github.forezp.modules.system.entity.SysLoginLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
-
 /**
  * <p>
- * Mapper 接口
+ *  Mapper 接口
  * </p>
  *
  * @author forezp
- * @since 2019-07-26
+ * @since 2019-07-27
  */
 @Mapper
-public interface SysLogMapper extends BaseMapper<SysLog> {
+public interface SysLoginLogMapper extends BaseMapper<SysLoginLog> {
 
-    IPage<SysLog> selectPageSysLog(Page page, @Param("createBy") String createBy,
-                                   @Param("method") String method,
+    IPage<SysLoginLog> selectPageSysLog(Page page,
+                                   @Param("userId") String userId,
                                    @Param("beginTime") String beginTime,
                                    @Param("endTime") String endTime);
 

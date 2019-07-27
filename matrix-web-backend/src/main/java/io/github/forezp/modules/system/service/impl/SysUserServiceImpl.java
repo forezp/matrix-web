@@ -44,7 +44,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             paramMap.put("realname", realname);
         }
         if (StringUtils.isNotBlank(userId)) {
-            paramMap.put("user_id", userId);
+            paramMap.put("userId", userId);
         }
         paramMap.put("status", 1);
 

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
  * </p>
  *
  * @author forezp
- * @since 2019-07-26
+ * @since 2019-07-27
  */
 @Controller
-@RequestMapping("/sys-log")
-public class SysLogController {
+@RequestMapping("/sys-login-log")
+public class SysLoginLogController {
 
 }

@@ -8,12 +8,12 @@ export default {
       },
       listQuery: {
         page: 1,
-        limit: 20,
+        pageSize: 20,
         logname: undefined,
         beginTime: undefined,
         endTime: undefined
       },
-      total: 0,
+      totalCount: 0,
       list: null,
       listLoading: true,
       selRow: {}
@@ -29,16 +29,16 @@ export default {
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        this.list = response.data.records
+        this.list = response.data.list
         this.listLoading = false
-        this.total = response.data.total
+        this.totalCount = response.data.totalCount
       })
     },
     search() {
       this.fetchData()
     },
     reset() {
-      this.listQuery.logname = ''
+      this.listQuery.userId = ''
       this.listQuery.beginTime = ''
       this.listQuery.endTime = ''
       this.fetchData()
@@ -59,8 +59,8 @@ export default {
       this.listQuery.page = page
       this.fetchData()
     },
-    changeSize(limit) {
-      this.listQuery.limit = limit
+    changeSize(pageSize) {
+      this.listQuery.pageSize = pageSize
       this.fetchData()
     },
     clear() {

@@ -1,14 +1,20 @@
-import { clear, getList } from '@/api/system/log'
+import {clear, getList} from '@/api/system/log'
 
 export default {
   data() {
     return {
       options: [{
-        value: '1',
-        label: '业务日志'
+        value: 'GET',
+        label: 'GET请求'
       }, {
-        value: '2',
-        label: '异常日志'
+        value: 'POST',
+        label: 'POST请求'
+      }, {
+        value: 'DELETE',
+        label: 'DELETE请求'
+      }, {
+        value: 'PUT',
+        label: 'PUT请求'
       }
       ],
       form: {
@@ -17,13 +23,13 @@ export default {
       },
       listQuery: {
         page: 1,
-        limit: 20,
+        pageSize: 20,
         beginTime: undefined,
         endTime: undefined,
-        logName: undefined,
-        logType: undefined
+        createBy: undefined,
+        method: undefined
       },
-      total: 0,
+      totalCount: 0,
       list: null,
       listLoading: true,
       selRow: {}
@@ -39,9 +45,9 @@ export default {
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        this.list = response.data.records
+        this.list = response.data.list
         this.listLoading = false
-        this.total = response.data.total
+        this.totalCount = response.data.totalCount
       })
     },
     search() {
@@ -70,8 +76,8 @@ export default {
       this.listQuery.page = page
       this.fetchData()
     },
-    changeSize(limit) {
-      this.listQuery.limit = limit
+    changeSize(pageSize) {
+      this.listQuery.pageSize = pageSize
       this.fetchData()
     },
     clear() {
@@ -80,7 +86,13 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        clear().then(response => {
+        var ids = ''
+        for (var key in this.list) {
+          var item = this.list[key]
+          ids += item['id'] + '-'
+        }
+        console.log(ids)
+        clear(ids).then(response => {
           this.$message({
             message: '清空成功',
             type: 'sucess'

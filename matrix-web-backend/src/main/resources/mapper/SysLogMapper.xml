@@ -30,4 +30,20 @@
         method, url, ip, request, resonse_code, response,request_id,duration
     </sql>
 
+    <select id="selectPageSysLog" resultType="io.github.forezp.modules.system.entity.SysLog">
+        SELECT * from sys_log
+        <where>
+            <if test="createBy != null and createBy!='' ">
+                create_by = #{createBy}
+            </if>
+
+            <if test="method != null and method!='' ">
+                AND method = #{method}
+            </if>
+
+            <if test="beginTime != null and beginTime != ''">AND create_time <![CDATA[>=]]> #{beginTime}</if>
+            <if test="endTime != null and endTime != ''">AND create_time <![CDATA[<=]]>#{endTime}</if>
+
+        </where>
+    </select>
 </mapper>

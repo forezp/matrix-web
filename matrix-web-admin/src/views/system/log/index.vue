@@ -14,7 +14,7 @@
           <el-input v-model="listQuery.createBy" placeholder="操作者"></el-input>
         </el-col>
         <el-col :span="4">
-          <el-select v-model="listQuery.logType" placeholder="日志类型">
+          <el-select v-model="listQuery.method" placeholder="请求类型">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -36,46 +36,57 @@
      <el-table-column type="expand">
        <template slot-scope="props">
          <el-form label-position="left" inline class="guns-table-expand">
-           <el-form-item label="日志类型">
-             <span>{{ props.row.logtype }}</span>
+           <el-form-item label="日志的RequestId">
+             <span>{{ props.row.requestId }}</span>
            </el-form-item>
-           <el-form-item label="日志名称">
-             <span>{{ props.row.logname }}</span>
-           </el-form-item>
-           <el-form-item label="用户">
-             <span>{{ props.row.userName }}</span>
-           </el-form-item>
-           <el-form-item label="类名">
-             <span>{{ props.row.classname }}</span>
-           </el-form-item>
-           <el-form-item label="方法名">
+           <el-form-item label="请求类型">
              <span>{{ props.row.method }}</span>
            </el-form-item>
-           <el-form-item label="时间">
-             <span>{{ props.row.createtime }}</span>
+           <el-form-item label="请求地址">
+             <span>{{ props.row.url }}</span>
            </el-form-item>
-           <el-form-item label="内容">
-             <span>{{ props.row.regularMessage }}</span>
+           <el-form-item label="请求的用户">
+             <span>{{ props.row.createBy }}</span>
            </el-form-item>
+           <el-form-item label="请求参数">
+             <span>{{ props.row.request }}</span>
+           </el-form-item>
+           <el-form-item label="响应时间">
+             <span>{{ props.row.duration }}</span>
+           </el-form-item>
+           <el-form-item label="请求时间">
+             <span>{{ props.row.createTime }}</span>
+           </el-form-item>
+           <el-form-item label="响应状态">
+             <span>{{ props.row.resonseCode }}</span>
+           </el-form-item>
+           <el-form-item label="响应">
+             <span>{{ props.row.response }}</span>
+           </el-form-item>
+           <el-form-item label="请求ip">
+             <span>{{ props.row.ip }}</span>
+           </el-form-item>
+
+
          </el-form>
        </template>
      </el-table-column>
 
      <el-table-column
        label="用户"
-       prop="userName">
+       prop="createBy">
      </el-table-column>
      <el-table-column
-       label="日志类型"
-       prop="logtype">
+       label="请求类型"
+       prop="method">
      </el-table-column>
      <el-table-column
-       label="日志名称"
-       prop="logname">
+       label="请求地址"
+       prop="url">
      </el-table-column>
      <el-table-column
        label="时间"
-       prop="createtime">
+       prop="createTime">
      </el-table-column>
    </el-table>
 
@@ -84,7 +95,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :page-sizes="[10, 20, 50, 100,500]"
       :page-size="listQuery.limit"
-      :total="total"
+      :total="totalCount"
       @size-change="changeSize"
       @current-change="fetchPage"
       @prev-click="fetchPrev"

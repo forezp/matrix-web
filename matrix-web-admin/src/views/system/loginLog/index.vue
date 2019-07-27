@@ -11,7 +11,7 @@
                           style="width: 100%;"></el-date-picker>
         </el-col>
         <el-col :span="4">
-          <el-input v-model="listQuery.logname" placeholder="日志名称"></el-input>
+          <el-input v-model="listQuery.userId" placeholder="用户名"></el-input>
         </el-col>
 
         <el-col :span="8">
@@ -29,45 +29,39 @@
        <template slot-scope="props">
          <el-form label-position="left" inline class="guns-table-expand">
            <el-form-item label="用户id">
-             <span>{{ props.row.userid }}</span>
+             <span>{{ props.row.loginName }}</span>
            </el-form-item>
-           <el-form-item label="日志名称">
-             <span>{{ props.row.logname }}</span>
+           <el-form-item label="用户姓名">
+             <span>{{ props.row.realname }}</span>
            </el-form-item>
-           <el-form-item label="用户">
-             <span>{{ props.row.userName }}</span>
-           </el-form-item>
-           <el-form-item label="IP">
+           <el-form-item label="登录IP">
              <span>{{ props.row.ip }}</span>
            </el-form-item>
-           <el-form-item label="结果">
-             <span>{{ props.row.succeed }}</span>
+           <el-form-item label="登录结果">
+             <span>{{ props.row.statusName }}</span>
            </el-form-item>
-           <el-form-item label="时间">
-             <span>{{ props.row.createtime }}</span>
-           </el-form-item>
-           <el-form-item label="内容">
-             <span>{{ props.row.regularMessage }}</span>
+           <el-form-item label="登录时间">
+             <span>{{ props.row.loginTime }}</span>
            </el-form-item>
          </el-form>
        </template>
      </el-table-column>
 
      <el-table-column
-       label="用户"
-       prop="userName">
+       label="登录名"
+       prop="loginName">
      </el-table-column>
      <el-table-column
-       label="IP"
+       label="登录结果"
+       prop="statusName">
+     </el-table-column>
+     <el-table-column
+       label="登录IP"
        prop="ip">
      </el-table-column>
      <el-table-column
-       label="日志名称"
-       prop="logname">
-     </el-table-column>
-     <el-table-column
-       label="时间"
-       prop="createtime">
+       label="登录时间"
+       prop="loginTime">
      </el-table-column>
    </el-table>
 
@@ -75,8 +69,8 @@
       background
       layout="total, sizes, prev, pager, next, jumper"
       :page-sizes="[10, 20, 50, 100,500]"
-      :page-size="listQuery.limit"
-      :total="total"
+      :page-size="listQuery.paseSize"
+      :total="totalCout"
       @size-change="changeSize"
       @current-change="fetchPage"
       @prev-click="fetchPrev"

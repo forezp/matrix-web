@@ -34,8 +34,8 @@
                 su.status = #{status}
             </if>
 
-            <if test="usrId != null and userId !=''">
-                AND su.user_id = #{usrId} )
+            <if test="userId != null and userId !=''">
+                AND su.user_id = #{userId} )
             </if>
 
             <if test="realname != null and realname !=''">
