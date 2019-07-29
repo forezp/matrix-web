@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author forezp
- * @since 2019-07-24
+ * @since 2019-07-29
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -64,7 +64,6 @@ public class SysUser extends BaseEntity {
      * 用户头像
      */
     private String avatar;
-
 
     private Integer sex;
 

@@ -2,23 +2,27 @@ package io.github.forezp.modules.system.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.exception.AriesException;
 import io.github.forezp.common.exception.ErrorCode;
+import io.github.forezp.common.util.BeanUtils;
 import io.github.forezp.common.util.MD5Utils;
 import io.github.forezp.modules.system.entity.SysUser;
 import io.github.forezp.modules.system.mapper.SysUserMapper;
 import io.github.forezp.modules.system.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.github.forezp.modules.system.vo.dto.SysUserDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static io.github.forezp.common.constant.CommonConstants.FEMALE;
+import static io.github.forezp.common.constant.CommonConstants.MALE;
+import static io.github.forezp.common.constant.CommonConstants.UNKNOWN;
 
 /**
  * <p>
@@ -36,24 +40,35 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     SysUserMapper sysUserMapper;
 
     public PageResultsDTO searchUsers(int page, int pageSize, String userId, String realname) {
-
-        Map paramMap = new HashMap<>();
-        Page<SysUser> userPage = new Page<>(page, pageSize);
-
-        if (StringUtils.isNotBlank(realname)) {
-            paramMap.put("realname", realname);
-        }
-        if (StringUtils.isNotBlank(userId)) {
-            paramMap.put("userId", userId);
-        }
-        paramMap.put("status", 1);
-
-        List<SysUser> sysUsers = sysUserMapper.searchUsers(userPage, paramMap);
+        Page<SysUser> sysLogPage = new Page<>(page, pageSize);
+        IPage<SysUser> sysUserIPage = sysUserMapper.searchUsers(sysLogPage, userId, realname);
         PageResultsDTO result = new PageResultsDTO(page, pageSize);
-        result.setTotalCount(userPage.getTotal());
-        result.setList(sysUsers);
+        result.setTotalCount(sysUserIPage.getTotal());
+        result.setTotalPage((int) sysUserIPage.getTotal(), pageSize);
+        List<SysUser> records = sysUserIPage.getRecords();
+        result.setList(transformSysUserDTO(records));
         return result;
 
+    }
+
+    private List<SysUserDTO> transformSysUserDTO(List<SysUser> records) {
+        if (records == null) {
+            return null;
+        }
+        List<SysUserDTO> list = new ArrayList<>();
+        for (SysUser sysUser : records) {
+            SysUserDTO sysUserDTO = new SysUserDTO();
+            BeanUtils.copy(sysUser, sysUserDTO);
+            if (sysUserDTO.getSex() == 1) {
+                sysUserDTO.setSexName(MALE);
+            } else if (sysUserDTO.getSex() == 2) {
+                sysUserDTO.setSexName(FEMALE);
+            } else {
+                sysUserDTO.setSexName(UNKNOWN);
+            }
+            list.add(sysUserDTO);
+        }
+        return list;
     }
 
     @Override

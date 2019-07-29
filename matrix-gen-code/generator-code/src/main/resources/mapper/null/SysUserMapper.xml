@@ -2,14 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.github.forezp.modules.system.mapper.SysUserMapper">
 
-
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="io.github.forezp.modules.system.entity.SysUser">
-        <result column="id" property="id" />
-        <result column="create_time" property="createTime" />
-        <result column="create_by" property="createBy" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_by" property="updateBy" />
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="create_by" property="createBy" />
+    <result column="update_time" property="updateTime" />
+    <result column="update_by" property="updateBy" />
         <result column="user_id" property="userId" />
         <result column="password" property="password" />
         <result column="realname" property="realname" />
@@ -31,21 +30,5 @@
         update_by,
         user_id, password, realname, type, mobile, email, remarks, status, avatar, sex
     </sql>
-
-
-    <select id="searchUsers" resultType="io.github.forezp.modules.system.entity.SysUser">
-        SELECT <include refid="Base_Column_List" /> from sys_user
-        <where>
-            <if test="userId != null and userId!='' ">
-                user_id = #{userId}
-            </if>
-
-            <if test="realname != null and realname!='' ">
-                AND realname = #{realname}
-            </if>
-
-
-        </where>
-    </select>
 
 </mapper>

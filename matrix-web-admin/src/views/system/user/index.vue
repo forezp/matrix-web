@@ -44,21 +44,21 @@
           {{scope.row.realname}}
         </template>
       </el-table-column>
-      <!--<el-table-column label="性别">-->
-        <!--<template slot-scope="scope">-->
-          <!--{{scope.row.sexName}}-->
-        <!--</template>-->
-      <!--</el-table-column>-->
-      <!--<el-table-column label="角色">-->
-        <!--<template slot-scope="scope">-->
-          <!--{{scope.row.roleName}}-->
-        <!--</template>-->
-      <!--</el-table-column>-->
-      <!--<el-table-column label="部门">-->
-        <!--<template slot-scope="scope">-->
-          <!--{{scope.row.deptName}}-->
-        <!--</template>-->
-      <!--</el-table-column>-->
+      <el-table-column label="性别">
+        <template slot-scope="scope">
+          {{scope.row.sexName}}
+        </template>
+      </el-table-column>
+      <el-table-column label="角色">
+        <template slot-scope="scope">
+          {{scope.row.roleName}}
+        </template>
+      </el-table-column>
+      <el-table-column label="部门">
+        <template slot-scope="scope">
+          {{scope.row.deptName}}
+        </template>
+      </el-table-column>
       <el-table-column label="邮箱">
         <template slot-scope="scope">
           {{scope.row.email}}

@@ -7,14 +7,14 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- *  前端控制器
+ * 用户 前端控制器
  * </p>
  *
  * @author forezp
- * @since 2019-07-27
+ * @since 2019-07-29
  */
 @Controller
-@RequestMapping("/sys-login-log")
-public class SysLoginLogController {
+@RequestMapping("/sys-user")
+public class SysUserController {
 
 }

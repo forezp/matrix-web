@@ -13,7 +13,10 @@ public class CommonConstants {
 
     public static final String UPPER_AURHORIZATION="Authorization";
 
+    public static final String MALE="男";
 
+    public static final String FEMALE="女";
 
+    public static final String UNKNOWN="未知";
 
 }

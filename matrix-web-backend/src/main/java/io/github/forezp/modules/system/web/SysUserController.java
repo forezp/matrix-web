@@ -54,7 +54,6 @@ public class SysUserController {
     public RespDTO searchUsers(@RequestParam int page, @RequestParam int pageSize, @RequestParam(required = false) String userId, @RequestParam(required = false) String realname) {
         PageUtils.check(page, pageSize);
         PageResultsDTO sysUsers = sysUserService.searchUsers(page, pageSize, userId, realname);
-
         return RespDTO.onSuc(sysUsers);
     }
 
