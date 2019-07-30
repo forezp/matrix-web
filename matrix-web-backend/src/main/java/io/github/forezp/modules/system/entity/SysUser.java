@@ -74,5 +74,8 @@ public class SysUser extends BaseEntity {
     @TableField(exist = false)
     private List<SysRole> roles;
 
+    @TableField(exist = false)
+    private List<SysOrg> orgs;
+
 
 }

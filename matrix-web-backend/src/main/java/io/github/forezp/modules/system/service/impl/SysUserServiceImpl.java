@@ -9,6 +9,7 @@ import io.github.forezp.common.exception.AriesException;
 import io.github.forezp.common.exception.ErrorCode;
 import io.github.forezp.common.util.BeanUtils;
 import io.github.forezp.common.util.MD5Utils;
+import io.github.forezp.modules.system.entity.SysOrg;
 import io.github.forezp.modules.system.entity.SysRole;
 import io.github.forezp.modules.system.entity.SysUser;
 import io.github.forezp.modules.system.mapper.SysUserMapper;
@@ -72,8 +73,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 for (SysRole sysRole : sysUser.getRoles()) {
                     roleNames = roleNames + sysRole.getName() + ",";
                 }
+                if(roleNames.endsWith(",")){
+                    roleNames=roleNames.substring(0,roleNames.length()-1);
+                }
             }
             sysUserDTO.setRoleName(roleNames);
+            String orgNames = "";
+            if (sysUser.getOrgs() != null && sysUser.getOrgs().size() > 0) {
+                for (SysOrg sysOrg : sysUser.getOrgs()) {
+                    orgNames = orgNames + sysOrg.getSimpleName() + ",";
+                }
+                if(orgNames.endsWith(",")){
+                    orgNames=orgNames.substring(0,orgNames.length()-1);
+                }
+            }
+            sysUserDTO.setOrgName(orgNames);
             list.add(sysUserDTO);
         }
         return list;

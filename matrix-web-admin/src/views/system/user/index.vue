@@ -56,7 +56,7 @@
       </el-table-column>
       <el-table-column label="部门">
         <template slot-scope="scope">
-          {{scope.row.deptName}}
+          {{scope.row.orgName}}
         </template>
       </el-table-column>
       <el-table-column label="邮箱">
@@ -71,7 +71,7 @@
       </el-table-column>
       <el-table-column label="创建时间">
         <template slot-scope="scope">
-          {{scope.row.createtime}}
+          {{scope.row.createTime}}
         </template>
       </el-table-column>
       <el-table-column label="状态">

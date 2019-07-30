@@ -24,6 +24,10 @@
             <result column="role_name" property="name"/>
             <result column="role_role_id" property="roleId"/>
         </collection>
+        <collection property="orgs" ofType="io.github.forezp.modules.system.entity.SysOrg" javaType="java.util.List">
+            <result column="simple_name" property="simpleName"/>
+            <result column="org_id" property="orgId"/>
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -41,9 +45,12 @@
         SELECT a.id as id ,a.create_time as create_time, a.create_by as create_by,a.update_time as update_time,a.update_by as update_by
         ,a.user_id as user_id,a.password as password,a.realname as realname,a.type as type,a.mobile as mobile
         ,a.email as email,a.remarks as remarks ,a.status as status,a.avatar as avatar,a.sex as sex
-        ,c.name as role_name,c.role_id as role_role_id from sys_user a LEFT JOIN
-        sys_user_role b on a.user_id=b.user_id
+        ,c.name as role_name,c.role_id as role_role_id ,e.org_id as org_id,e.simple_name as simple_name
+        from sys_user a
+        LEFT JOIN  sys_user_role b on a.user_id=b.user_id
         LEFT JOIN  sys_role c on b.role_id=c.role_id
+        LEFT JOIN sys_user_org d on a.user_id=d.user_id
+        left JOIN sys_org e on d.org_id =e.org_id
         <where>
             <if test="userId != null and userId!='' ">
                 a.user_id = #{userId}
