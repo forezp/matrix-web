@@ -1,9 +1,12 @@
 package io.github.forezp.modules.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.github.forezp.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
  * <p>
@@ -67,6 +70,9 @@ public class SysUser extends BaseEntity {
 
 
     private Integer sex;
+
+    @TableField(exist = false)
+    private List<SysRole> roles;
 
 
 }

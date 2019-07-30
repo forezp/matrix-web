@@ -20,6 +20,10 @@
         <result column="status" property="status" />
         <result column="avatar" property="avatar" />
         <result column="sex" property="sex" />
+        <collection property="roles" ofType="io.github.forezp.modules.system.entity.SysRole" javaType="java.util.List">
+            <result column="role_name" property="name"/>
+            <result column="role_role_id" property="roleId"/>
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -33,18 +37,21 @@
     </sql>
 
 
-    <select id="searchUsers" resultType="io.github.forezp.modules.system.entity.SysUser">
-        SELECT <include refid="Base_Column_List" /> from sys_user
+    <select id="searchUsers" resultMap="BaseResultMap">
+        SELECT a.id as id ,a.create_time as create_time, a.create_by as create_by,a.update_time as update_time,a.update_by as update_by
+        ,a.user_id as user_id,a.password as password,a.realname as realname,a.type as type,a.mobile as mobile
+        ,a.email as email,a.remarks as remarks ,a.status as status,a.avatar as avatar,a.sex as sex
+        ,c.name as role_name,c.role_id as role_role_id from sys_user a LEFT JOIN
+        sys_user_role b on a.user_id=b.user_id
+        LEFT JOIN  sys_role c on b.role_id=c.role_id
         <where>
             <if test="userId != null and userId!='' ">
-                user_id = #{userId}
+                a.user_id = #{userId}
             </if>
 
             <if test="realname != null and realname!='' ">
-                AND realname = #{realname}
+                AND a.realname = #{realname}
             </if>
-
-
         </where>
     </select>
 
