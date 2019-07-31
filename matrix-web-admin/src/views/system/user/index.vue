@@ -102,12 +102,12 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="账户" prop="account">
+            <el-form-item label="用户ID" prop="userId">
               <el-input v-model="form.userId" minlength=1></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="姓名" prop="name">
+            <el-form-item label="姓名" prop="realname">
               <el-input v-model="form.realname"  minlength=1></el-input>
             </el-form-item>
           </el-col>
@@ -136,15 +136,15 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="电话" prop="phone">
-              <el-input v-model="form.phone"></el-input>
+            <el-form-item label="电话" prop="mobile">
+              <el-input v-model="form.mobile"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="所属部门" >
               <el-input
                 placeholder="请选择所属部门"
-                v-model="form.deptName"
+                v-model="form.simpleName"
                 readonly="readonly"
                 @click.native="deptTree.show  = !deptTree.show">
               </el-input>

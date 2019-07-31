@@ -27,7 +27,7 @@ export default {
         data: [],
         defaultProps: {
           id: 'id',
-          label: 'simplename',
+          label: 'simpleName',
           children: 'children'
         }
       },
@@ -40,10 +40,10 @@ export default {
         sex: 1,
         email: '',
         password: '',
-        dept: '',
+        orgId: '',
         status: 1,
         deptid: 1,
-        deptName: '',
+        simpleName: '',
         mobile: ''
       },
       rules: {
@@ -143,9 +143,10 @@ export default {
         email: '',
         password: '',
         rePassword: '',
-        dept: '',
+        simpleName: '',
         status: true,
-        deptid: 1
+        orgId: 1,
+        mobile: ''
       }
     },
     add() {
@@ -248,8 +249,8 @@ export default {
       }
     },
     handleNodeClick(data, node) {
-      this.form.deptid = data.id
-      this.form.deptName = data.simplename
+      this.form.orgId = data.orgId
+      this.form.simpleName = data.simpleName
       this.deptTree.show = false
     },
 

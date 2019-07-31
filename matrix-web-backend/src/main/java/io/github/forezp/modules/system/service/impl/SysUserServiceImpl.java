@@ -12,9 +12,12 @@ import io.github.forezp.common.util.MD5Utils;
 import io.github.forezp.modules.system.entity.SysOrg;
 import io.github.forezp.modules.system.entity.SysRole;
 import io.github.forezp.modules.system.entity.SysUser;
+import io.github.forezp.modules.system.entity.SysUserOrg;
 import io.github.forezp.modules.system.mapper.SysUserMapper;
+import io.github.forezp.modules.system.mapper.SysUserOrgMapper;
 import io.github.forezp.modules.system.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.github.forezp.modules.system.vo.domain.SysUserAddDomain;
 import io.github.forezp.modules.system.vo.dto.SysUserDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Autowired
     SysUserMapper sysUserMapper;
+
+    @Autowired
+    SysUserOrgMapper sysUserOrgMapper;
 
     public PageResultsDTO searchUsers(int page, int pageSize, String userId, String realname) {
         Page<SysUser> sysLogPage = new Page<>(page, pageSize);
@@ -73,8 +79,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 for (SysRole sysRole : sysUser.getRoles()) {
                     roleNames = roleNames + sysRole.getName() + ",";
                 }
-                if(roleNames.endsWith(",")){
-                    roleNames=roleNames.substring(0,roleNames.length()-1);
+                if (roleNames.endsWith(",")) {
+                    roleNames = roleNames.substring(0, roleNames.length() - 1);
                 }
             }
             sysUserDTO.setRoleName(roleNames);
@@ -83,8 +89,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 for (SysOrg sysOrg : sysUser.getOrgs()) {
                     orgNames = orgNames + sysOrg.getSimpleName() + ",";
                 }
-                if(orgNames.endsWith(",")){
-                    orgNames=orgNames.substring(0,orgNames.length()-1);
+                if (orgNames.endsWith(",")) {
+                    orgNames = orgNames.substring(0, orgNames.length() - 1);
                 }
             }
             sysUserDTO.setOrgName(orgNames);
@@ -108,5 +114,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
 
         return null;
+    }
+
+    @Override
+    public void addUser(SysUserAddDomain sysUserAddDomain) {
+        SysUser sysUser = new SysUser();
+        BeanUtils.copy(sysUserAddDomain, sysUser);
+        sysUserMapper.insert(sysUser);
+        SysUserOrg sysUserOrg = new SysUserOrg();
+        BeanUtils.copy(sysUserAddDomain, sysUserOrg);
+        sysUserOrgMapper.insert(sysUserOrg);
     }
 }

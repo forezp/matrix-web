@@ -8,11 +8,41 @@ export function getList(params) {
   })
 }
 
+// export function saveUser(params) {
+//   return request({
+//     url: '/user',
+//     method: 'post',
+//     params
+//   })
+// }
+
+
 export function saveUser(params) {
+  console.log(params)
   return request({
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    transformRequest: [function(data) {
+      data = JSON.stringify(data)
+      console.log(data)
+      return data
+    }],
     url: '/user',
     method: 'post',
-    params
+    params: {},
+    data: {
+      'userId': params.userId,
+      'simpleName': params.simpleName,
+      'orgId': params.orgId,
+      'password': params.password,
+      'mobile': params.mobile,
+      'email': params.email,
+      'birthday': params.birthday,
+      'status': params.status,
+      'realname': params.realname,
+      'sex': params.sex
+    }
   })
 }
 

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.dto.RespDTO;
+import io.github.forezp.common.dto.ValidationResult;
 import io.github.forezp.common.exception.AriesException;
 import io.github.forezp.common.util.*;
 import io.github.forezp.modules.system.entity.SysLoginLog;
@@ -14,7 +15,10 @@ import io.github.forezp.modules.system.service.SysLoginLogService;
 import io.github.forezp.modules.system.service.SysMenuService;
 import io.github.forezp.modules.system.service.SysUserService;
 
+import io.github.forezp.modules.system.vo.domain.SysUserAddDomain;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -55,6 +59,13 @@ public class SysUserController {
         PageUtils.check(page, pageSize);
         PageResultsDTO sysUsers = sysUserService.searchUsers(page, pageSize, userId, realname);
         return RespDTO.onSuc(sysUsers);
+    }
+
+    @PostMapping("")
+    public RespDTO addUser(@RequestBody SysUserAddDomain sysUserAddDomain) {
+        ValidatorUtils.validateEntity(sysUserAddDomain);
+        sysUserService.addUser(sysUserAddDomain);
+        return RespDTO.onSuc(null);
     }
 
     @PostMapping("/login")
