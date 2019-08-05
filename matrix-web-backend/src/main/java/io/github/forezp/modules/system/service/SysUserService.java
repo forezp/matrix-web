@@ -1,6 +1,7 @@
 package io.github.forezp.modules.system.service;
 
 import io.github.forezp.common.dto.PageResultsDTO;
+import io.github.forezp.modules.system.entity.SysLoginLog;
 import io.github.forezp.modules.system.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.github.forezp.modules.system.vo.domain.SysUserAddDomain;
@@ -21,5 +22,9 @@ public interface SysUserService extends IService<SysUser> {
     SysUser login(String username, String password);
 
     void addUser(SysUserAddDomain sysUserAddDomain);
+
+    void setUserRoles(String userId,String roleId);
+
+
 
 }

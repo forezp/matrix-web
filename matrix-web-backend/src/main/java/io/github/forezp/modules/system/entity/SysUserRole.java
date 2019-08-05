@@ -1,5 +1,7 @@
 package io.github.forezp.modules.system.entity;
 
+import io.github.forezp.common.base.BaseEntity;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -11,14 +13,11 @@ import java.io.Serializable;
  * @author forezp
  * @since 2019-07-17
  */
-public class SysUserRole implements Serializable {
+public class SysUserRole  extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * id主键
-     */
-    private Long id;
+
     /**
      * 用户编号
      */
@@ -35,22 +34,8 @@ public class SysUserRole implements Serializable {
      * 0停用1启用2锁定
      */
     private Integer status;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 创建人
-     */
-    private String createBy;
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-    /**
-     * 更新人
-     */
-    private String updateBy;
+
+
 
 
     public Long getId() {

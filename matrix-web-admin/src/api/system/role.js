@@ -29,14 +29,13 @@ export function remove(roleId) {
 
 export  function roleTreeListByIdUser(idUser){
   return request({
-    url: '/role/roleTreeListByIdUser',
+    url: `/sysRole/${idUser}`,
     method: 'get',
     params: {
       idUser: idUser
     }
   })
 }
-
 
 export function savePermissons(params) {
   return request({

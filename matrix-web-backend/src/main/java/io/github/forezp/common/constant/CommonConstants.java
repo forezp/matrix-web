@@ -19,4 +19,8 @@ public class CommonConstants {
 
     public static final String UNKNOWN="未知";
 
+    public static final String DOT=",";
+
+
+
 }

@@ -16,6 +16,7 @@ import io.github.forezp.modules.system.service.SysMenuService;
 import io.github.forezp.modules.system.service.SysUserService;
 
 import io.github.forezp.modules.system.vo.domain.SysUserAddDomain;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.ValidationUtils;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.github.forezp.common.exception.ErrorCode.ERROR_ARGS;
 import static io.github.forezp.common.exception.ErrorCode.PWD_ERROR;
 
 import static io.github.forezp.common.exception.ErrorCode.USER_NOT_EXIST;
@@ -41,9 +43,9 @@ import static io.github.forezp.common.exception.ErrorCode.USER_NOT_EXIST;
  */
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class SysUserController {
 
-    LogUtils LOG = new LogUtils(SysUserController.class);
 
     @Autowired
     SysUserService sysUserService;
@@ -71,10 +73,12 @@ public class SysUserController {
     @PostMapping("/login")
     public RespDTO login(@RequestParam String username, @RequestParam String password) {
 
-        LOG.info("login parmas: {},{}", username, password);
+        log.info("login parmas: {},{}", username, password);
+        long startTime = System.currentTimeMillis();
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", username);
         SysUser user = sysUserService.getOne(queryWrapper);
+        log.info("slect user takes {}ms ", System.currentTimeMillis() - startTime);
         if (user == null) {
             saveSysLoginLog(username, null, false);
             throw new AriesException(USER_NOT_EXIST);
@@ -89,10 +93,11 @@ public class SysUserController {
         try {
             jwt = JWTUtils.createJWT(user.getId() + "", user.getUserId(), 599999999L);
             result.put("token", jwt);
-            LOG.info("login success,{}", jwt);
+            log.info("login success,{}", jwt);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         saveSysLoginLog(username, user.getRealname(), true);
         return RespDTO.onSuc(result);
     }
@@ -108,7 +113,7 @@ public class SysUserController {
             sysLoginLog.setStatus(2);
         }
         sysLoginLog.setLoginTime(new Date());
-        sysLoginLogService.save(sysLoginLog);
+        sysLoginLogService.saveLoginLog(sysLoginLog);
     }
 
 
@@ -142,11 +147,22 @@ public class SysUserController {
         queryWrapper.eq("ismenu", 1);
         List<SysMenu> menus = sysMenuService.list(queryWrapper);
 
-        LOG.info("menuList size:" + menus.size());
+        log.info("menuList size:" + menus.size());
         result.put("menus", menus);
         result.put("roles", "administrator");
 
         return RespDTO.onSuc(result);
+    }
+
+    @PostMapping("/roles")
+    public RespDTO userSetRoles(@RequestParam String userId, @RequestParam String roleIds) {
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(roleIds)) {
+            throw new AriesException(ERROR_ARGS);
+        }
+
+        sysUserService.setUserRoles(userId, roleIds);
+
+        return RespDTO.onSuc(null);
     }
 
 }

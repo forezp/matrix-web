@@ -256,9 +256,9 @@ export default {
 
     openRole() {
       if (this.checkSel()) {
-        roleTreeListByIdUser(this.selRow.id).then(response => {
-          this.roleDialog.roles = response.data.treeData
-          this.roleDialog.checkedRoleKeys = response.data.checkedIds
+        roleTreeListByIdUser(this.selRow.userId).then(response => {
+          this.roleDialog.roles = response.data.roleDTOList
+          this.roleDialog.checkedRoleKeys = response.data.selectIds
           this.roleDialog.visible = true
         })
       }
@@ -270,7 +270,7 @@ export default {
         roleIds += checkedRoleKeys[index] + ','
       }
       var data = {
-        userId: this.selRow.id,
+        userId: this.selRow.userId,
         roleIds: roleIds
       }
       setRole(data).then(response => {

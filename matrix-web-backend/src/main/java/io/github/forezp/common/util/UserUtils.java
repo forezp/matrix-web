@@ -1,8 +1,9 @@
 package io.github.forezp.common.util;
 
-import com.alibaba.druid.util.StringUtils;
+
 import io.github.forezp.permission.auth.RequestHolder;
 import io.jsonwebtoken.Claims;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static io.github.forezp.common.constant.CommonConstants.STRANGER;

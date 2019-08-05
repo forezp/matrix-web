@@ -2,6 +2,7 @@ package io.github.forezp.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.github.forezp.ThreadPoolFactory;
 import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.util.BeanUtils;
 import io.github.forezp.modules.system.entity.SysLog;
@@ -15,6 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
+
+import static io.github.forezp.common.constant.ThreadPoolConstants.LOG_THREADPOOL;
 
 /**
  * <p>
@@ -29,6 +33,15 @@ public class SysLoginLogServiceImpl extends ServiceImpl<SysLoginLogMapper, SysLo
 
     @Autowired
     SysLoginLogMapper selectPageSysLog;
+
+
+    @Autowired
+    ThreadPoolFactory threadPoolFactory;
+
+
+
+    ThreadPoolExecutor threadPoolExecutor;
+
 
     @Override
     public PageResultsDTO selectPageSysLog(int page, int pageSize, String userId, String beginTime, String endTime) {
@@ -58,6 +71,21 @@ public class SysLoginLogServiceImpl extends ServiceImpl<SysLoginLogMapper, SysLo
             list.add(sysLoginLogDTO);
         }
         return list;
+
+    }
+
+    @Override
+    public void saveLoginLog(SysLoginLog sysLoginLog) {
+
+        if (threadPoolExecutor == null) {
+            threadPoolExecutor = threadPoolFactory.createThreadPoolExecutor(LOG_THREADPOOL);
+        }
+        threadPoolExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                save(sysLoginLog);
+            }
+        });
 
     }
 }

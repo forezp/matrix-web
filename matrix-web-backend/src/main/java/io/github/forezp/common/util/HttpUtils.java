@@ -1,11 +1,9 @@
 package io.github.forezp.common.util;
 
 
-import com.alibaba.druid.util.StringUtils;
-import io.github.forezp.common.exception.AriesException;
+
 import io.github.forezp.permission.auth.RequestHolder;
-import io.jsonwebtoken.Claims;
-import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -14,8 +12,6 @@ import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static io.github.forezp.common.constant.CommonConstants.STRANGER;
-import static io.github.forezp.common.exception.ErrorCode.TOKEN_ISNULL;
 import static io.github.forezp.permission.auth.RequestHolder.REQUEST_SERVLET;
 
 public class HttpUtils {

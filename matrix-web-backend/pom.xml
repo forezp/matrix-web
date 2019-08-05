@@ -89,6 +89,14 @@
 			<version>1.1.10</version>
 		</dependency>
 
+
+		<!--<dependency>-->
+			<!--<groupId>com.zaxxer</groupId>-->
+			<!--<artifactId>HikariCP</artifactId>-->
+			<!--<version>3.3.1</version>-->
+		<!--</dependency>-->
+
+
 		<dependency>
 			<groupId>io.shardingsphere</groupId>
 			<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
@@ -100,6 +108,7 @@
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 			<version>3.1.2</version>
 		</dependency>
+
 
 		<!--        <dependency>-->
 		<!--            <groupId>com.baomidou</groupId>-->

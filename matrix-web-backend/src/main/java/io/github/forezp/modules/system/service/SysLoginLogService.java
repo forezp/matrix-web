@@ -18,4 +18,6 @@ public interface SysLoginLogService extends IService<SysLoginLog> {
                                     String userId, String beginTime, String endTime);
 
 
+    void saveLoginLog(SysLoginLog sysLoginLog);
+
 }

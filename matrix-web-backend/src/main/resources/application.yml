@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: durid
 
   redis:
     host: localhost

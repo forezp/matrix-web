@@ -3,6 +3,7 @@ package io.github.forezp.modules.system.vo.domain;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * Created by forezp on 2019/7/31.
@@ -29,7 +30,7 @@ public class SysUserAddDomain {
     @NotNull
     private Integer status;
 
-    private String birthday;
+    private Date birthday;
 
     @NotNull
     private String password;

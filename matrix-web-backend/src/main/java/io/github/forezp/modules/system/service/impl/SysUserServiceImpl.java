@@ -4,17 +4,17 @@ package io.github.forezp.modules.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.github.forezp.ThreadPoolFactory;
 import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.exception.AriesException;
 import io.github.forezp.common.exception.ErrorCode;
 import io.github.forezp.common.util.BeanUtils;
 import io.github.forezp.common.util.MD5Utils;
-import io.github.forezp.modules.system.entity.SysOrg;
-import io.github.forezp.modules.system.entity.SysRole;
-import io.github.forezp.modules.system.entity.SysUser;
-import io.github.forezp.modules.system.entity.SysUserOrg;
+import io.github.forezp.modules.system.entity.*;
+import io.github.forezp.modules.system.mapper.SysRoleMapper;
 import io.github.forezp.modules.system.mapper.SysUserMapper;
 import io.github.forezp.modules.system.mapper.SysUserOrgMapper;
+import io.github.forezp.modules.system.mapper.SysUserRoleMapper;
 import io.github.forezp.modules.system.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.forezp.modules.system.vo.domain.SysUserAddDomain;
@@ -24,10 +24,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.ThreadPoolExecutor;
 
-import static io.github.forezp.common.constant.CommonConstants.FEMALE;
-import static io.github.forezp.common.constant.CommonConstants.MALE;
-import static io.github.forezp.common.constant.CommonConstants.UNKNOWN;
+import static io.github.forezp.common.constant.CommonConstants.*;
+import static io.github.forezp.common.constant.ThreadPoolConstants.LOG_THREADPOOL;
 
 /**
  * <p>
@@ -46,6 +46,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Autowired
     SysUserOrgMapper sysUserOrgMapper;
+
+    @Autowired
+    SysRoleMapper sysRoleMapper;
+
+    @Autowired
+    SysUserRoleMapper sysUserRoleMapper;
 
     public PageResultsDTO searchUsers(int page, int pageSize, String userId, String realname) {
         Page<SysUser> sysLogPage = new Page<>(page, pageSize);
@@ -124,5 +130,26 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUserOrg sysUserOrg = new SysUserOrg();
         BeanUtils.copy(sysUserAddDomain, sysUserOrg);
         sysUserOrgMapper.insert(sysUserOrg);
+    }
+
+    @Override
+    public void setUserRoles(String userId, String roleId) {
+        String[] ids = roleId.split(DOT);
+        for (String id : ids) {
+            SysRole sysRole = sysRoleMapper.selectById(id);
+            if (sysRole != null) {
+                QueryWrapper queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("user_id", userId);
+                queryWrapper.eq("role_id", sysRole.getRoleId());
+                SysUserRole sysUserRoleDB = sysUserRoleMapper.selectOne(queryWrapper);
+                if (sysUserRoleDB == null) {
+                    SysUserRole sysUserRole = new SysUserRole();
+                    sysUserRole.setUserId(userId);
+                    sysUserRole.setRoleId(sysRole.getRoleId());
+                    sysUserRole.setStatus(1);
+                    sysUserRoleMapper.insert(sysUserRole);
+                }
+            }
+        }
     }
 }
