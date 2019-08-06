@@ -2,14 +2,12 @@ package io.github.forezp.aop;
 
 
 import io.github.forezp.common.constant.ApiConstants;
-import io.github.forezp.common.util.HttpUtils;
-import io.github.forezp.common.util.JWTUtils;
-import io.github.forezp.modules.system.entity.SysLog;
+
 import io.github.forezp.modules.system.service.SysLogService;
 import io.github.forezp.permission.auth.RequestHolder;
-import io.github.forezp.permission.whiteurl.WhiteUrlFinder;
+
 import io.github.forezp.scrorpio.time.ClockUtil;
-import io.jsonwebtoken.Claims;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
@@ -20,8 +18,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
+
 import java.util.UUID;
 
 import static io.github.forezp.common.constant.CommonConstants.AURHORIZATION;

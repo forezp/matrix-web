@@ -6,16 +6,15 @@ package io.github.forezp.common.exception;
  */
 public enum ErrorCode {
 
-    OK( 0, "" ),
-    FAIL( -1, "操作失败" ),
-    ERROR_ARGS( 1002, "参数不符合要求" ),
+    OK(0, ""),
+    FAIL(-1, "操作失败"),
+    NO_PERMISSION(401, "该用户没有权限"),
+    ERROR_ARGS(1002, "参数不符合要求"),
     USER_NOT_EXIST(1003, "该用户不存在"),
-    PWD_ERROR(1004,"用户密码错误"),
-    TOKEN_ISNULL(1005,"用户的token为空"),
-    INSERT_DATA_FAIL(1006,"插入数据失败"),
-    DELETE_DATA_FAIL(1007,"删除数据失败")
-    ;
-
+    PWD_ERROR(1004, "用户密码错误"),
+    TOKEN_ISNULL(1005, "用户的token为空"),
+    INSERT_DATA_FAIL(1006, "插入数据失败"),
+    DELETE_DATA_FAIL(1007, "删除数据失败");
 
 
     private int code;

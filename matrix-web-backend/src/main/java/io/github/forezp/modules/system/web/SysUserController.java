@@ -16,6 +16,7 @@ import io.github.forezp.modules.system.service.SysMenuService;
 import io.github.forezp.modules.system.service.SysUserService;
 
 import io.github.forezp.modules.system.vo.domain.SysUserAddDomain;
+import io.github.forezp.permission.HasPermission;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,6 +156,7 @@ public class SysUserController {
     }
 
     @PostMapping("/roles")
+    @HasPermission(hasRole = "ROLE_A")
     public RespDTO userSetRoles(@RequestParam String userId, @RequestParam String roleIds) {
         if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(roleIds)) {
             throw new AriesException(ERROR_ARGS);

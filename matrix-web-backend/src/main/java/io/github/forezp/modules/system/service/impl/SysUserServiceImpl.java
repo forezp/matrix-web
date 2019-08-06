@@ -134,7 +134,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public void setUserRoles(String userId, String roleId) {
-        String[] ids = roleId.split(DOT);
+        String[] ids = roleId.split(COMMA);
         for (String id : ids) {
             SysRole sysRole = sysRoleMapper.selectById(id);
             if (sysRole != null) {

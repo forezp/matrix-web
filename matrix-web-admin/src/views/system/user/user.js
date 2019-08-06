@@ -276,10 +276,17 @@ export default {
       setRole(data).then(response => {
         this.roleDialog.visible = false
         this.fetchData()
-        this.$message({
-          message: '提交成功',
-          type: 'success'
-        })
+        if (response.code !== 0 ){
+          this.$message({
+            message: response.message,
+            type: 'warning'
+          })
+        }else {
+          this.$message({
+            message: '提交成功',
+            type: 'success'
+          })
+        }
       })
     }
 

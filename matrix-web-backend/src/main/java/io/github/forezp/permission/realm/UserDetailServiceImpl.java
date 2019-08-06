@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 public class UserDetailServiceImpl implements UserDetailService {
 
     @Autowired
+    UserPermissonService userPermissonService;
 
     @Override
     public UserDetail getUserDetail(String userId) {
-        return null;
+        return userPermissonService.getUserRolePerssion(userId);
     }
 }
