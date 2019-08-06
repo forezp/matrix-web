@@ -1,4 +1,4 @@
-package io.github.forezp.common.cache;
+package io.github.forezp.common.cache.redis;
 
 import java.util.List;
 

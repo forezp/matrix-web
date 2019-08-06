@@ -5,7 +5,7 @@ import java.util.List;
 public interface UserDetail {
 
 
-    List<String> getRoles();
+    List<String> getUserRoles();
 
-    List<String> getPermissions();
+    List<String> getUserPermissions();
 }

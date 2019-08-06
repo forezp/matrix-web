@@ -27,6 +27,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
                                @Param("realname") String realname);
 
 
+    SysUser selectUserRolePermission(@Param("userId") String userId);
 
 
 }

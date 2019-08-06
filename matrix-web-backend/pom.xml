@@ -33,9 +33,17 @@
 		<freemaker.version>2.3.23</freemaker.version>
 		<jjwt.version>0.7.0</jjwt.version>
 		<lombok.version>1.16.18</lombok.version>
+		<caffeine.version>2.6.2</caffeine.version>
 	</properties>
 
 	<dependencies>
+
+
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>${caffeine.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>

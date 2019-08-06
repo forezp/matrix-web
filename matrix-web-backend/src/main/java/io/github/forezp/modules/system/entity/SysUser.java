@@ -2,10 +2,12 @@ package io.github.forezp.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.github.forezp.common.base.BaseEntity;
+import io.github.forezp.permission.realm.UserDetail;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +21,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class SysUser extends BaseEntity {
+public class SysUser extends BaseEntity implements UserDetail {
 
     private static final long serialVersionUID = 1L;
 
@@ -81,4 +83,29 @@ public class SysUser extends BaseEntity {
     private List<SysMenu> menus;
 
 
+    @Override
+    public List<String> getUserRoles() {
+        if (roles == null || roles.size() == 0) {
+            return null;
+        }
+        List<String> roles = new ArrayList<>();
+        for (SysRole sysRole : this.roles) {
+            String role = sysRole.getRoleId();
+            roles.add(role);
+        }
+        return roles;
+    }
+
+    @Override
+    public List<String> getUserPermissions() {
+        if (menus == null || menus.size() == 0) {
+            return null;
+        }
+        List<String> menus = new ArrayList<>();
+        for (SysMenu sysMenu : this.menus) {
+            String menu = sysMenu.getCode();
+            menus.add(menu);
+        }
+        return menus;
+    }
 }

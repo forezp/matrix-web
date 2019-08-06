@@ -1,4 +1,4 @@
-package io.github.forezp.common.cache;
+package io.github.forezp.common.cache.redis;
 
 
 
@@ -14,7 +14,7 @@ import java.util.Set;
  * Created by forezp on 2017/10/18.
  */
 
-public  abstract class BaseCache<T> implements IBaseCache<T> {
+public  abstract class AbstratcRedisCache<T> implements IBaseCache<T> {
 
     @Autowired
     RedisTemplater redisTemper;
