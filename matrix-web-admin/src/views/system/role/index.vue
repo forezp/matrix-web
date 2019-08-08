@@ -2,7 +2,10 @@
   <div class="app-container">
     <div class="block">
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :span="4">
+          <el-input v-model="listQuery.roleId" placeholder="请输入角色编码"></el-input>
+        </el-col>
+        <el-col :span="4">
           <el-input v-model="listQuery.name" placeholder="请输入角色名称"></el-input>
         </el-col>
         <el-col :span="6">
@@ -25,24 +28,24 @@
     <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row
               @current-change="handleCurrentChange">
 
+      <el-table-column label="编码">
+        <template slot-scope="scope">
+          {{scope.row.roleId}}
+        </template>
+      </el-table-column>
       <el-table-column label="名称">
         <template slot-scope="scope">
           {{scope.row.name}}
         </template>
       </el-table-column>
-      <el-table-column label="编码">
+      <el-table-column label="状态">
         <template slot-scope="scope">
-          {{scope.row.tips}}
+          {{scope.row.status}}
         </template>
       </el-table-column>
-      <el-table-column label="所在部门">
+      <el-table-column label="创建时间">
         <template slot-scope="scope">
-          {{scope.row.deptName}}
-        </template>
-      </el-table-column>
-      <el-table-column label="上级角色">
-        <template slot-scope="scope">
-          {{scope.row.pName}}
+          {{scope.row.createTime}}
         </template>
       </el-table-column>
 

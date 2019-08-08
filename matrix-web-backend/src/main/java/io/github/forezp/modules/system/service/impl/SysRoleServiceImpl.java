@@ -1,6 +1,9 @@
 package io.github.forezp.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.util.BeanUtils;
 import io.github.forezp.modules.system.entity.SysRole;
 import io.github.forezp.modules.system.entity.SysUserRole;
@@ -31,6 +34,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Autowired
     SysUserRoleMapper sysUserRoleMapper;
 
+    @Autowired
+    SysRoleMapper sysRoleMapper;
+
     @Override
     public SysUserRoleDTO getUserRoleDTO(String userId) {
 
@@ -60,4 +66,20 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         sysUserRoleDTO.setSelectIds(selectIds);
         return sysUserRoleDTO;
     }
+
+    @Override
+    public PageResultsDTO searchRolePage(int page, int pageSize, String roleId, String name) {
+        Page<SysRole> sysRolePage = new Page<>(page, pageSize);
+        IPage<SysRole> sysUserIPage = sysRoleMapper.searchRolePage(sysRolePage, roleId, name);
+        PageResultsDTO result = new PageResultsDTO(page, pageSize);
+        result.setTotalCount(sysUserIPage.getTotal());
+        result.setTotalPage((int) sysUserIPage.getTotal(), pageSize);
+        List<SysRole> records = sysUserIPage.getRecords();
+        result.setList(records);
+        return result;
+    }
+
+
+
+
 }

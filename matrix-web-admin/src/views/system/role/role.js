@@ -57,7 +57,10 @@ export default {
         ]
       },
       listQuery: {
-        name: undefined
+        name: undefined,
+        page: 1,
+        pageSize: 10,
+        roleId: ''
       },
       total: 0,
       list: null,
@@ -88,10 +91,9 @@ export default {
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        console.log(response.data)
-        this.list = response.data
+        this.list = response.data.list
         this.listLoading = false
-        this.total = response.data.total
+        this.total = response.data.totalCount
       })
     },
     search() {
@@ -117,7 +119,7 @@ export default {
       this.fetchData()
     },
     changeSize(limit) {
-      this.listQuery.limit = limit
+      this.listQuery.pageSize = limit
       this.fetchData()
     },
     handleCurrentChange(currentRow, oldCurrentRow) {

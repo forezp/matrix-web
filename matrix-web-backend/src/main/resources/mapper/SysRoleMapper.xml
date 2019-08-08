@@ -25,4 +25,20 @@
         role_id, name, type, remarks, status, create_by
     </sql>
 
+    <select id="searchRolePage" resultMap="BaseResultMap">
+
+        select <include refid="Base_Column_List"></include>
+        from sys_role
+
+        <where>
+            <if test="roleId != null and roleId!='' ">
+                role_id = #{roleId}
+            </if>
+
+            <if test="name != null and name!='' ">
+                AND name = #{name}
+            </if>
+        </where>
+    </select>
+
 </mapper>

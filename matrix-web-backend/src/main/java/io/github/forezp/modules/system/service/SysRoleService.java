@@ -1,9 +1,12 @@
 package io.github.forezp.modules.system.service;
 
+import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.modules.system.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.github.forezp.modules.system.vo.dto.SysUserRoleDTO;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,6 @@ public interface SysRoleService extends IService<SysRole> {
 
 
     SysUserRoleDTO getUserRoleDTO(String userId);
+
+    PageResultsDTO searchRolePage(int page, int pageSize, String userid, String realname);
 }
