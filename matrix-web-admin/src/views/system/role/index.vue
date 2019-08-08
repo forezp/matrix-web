@@ -2,10 +2,10 @@
   <div class="app-container">
     <div class="block">
       <el-row :gutter="20">
-        <el-col :span="4">
+        <el-col :span="6">
           <el-input v-model="listQuery.roleId" placeholder="请输入角色编码"></el-input>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="6">
           <el-input v-model="listQuery.name" placeholder="请输入角色名称"></el-input>
         </el-col>
         <el-col :span="6">
@@ -71,8 +71,8 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="编码" prop="tips">
-              <el-input v-model="form.tips" minlength=1></el-input>
+            <el-form-item label="编码" prop="roleId">
+              <el-input v-model="form.roleId" minlength=1></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -80,53 +80,6 @@
               <el-input v-model="form.name" minlength=1></el-input>
             </el-form-item>
           </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="上级角色">
-              <el-input
-                placeholder="请选择上级角色"
-                v-model="form.pName"
-                readonly="readonly"
-                @click.native="roleTree.show = !roleTree.show">
-              </el-input>
-              <el-tree v-if="roleTree.show"
-                       empty-text="暂无数据"
-                       :expand-on-click-node="false"
-                       :data="list"
-                       :props="roleTree.defaultProps"
-                       @node-click="handleRoleNodeClick"
-                       class="input-tree">
-              </el-tree>
-
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="排序">
-              <el-input v-model="form.num" type="number"></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="所在部门">
-              <el-input
-                placeholder="请选择所在部门"
-                v-model="form.deptName"
-                readonly="readonly"
-                @click.native="deptTree.show = !deptTree.show">
-              </el-input>
-              <el-tree v-if="deptTree.show"
-                       empty-text="暂无数据"
-                       :expand-on-click-node="false"
-                       :data="deptList"
-                       :props="deptTree.defaultProps"
-                       @node-click="handleDeptNodeClick"
-                       class="input-tree">
-              </el-tree>
-
-            </el-form-item>
-          </el-col>
-
-
         </el-row>
         <el-form-item>
           <el-button type="primary" @click="save">{{ $t('button.submit') }}</el-button>

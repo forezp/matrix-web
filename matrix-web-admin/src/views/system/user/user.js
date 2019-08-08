@@ -276,7 +276,7 @@ export default {
       setRole(data).then(response => {
         this.roleDialog.visible = false
         this.fetchData()
-        if (response.code !== 0 ){
+        if (response.code !== 0){
           this.$message({
             message: response.message,
             type: 'warning'

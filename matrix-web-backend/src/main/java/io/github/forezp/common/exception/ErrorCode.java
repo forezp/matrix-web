@@ -14,6 +14,7 @@ public enum ErrorCode {
     PWD_ERROR(1004, "用户密码错误"),
     TOKEN_ISNULL(1005, "用户的token为空"),
     INSERT_DATA_FAIL(1006, "插入数据失败"),
+    INSERT_DATA_EXIST(1008,"插入的数据已经存在"),
     DELETE_DATA_FAIL(1007, "删除数据失败");
 
 

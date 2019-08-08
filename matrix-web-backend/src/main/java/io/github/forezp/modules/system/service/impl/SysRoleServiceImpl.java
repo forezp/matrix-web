@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.forezp.common.dto.PageResultsDTO;
+import io.github.forezp.common.exception.AriesException;
+import io.github.forezp.common.exception.ErrorCode;
 import io.github.forezp.common.util.BeanUtils;
 import io.github.forezp.modules.system.entity.SysRole;
 import io.github.forezp.modules.system.entity.SysUserRole;
@@ -79,7 +81,19 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return result;
     }
 
-
+    @Override
+    public Boolean saveRole(String roleId, String name) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("role_id", roleId);
+        SysRole sysRoleDb = sysRoleMapper.selectOne(queryWrapper);
+        if (sysRoleDb != null) {
+            throw new AriesException(ErrorCode.INSERT_DATA_EXIST);
+        }
+        SysRole sysRole = new SysRole();
+        sysRole.setName(name);
+        sysRole.setRoleId(roleId);
+        return sysRoleMapper.insert(sysRole) == 1 ? true : false;
+    }
 
 
 }

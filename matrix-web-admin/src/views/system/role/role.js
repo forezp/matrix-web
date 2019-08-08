@@ -36,18 +36,12 @@ export default {
       },
 
       form: {
-        tips: '',
+        roleId: '',
         name: '',
-        deptid: '',
-        pid: 0,
-        id: '',
-        version: '',
-        deptName: '',
-        pName: '',
-        num: 1
+        id: ''
       },
       rules: {
-        tips: [
+        roleId: [
           { required: true, message: '请输入角色编码', trigger: 'blur' },
           { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
         ],
@@ -127,16 +121,8 @@ export default {
     },
     resetForm() {
       this.form = {
-        tips: '',
-        name: '',
-        deptid: '',
-        pid: 0,
-        id: '',
-        version: '',
-        deptName: '',
-        pName: '',
-        num: 1
-
+        roleId: '',
+        name: ''
       }
     },
     add() {
@@ -149,12 +135,8 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           save({
-            id: this.form.id,
-            num: this.form.num,
-            deptid: this.form.deptid,
-            pid: this.form.pid,
-            name: this.form.name,
-            tips: this.form.tips
+            roleId: this.form.roleId,
+            name: this.form.name
           }).then(response => {
             this.$message({
               message: '提交成功',
@@ -183,8 +165,9 @@ export default {
       if (this.checkSel()) {
         this.isAdd = false
         this.form = this.selRow
-        this.form.status = this.selRow.statusName === '启用'
-        this.form.password = ''
+        this.form.statusName = this.selRow.statusName === '启用'
+        this.form.roleId = this.selRow.roleId
+        this.form.name = this.selRow.name
         this.formTitle = '修改角色'
         this.formVisible = true
       }

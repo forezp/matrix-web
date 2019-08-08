@@ -156,7 +156,7 @@ public class SysUserController {
     }
 
     @PostMapping("/roles")
-    @HasPermission(hasRole = "ROLE_A")
+    @HasPermission(hasRole = "ROLE_ADMIN")
     public RespDTO userSetRoles(@RequestParam String userId, @RequestParam String roleIds) {
         if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(roleIds)) {
             throw new AriesException(ERROR_ARGS);

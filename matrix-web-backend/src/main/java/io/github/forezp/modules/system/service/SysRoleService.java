@@ -22,4 +22,6 @@ public interface SysRoleService extends IService<SysRole> {
     SysUserRoleDTO getUserRoleDTO(String userId);
 
     PageResultsDTO searchRolePage(int page, int pageSize, String userid, String realname);
+
+    Boolean saveRole(String roleId, String name);
 }
