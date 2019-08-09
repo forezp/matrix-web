@@ -44,7 +44,9 @@ public class MysqlGenerator {
 //        throw new MybatisPlusException("请输入正确的" + tip + "！");
 //    }
 
-   public static String[] tableNames={"sys_user_org"};
+   public static String[] tableNames={"QRTZ_CRON_TRIGGERS","qrtz_triggers_info","qrtz_triggers_group","qrtz_triggers_history"};
+
+   public static String packageName="io.github.forezp.modules.task";
     /**
      * RUN THIS
      */
@@ -79,7 +81,7 @@ public class MysqlGenerator {
         // 包配置s
         PackageConfig pc = new PackageConfig();
 //        pc.setModuleName(scanner("模块名"));
-        pc.setParent("io.github.forezp.modules.system");
+        pc.setParent(packageName);
         pc.setController("controller");
         pc.setEntity("entity");
         mpg.setPackageInfo(pc);

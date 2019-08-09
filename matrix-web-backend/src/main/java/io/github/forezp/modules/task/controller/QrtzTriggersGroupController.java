@@ -1,4 +1,4 @@
-package io.github.forezp.modules.system.controller;
+package io.github.forezp.modules.task.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
  * </p>
  *
  * @author forezp
- * @since 2019-07-31
+ * @since 2019-08-09
  */
 @Controller
-@RequestMapping("/sys-user-org")
-public class SysUserOrgController {
+@RequestMapping("/qrtz-triggers-group")
+public class QrtzTriggersGroupController {
 
 }

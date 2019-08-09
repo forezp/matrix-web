@@ -1,4 +1,4 @@
-package io.github.forezp.modules.system.entity;
+package io.github.forezp.modules.task.entity;
 
 import io.github.forezp.common.base.BaseEntity;
 import lombok.Data;
@@ -11,34 +11,24 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author forezp
- * @since 2019-07-31
+ * @since 2019-08-09
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class SysUserOrg extends BaseEntity {
+public class QrtzTriggersInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 用户编号
-     */
-    private String userId;
+    private String triggerName;
 
-    /**
-     * 组织编号
-     */
-    private String orgId;
+    private String groupId;
 
-    /**
-     * 备注
-     */
+    private String triggerSimpleName;
+
     private String remarks;
 
-    /**
-     * 状态
-     */
-    private Integer status;
+    private String status;
 
 
 }

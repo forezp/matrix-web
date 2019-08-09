@@ -13,7 +13,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 
 @SpringBootApplication
-@MapperScan("io.github.forezp.modules.system.mapper")
+@MapperScan({"io.github.forezp.modules.system.mapper","io.github.forezp.modules.task.mapper"})
 public class AriesApplication extends SpringBootServletInitializer {
 
 
