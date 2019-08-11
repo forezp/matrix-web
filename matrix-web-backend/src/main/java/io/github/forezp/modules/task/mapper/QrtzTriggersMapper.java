@@ -1,6 +1,6 @@
 package io.github.forezp.modules.task.mapper;
 
-import io.github.forezp.modules.task.entity.QrtzTriggersInfo;
+import io.github.forezp.modules.task.entity.QrtzTriggers;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author forezp
- * @since 2019-08-09
+ * @since 2019-08-11
  */
-public interface QrtzTriggersInfoMapper extends BaseMapper<QrtzTriggersInfo> {
+public interface QrtzTriggersMapper extends BaseMapper<QrtzTriggers> {
 
 }

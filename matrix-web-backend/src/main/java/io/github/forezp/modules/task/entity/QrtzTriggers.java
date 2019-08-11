@@ -1,6 +1,6 @@
 package io.github.forezp.modules.task.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
+import java.sql.Blob;
 import io.github.forezp.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,12 +12,12 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author forezp
- * @since 2019-08-09
+ * @since 2019-08-11
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class QrtzCronTriggers extends BaseEntity {
+public class QrtzTriggers extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,19 +27,31 @@ public class QrtzCronTriggers extends BaseEntity {
 
     private String triggerGroup;
 
-    private String cronExpression;
+    private String jobName;
 
-    private String timeZoneId;
-    @TableField(exist = false)
+    private String jobGroup;
+
+    private String description;
+
     private Long nextFireTime;
-    @TableField(exist = false)
+
     private Long prevFireTime;
-    @TableField(exist = false)
+
+    private Integer priority;
+
     private String triggerState;
-    @TableField(exist = false)
-    private String triggerSimpleName;
-    @TableField(exist = false)
-    private String status;
+
+    private String triggerType;
+
+    private Long startTime;
+
+    private Long endTime;
+
+    private String calendarName;
+
+    private Integer misfireInstr;
+
+    private Object jobData;
 
 
 }

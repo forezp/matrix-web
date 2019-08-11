@@ -4,16 +4,41 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="io.github.forezp.modules.task.entity.QrtzCronTriggers">
-        <id column="SCHED_NAME" property="schedName" />
-        <result column="TRIGGER_NAME" property="triggerName" />
-        <result column="TRIGGER_GROUP" property="triggerGroup" />
-        <result column="CRON_EXPRESSION" property="cronExpression" />
-        <result column="TIME_ZONE_ID" property="timeZoneId" />
+        <id column="SCHED_NAME" property="schedName"/>
+        <result column="TRIGGER_NAME" property="triggerName"/>
+        <result column="TRIGGER_GROUP" property="triggerGroup"/>
+        <result column="CRON_EXPRESSION" property="cronExpression"/>
+        <result column="TIME_ZONE_ID" property="timeZoneId"/>
+        <result column="NEXT_FIRE_TIME" property="nextFireTime"/>
+        <result column="PREV_FIRE_TIME" property="prevFireTime"/>
+        <result column="TRIGGER_STATE" property="triggerState"/>
+        <result column="trigger_simple_name" property="triggerSimpleName"/>
+        <result column="status" property="status"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP, CRON_EXPRESSION, TIME_ZONE_ID
     </sql>
+
+    <select id="getQrtzCronTriggersPagelist" resultMap="BaseResultMap">
+        select a.SCHED_NAME as SCHED_NAME,a.TRIGGER_NAME as TRIGGER_NAME,a.TRIGGER_GROUP as TRIGGER_GROUP,
+        a.CRON_EXPRESSION as CRON_EXPRESSION,a.TIME_ZONE_ID ,b.NEXT_FIRE_TIME as NEXT_FIRE_TIME,
+        b.PREV_FIRE_TIME as PREV_FIRE_TIME,b.TRIGGER_STATE as TRIGGER_STATE,c.trigger_simple_name as trigger_simple_name,
+        c.status as status from QRTZ_CRON_TRIGGERS a
+        left join QRTZ_TRIGGERS b on (a.TRIGGER_NAME=b.TRIGGER_NAME and a.TRIGGER_GROUP=b.TRIGGER_GROUP)
+        left join qrtz_triggers_info c on (a.TRIGGER_NAME=c.trigger_name and a.TRIGGER_GROUP=c.group_id)
+
+        <where>
+            <if test="groupId != null and groupId!='' ">
+                a.TRIGGER_GROUP = #{groupId}
+            </if>
+
+            <if test="triggerName != null and triggerName!='' ">
+                AND a.TRIGGER_NAME = #{triggerName}
+            </if>
+        </where>
+
+    </select>
 
 </mapper>

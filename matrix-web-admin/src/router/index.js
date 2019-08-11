@@ -102,7 +102,13 @@ export const asyncRouterMap = [
         path: 'task',
         name: 'Task',
         component: () => import('@/views/system/task/index'),
-        meta: { title: 'taskMgr' },
+        meta: { title: 'taskMgr' }
+      },
+      {
+        path: 'taskGroup',
+        name: 'TaskGroup',
+        component: () => import('@/views/system/taskgroup/index'),
+        meta: { title: 'taskGroupMgr' }
       },
       {
         path: 'taskLog',

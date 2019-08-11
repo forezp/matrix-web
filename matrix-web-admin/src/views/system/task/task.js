@@ -1,4 +1,4 @@
-import { remove, getList, save, disable, enable } from '@/api/system/task'
+import {remove, getList, save, disable, enable} from '@/api/system/task'
 
 export default {
   data() {
@@ -7,6 +7,10 @@ export default {
       formTitle: '添加任务',
       deptList: [],
       isAdd: true,
+      combineId: {
+        taskClassName: '',
+        taskGroupId: ''
+      },
       form: {
         id: '',
         name: '',
@@ -30,7 +34,10 @@ export default {
 
       },
       listQuery: {
-        name: undefined
+        taskClassName: undefined,
+        taskGroupId: undefined,
+        page: 1,
+        pageSize: 10
       },
       total: 0,
       list: null,
@@ -58,7 +65,7 @@ export default {
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        this.list = response.data
+        this.list = response.data.list
         this.listLoading = false
       })
     },
@@ -114,7 +121,7 @@ export default {
       })
     },
     checkSel() {
-      if (this.selRow && this.selRow.id) {
+      if (this.selRow && this.selRow.triggerName && this.selRow.triggerGroup) {
         return true
       }
       this.$message({
@@ -156,7 +163,7 @@ export default {
       })
     },
     viewLog(taskId) {
-      this.$router.push({ path: '/system/taskLog', query: { taskId: taskId }})
+      this.$router.push({path: '/system/taskLog', query: {taskId: taskId}})
     },
     edit() {
       if (this.checkSel()) {
@@ -168,13 +175,14 @@ export default {
     },
     remove() {
       if (this.checkSel()) {
-        var id = this.selRow.id
+        this.combineId.taskClassName = this.selRow.triggerName
+        this.combineId.taskGroupId = this.selRow.triggerGroup
         this.$confirm('确定删除该记录?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          remove(id).then(response => {
+          remove(this.combineId).then(response => {
             this.$message({
               message: '操作成功',
               type: 'success'

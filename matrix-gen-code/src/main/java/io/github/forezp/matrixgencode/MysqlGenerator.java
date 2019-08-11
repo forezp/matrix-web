@@ -44,7 +44,7 @@ public class MysqlGenerator {
 //        throw new MybatisPlusException("请输入正确的" + tip + "！");
 //    }
 
-   public static String[] tableNames={"QRTZ_CRON_TRIGGERS","qrtz_triggers_info","qrtz_triggers_group","qrtz_triggers_history"};
+   public static String[] tableNames={"QRTZ_TRIGGERS"};
 
    public static String packageName="io.github.forezp.modules.task";
     /**

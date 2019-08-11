@@ -4,6 +4,7 @@ package io.github.forezp.modules.task.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Controller;
  * @author forezp
  * @since 2019-08-09
  */
-@Controller
+@RestController
 @RequestMapping("/qrtz-triggers-history")
 public class QrtzTriggersHistoryController {
 

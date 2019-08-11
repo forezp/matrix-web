@@ -23,7 +23,7 @@ export default {
       },
       listQuery: {
         page: 1,
-        pageSize: 20,
+        pageSize: 10,
         beginTime: undefined,
         endTime: undefined,
         createBy: undefined,

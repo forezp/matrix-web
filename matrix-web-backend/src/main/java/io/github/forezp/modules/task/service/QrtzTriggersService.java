@@ -1,6 +1,6 @@
 package io.github.forezp.modules.task.service;
 
-import io.github.forezp.modules.task.entity.QrtzTriggersGroup;
+import io.github.forezp.modules.task.entity.QrtzTriggers;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author forezp
- * @since 2019-08-09
+ * @since 2019-08-11
  */
-public interface QrtzTriggersGroupService extends IService<QrtzTriggersGroup> {
+public interface QrtzTriggersService extends IService<QrtzTriggers> {
 
 }

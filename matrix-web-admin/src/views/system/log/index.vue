@@ -94,7 +94,7 @@
       background
       layout="total, sizes, prev, pager, next, jumper"
       :page-sizes="[10, 20, 50, 100,500]"
-      :page-size="listQuery.limit"
+      :page-size="listQuery.pageSize"
       :total="totalCount"
       @size-change="changeSize"
       @current-change="fetchPage"

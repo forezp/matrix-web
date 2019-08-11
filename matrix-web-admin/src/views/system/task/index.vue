@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-row  :gutter="20">
+      <el-row :gutter="20">
         <el-col :span="6">
           <el-input v-model="listQuery.name" placeholder="请输入任务名"></el-input>
         </el-col>
@@ -22,47 +22,58 @@
 
 
     <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row
-    @current-change="handleCurrentChange">
+              @current-change="handleCurrentChange">
+      <el-table-column label="任务分片">
+        <template slot-scope="scope">
+          {{scope.row.schedName}}
+        </template>
+      </el-table-column>
       <el-table-column label="任务名">
         <template slot-scope="scope">
-          {{scope.row.name}}
+          {{scope.row.triggerSimpleName}}
         </template>
       </el-table-column>
       <el-table-column label="执行类" width="300">
         <template slot-scope="scope">
-          {{scope.row.jobClass}}
+          {{scope.row.triggerName}}
         </template>
       </el-table-column>
-      <el-table-column label="定时规则">
+      <el-table-column label="任务分组">
         <template slot-scope="scope">
-          {{scope.row.cron}}
+          {{scope.row.triggerGroup}}
         </template>
       </el-table-column>
 
-      <el-table-column label="说明">
+      <el-table-column label="任务表达式">
         <template slot-scope="scope">
-          {{scope.row.note}}
+          {{scope.row.cronExpression}}
         </template>
       </el-table-column>
 
       <el-table-column label="最近执行时间">
         <template slot-scope="scope">
-          {{scope.row.execAt}}
+          {{scope.row.prevFireTime}}
         </template>
       </el-table-column>
 
-      <el-table-column label="最近执行结果">
+      <el-table-column label="任务下次执行时间">
         <template slot-scope="scope">
-          {{scope.row.execResult}}
+          {{scope.row.nextFireTime}}
+        </template>
+      </el-table-column>
+      <el-table-column label="任务状态">
+        <template slot-scope="scope">
+          {{scope.row.triggerState}}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
-        <el-button icon="el-icon-log" size="mini" @click.native="viewLog(scope.row.id)">查看日志</el-button>
           <el-button type="success" icon="el-icon-log" size="mini" @click.native="enable(scope.row.id)"
-                     v-if="scope.row.disabled===true">启用</el-button>
+                     v-if="scope.row.triggerState=='ERROR'">恢复
+          </el-button>
           <el-button type="danger" icon="el-icon-log" size="mini" @click.native="disable(scope.row.id)"
-                     v-if="scope.row.disabled===false">禁用</el-button>
+                     v-if="scope.row.triggerState=='NORMAL'">暂停
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

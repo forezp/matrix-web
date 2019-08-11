@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getList(params) {
   return request({
-    url: '/task/list',
+    url: '/task/pagelist',
     method: 'get',
     params
   })
@@ -51,5 +51,29 @@ export function disable(id) {
     params: {
       taskId: id
     }
+  })
+}
+
+export function addTaskGroup(params) {
+  return request({
+    url: '/task-group',
+    method: 'post',
+    params
+  })
+}
+
+export function updateTaskGroup(params) {
+  return request({
+    url: '/task-group',
+    method: 'put',
+    params
+  })
+}
+
+export function taskGroupList(params) {
+  return request({
+    url: '/task-group/pagelist',
+    method: 'get',
+    params
   })
 }
