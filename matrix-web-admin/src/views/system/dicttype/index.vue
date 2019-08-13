@@ -54,8 +54,8 @@
       :visible.sync="formVisible"
       width="60%">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="分类ID" prop="typeId">
-          <el-input v-model="form.typeId"  minlength=1></el-input>
+        <el-form-item label="分类ID" prop="typeId" >
+          <el-input v-model="form.typeId"  minlength=1 :disabled="!isAdd"></el-input>
         </el-form-item>
         <el-form-item label="分类名称" prop="typeName">
           <el-input v-model="form.typeName"  minlength=1></el-input>
@@ -66,11 +66,8 @@
         <el-form-item label="备注" prop="remarks">
           <el-input v-model="form.remarks"  minlength=1></el-input>
         </el-form-item>
-
-
         <el-form-item>
           <el-button type="primary" @click="save">{{ $t('button.submit') }}</el-button>
-          <el-button @click="addDetail">新增字典</el-button>
           <el-button @click.native="formVisible = false">{{ $t('button.cancel') }}</el-button>
         </el-form-item>
       </el-form>

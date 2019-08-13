@@ -41,7 +41,7 @@ public class SysDictTypeController {
     }
 
     @DeleteMapping("/{id}")
-    public RespDTO deletDiceType(@PathVariable("id") Long id){
+    public RespDTO deletDiceType(@PathVariable(value = "id") Long id) {
         sysDictTypeService.deleteDictType(id);
         return RespDTO.onSuc(null);
     }

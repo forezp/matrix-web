@@ -1,5 +1,6 @@
 package io.github.forezp.modules.system.service;
 
+import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.modules.system.entity.SysDict;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysDictService extends IService<SysDict> {
 
+    Boolean addDict(SysDict sysDict);
+
+    Boolean updateDict(Long id, SysDict sysDict);
+
+    Boolean deleteDict(Long id);
+
+    PageResultsDTO selectPage(int page, int pageSize, String codeId, String codeName, String typeId, String typeName);
 }

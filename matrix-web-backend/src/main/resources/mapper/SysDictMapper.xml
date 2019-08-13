@@ -28,4 +28,22 @@
         code_id, code_name, type_id, type_name, sort, remarks, status
     </sql>
 
+    <select id="selectPageSysLog" resultType="io.github.forezp.modules.system.entity.SysDictType">
+        SELECT <include refid="Base_Column_List"></include> from sys_dict
+        <where>
+            <if test="codeId != null and codeId!='' ">
+                code_id = #{codeId}
+            </if>
+            <if test="codeName != null and codeName!='' ">
+                code_name = #{codeName}
+            </if>
+            <if test="typeId != null and typeId!='' ">
+                type_id = #{typeId}
+            </if>
+            <if test="typeName != null and typeName!='' ">
+                AND type_name = #{typeName}
+            </if>
+        </where>
+    </select>
+
 </mapper>

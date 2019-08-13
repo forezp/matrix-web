@@ -31,6 +31,7 @@ export default {
         pageSize: 10
       },
       list: null,
+      totalCount: undefined,
       listLoading: true,
       selRow: {}
     }
@@ -57,6 +58,7 @@ export default {
       getList(this.listQuery).then(response => {
         this.list = response.data.list
         this.listLoading = false
+        this.totalCount=response.data.totalCount
       }).catch(() => {
       })
     },
@@ -64,7 +66,8 @@ export default {
       this.fetchData()
     },
     reset() {
-      this.listQuery.name = ''
+      this.listQuery.typeId = ''
+      this.listQuery.typeName = ''
       this.fetchData()
     },
     handleFilter() {
@@ -97,12 +100,13 @@ export default {
       var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
+          var id=self.form.id
           var typeId = self.form.typeId
           var typeName = self.form.typeName
           var typeDescribe = self.form.typeDescribe
           var remarks = self.form.remarks
           if (this.form.id !== '') {
-            update({id: self.form.id, dictName: dictName, dictValues: dictValues}).then(response => {
+            update({id: id, typeName: typeName,typeDescribe: typeDescribe,remarks: remarks }).then(response => {
               this.$message({
                 message: '提交成功',
                 type: 'success'
@@ -138,14 +142,8 @@ export default {
     edit() {
       if (this.checkSel()) {
         this.isAdd = false
+        this.form=this.selRow
         this.formTitle = '修改字典'
-        var detail = this.selRow.detail.split(',')
-        var details = []
-        detail.forEach(function (val, index) {
-          var arr = val.split(':')
-          details.push({'key': arr[0], 'value': arr[1]})
-        })
-        this.form = {name: this.selRow.name, id: this.selRow.id, details: details, detail: this.selRow.detail}
         this.formVisible = true
       }
     },

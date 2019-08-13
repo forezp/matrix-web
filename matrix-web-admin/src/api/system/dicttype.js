@@ -27,7 +27,7 @@ export function update(params) {
 
 export function remove(id) {
   return request({
-    url: `/disys-dict-typect/${id}`,
+    url: `/sys-dict-type/${id}`,
     method: 'delete',
     params: {
       id:id
