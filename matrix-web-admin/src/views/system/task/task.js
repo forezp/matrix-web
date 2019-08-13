@@ -1,35 +1,39 @@
-import {remove, getList, save, disable, enable} from '@/api/system/task'
+import {remove, getList, save, pauseTask, resumeTask, taskGroupList} from '@/api/system/task'
 
 export default {
   data() {
     return {
       formVisible: false,
       formTitle: '添加任务',
-      deptList: [],
+      groupData: null,
       isAdd: true,
       combineId: {
         taskClassName: '',
         taskGroupId: ''
       },
+      defaultProps: {
+        label: 'groupName',
+        children: 'children'
+      },
+      showTree: false,
       form: {
         id: '',
-        name: '',
-        jobClass: '',
-        cron: '',
-        note: '',
-        disabled: true,
-        data: ''
+        taskName: '',
+        taskClassName: '',
+        taskGroupId: '',
+        cronExpression: '',
+        taskGroupName: ''
       },
       rules: {
         name: [
-          { required: true, message: '请输入任务名', trigger: 'blur' },
-          { min: 2, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+          {required: true, message: '请输入任务名', trigger: 'blur'},
+          {min: 2, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
         ],
         jobClass: [
-          { required: true, message: '请输入执行类', trigger: 'blur' }
+          {required: true, message: '请输入执行类', trigger: 'blur'}
         ],
         cron: [
-          { required: true, message: '请输入定时规则', trigger: 'blur' }
+          {required: true, message: '请输入定时规则', trigger: 'blur'}
         ]
 
       },
@@ -38,6 +42,10 @@ export default {
         taskGroupId: undefined,
         page: 1,
         pageSize: 10
+      },
+      groupListQuery: {
+        page: 1,
+        pageSize: 100
       },
       total: 0,
       list: null,
@@ -61,12 +69,18 @@ export default {
   methods: {
     init() {
       this.fetchData()
+      this.fetchGroupData()
     },
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
         this.list = response.data.list
         this.listLoading = false
+      })
+    },
+    fetchGroupData() {
+      taskGroupList(this.groupListQuery).then(response => {
+        this.groupData = response.data.list
       })
     },
     search() {
@@ -83,6 +97,12 @@ export default {
     handleClose() {
 
     },
+    handleNodeClick(data, node) {
+      console.log(data)
+      this.form.taskGroupId = data.groupId
+      this.form.taskGroupName = data.groupName
+      this.showTree = false
+    },
     handleCurrentChange(currentRow, oldCurrentRow) {
       this.selRow = currentRow
     },
@@ -95,17 +115,47 @@ export default {
       this.formVisible = true
       this.isAdd = true
     },
+    saveOrUpdate(){
+      if(this.isAdd){
+        this.add()
+      }else {
+        this.update()
+      }
+    },
+    update(){
+      var self = this
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          save({
+            id: self.form.id,
+            taskName: self.form.taskName,
+            taskClassName: self.form.taskClassName,
+            taskGroupId: self.form.taskGroupId,
+            cronExpression: self.form.cronExpression,
+          }).then(response => {
+            console.log(response)
+            this.$message({
+              message: '更新成功',
+              type: 'success'
+            })
+            this.fetchData()
+            this.formVisible = false
+          })
+        } else {
+          return false
+        }
+      })
+    },
     save() {
       var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
           save({
             id: self.form.id,
-            name: self.form.name,
-            jobClass: self.form.jobClass,
-            cron: self.form.cron,
-            data: self.form.data,
-            note: self.form.note
+            taskName: self.form.taskName,
+            taskClassName: self.form.taskClassName,
+            taskGroupId: self.form.taskGroupId,
+            cronExpression: self.form.cronExpression,
           }).then(response => {
             console.log(response)
             this.$message({
@@ -130,13 +180,15 @@ export default {
       })
       return false
     },
-    enable(id) {
+    resume(row) {
+      this.combineId.taskClassName = row.triggerName
+      this.combineId.taskGroupId = row.triggerGroup
       this.$confirm('确定启用该定时任务?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        enable(id).then(response => {
+        resumeTask(this.combineId).then(response => {
           this.$message({
             message: '操作成功',
             type: 'success'
@@ -146,13 +198,15 @@ export default {
       }).catch(() => {
       })
     },
-    disable(id) {
-      this.$confirm('确定禁用该定时任务?', '提示', {
+    pause(row) {
+      this.combineId.taskClassName = row.triggerName
+      this.combineId.taskGroupId = row.triggerGroup
+      this.$confirm('确定停止该定时任务?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        disable(id).then(response => {
+        pauseTask(this.combineId).then(response => {
           this.$message({
             message: '操作成功',
             type: 'success'
@@ -168,7 +222,11 @@ export default {
     edit() {
       if (this.checkSel()) {
         this.isAdd = false
-        this.form = this.selRow
+        this.form.taskName = this.selRow.triggerSimpleName
+        this.form.taskGroupId = this.selRow.triggerGroup
+        this.form.taskGroupName=this.selRow.trifggerGroupName
+        this.form.taskClassName = this.selRow.triggerName
+        this.form.cronExpression = this.selRow.cronExpression
         this.formTitle = '修改任务'
         this.formVisible = true
       }

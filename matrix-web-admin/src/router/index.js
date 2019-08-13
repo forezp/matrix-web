@@ -111,12 +111,11 @@ export const asyncRouterMap = [
         meta: { title: 'taskGroupMgr' }
       },
       {
-        path: 'taskLog',
-        name: 'taskLog',
-        component: () => import('@/views/system/task/taskLog.vue'),
-        hidden: true,
-        meta: { title: 'taskLog' }
-
+        path: 'taskhistory',
+        name: 'taskhistory',
+        component: () => import('@/views/system/taskhistory/index.vue'),
+        hidden: false,
+        meta: { title: 'taskhistory' }
       },
       {
         path: 'dict',

@@ -1,5 +1,6 @@
 package io.github.forezp.modules.task.service;
 
+import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.modules.task.entity.QrtzTriggersHistory;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface QrtzTriggersHistoryService extends IService<QrtzTriggersHistory> {
 
+    PageResultsDTO getTriggersPage(int page, int pageSize, String groupId, String triggerName);
 }

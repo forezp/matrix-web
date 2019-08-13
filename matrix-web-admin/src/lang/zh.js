@@ -16,7 +16,7 @@ export default {
     roleMgr: '角色管理',
     taskMgr: '任务管理',
     taskGroupMgr: '任务分组管理',
-    taskLog: '任务日志',
+    taskhistory: '任务日志',
     dictMgr: '字典管理',
     loginLog: '登录日志',
     bussinessLog: '业务日志',

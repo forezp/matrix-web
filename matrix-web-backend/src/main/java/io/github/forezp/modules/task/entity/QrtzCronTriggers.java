@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author forezp
@@ -29,6 +29,8 @@ public class QrtzCronTriggers extends BaseEntity {
 
     private String cronExpression;
 
+    @TableField(exist = false)
+    private String trifggerGroupName;
     private String timeZoneId;
     @TableField(exist = false)
     private Long nextFireTime;

@@ -38,10 +38,11 @@ public class QrtzCronTriggersController {
 
 
     @PutMapping(value = "")
-    public void updateTask(@RequestParam(value = "taskClassName") String taskClassName,
+    public void updateTask(@RequestParam String taskName,
+                           @RequestParam(value = "taskClassName") String taskClassName,
                            @RequestParam(value = "taskGroupId") String taskGroupId,
                            @RequestParam(value = "cronExpression") String cronExpression) throws Exception {
-        qrtzCronTriggersService.updateTask(taskClassName, taskGroupId, cronExpression);
+        qrtzCronTriggersService.updateTask(taskName,taskClassName, taskGroupId, cronExpression);
     }
 
     @DeleteMapping(value = "")

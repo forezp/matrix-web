@@ -16,12 +16,13 @@ export function save(params) {
   })
 }
 
-export function remove(id) {
+export function remove(params) {
   return request({
     url: '/task',
     method: 'delete',
     params: {
-      id: id
+      taskClassName: params.taskClassName,
+      taskGroupId: params.taskGroupId
     }
   })
 }
@@ -34,22 +35,24 @@ export function logList(params) {
   })
 }
 
-export function enable(id) {
+export function resumeTask(params) {
   return request({
-    url: '/task/enable/',
+    url: '/task/resume',
     method: 'POST',
     params: {
-      taskId: id
+      taskClassName: params.taskClassName,
+      taskGroupId: params.taskGroupId
     }
   })
 }
 
-export function disable(id) {
+export function pauseTask(params) {
   return request({
-    url: '/task/disable/',
+    url: '/task/pause',
     method: 'POST',
     params: {
-      taskId: id
+      taskClassName: params.taskClassName,
+      taskGroupId: params.taskGroupId
     }
   })
 }
@@ -77,3 +80,12 @@ export function taskGroupList(params) {
     params
   })
 }
+
+export function getTriggersHistory(params) {
+  return request({
+    url: '/qrtz-triggers-history/pagelist',
+    method: 'get',
+    params
+  })
+}
+

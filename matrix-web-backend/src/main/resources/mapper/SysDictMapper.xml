@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.forezp.modules.system.mapper.SysDictMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="io.github.forezp.modules.system.entity.SysDict">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="create_by" property="createBy" />
+    <result column="update_time" property="updateTime" />
+    <result column="update_by" property="updateBy" />
+        <result column="code_id" property="codeId" />
+        <result column="code_name" property="codeName" />
+        <result column="type_id" property="typeId" />
+        <result column="type_name" property="typeName" />
+        <result column="sort" property="sort" />
+        <result column="remarks" property="remarks" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        create_by,
+        update_time,
+        update_by,
+        code_id, code_name, type_id, type_name, sort, remarks, status
+    </sql>
+
+</mapper>

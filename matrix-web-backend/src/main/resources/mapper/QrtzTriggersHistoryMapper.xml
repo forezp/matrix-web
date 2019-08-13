@@ -12,7 +12,7 @@
         <result column="group_id" property="groupId" />
         <result column="params" property="params" />
         <result column="result" property="result" />
-        <result column="crete_by" property="creteBy" />
+        <result column="create_by" property="creteBy" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -21,7 +21,22 @@
         update_by,
         create_time,
         update_time,
-        trigger_name, group_id, params, result, crete_by
+        trigger_name, group_id, params, result, create_by
     </sql>
+
+    <select id="getQrtzCronTriggersPagelist" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include>
+        from qrtz_triggers_history
+        <where>
+            <if test="groupId != null and groupId!='' ">
+                a.TRIGGER_GROUP = #{groupId}
+            </if>
+
+            <if test="triggerName != null and triggerName!='' ">
+                AND a.TRIGGER_NAME = #{triggerName}
+            </if>
+        </where>
+
+    </select>
 
 </mapper>

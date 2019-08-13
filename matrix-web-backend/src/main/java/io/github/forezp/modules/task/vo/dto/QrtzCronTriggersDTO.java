@@ -10,7 +10,8 @@ public class QrtzCronTriggersDTO extends QrtzCronTriggers {
      */
     private Boolean isPaused;
 
-    public void setPaused(){
+    private String  nextFireTimeStr;
 
-    }
+    private String prevFireTimeStr;
+
 }

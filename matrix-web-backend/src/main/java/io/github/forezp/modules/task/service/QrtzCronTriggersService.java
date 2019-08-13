@@ -20,7 +20,7 @@ public interface QrtzCronTriggersService extends IService<QrtzCronTriggers> {
 
     void resumeTask(String taskClassName, String taskGroupId) throws Exception;
 
-    void updateTask(String taskClassName, String taskGroupId, String cronExpression) throws Exception;
+    void updateTask(String taskName,String taskClassName, String taskGroupId, String cronExpression) throws Exception;
 
     void deletTask(String taskClassName, String taskGroupId) throws Exception;
 

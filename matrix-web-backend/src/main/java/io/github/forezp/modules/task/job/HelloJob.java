@@ -1,20 +1,18 @@
 package io.github.forezp.modules.task.job;
 
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;   
-import org.quartz.JobExecutionContext;  
-import org.quartz.JobExecutionException;  
-  
-public class HelloJob implements BaseJob {
-  
-    private static Logger _log = LoggerFactory.getLogger(HelloJob.class);  
-     
-    public HelloJob() {
+import io.github.forezp.modules.task.entity.QrtzTriggersHistory;
+import lombok.extern.slf4j.Slf4j;
+import org.quartz.JobExecutionContext;
 
+@Slf4j
+public class HelloJob extends AbstractBaseJob {
+
+    @Override
+    public void doExecute(JobExecutionContext context, QrtzTriggersHistory history) {
+        String result = "Hello Job执行时间: " + new Date();
+        log.info(result);
+        history.setParams("1");
+        history.setResult(result);
     }
-     
-    public void execute(JobExecutionContext context) throws JobExecutionException {
-        _log.error("Hello Job执行时间: " + new Date());
-    }
-}  
+}
