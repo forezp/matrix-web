@@ -46,12 +46,10 @@ public class SysDictTypeController {
         return RespDTO.onSuc(null);
     }
 
-
     @GetMapping("/pagelist")
     public RespDTO selectPageSysLog(@RequestParam Integer page, @RequestParam Integer pageSize, @RequestParam(required = false) String typeId,
                                     @RequestParam(required = false) String typeName) {
         PageResultsDTO resultsDTO = sysDictTypeService.selectPageSysLog(page, pageSize, typeId, typeName);
         return RespDTO.onSuc(resultsDTO);
-
     }
 }
