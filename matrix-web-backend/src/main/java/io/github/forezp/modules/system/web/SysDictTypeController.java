@@ -18,7 +18,7 @@ import org.springframework.stereotype.Controller;
  * @author forezp
  * @since 2019-08-13
  */
-@Controller
+@RestController
 @RequestMapping("/sys-dict-type")
 public class SysDictTypeController {
 

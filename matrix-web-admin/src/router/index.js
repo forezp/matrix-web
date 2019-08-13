@@ -124,6 +124,12 @@ export const asyncRouterMap = [
         meta: { title: 'dictMgr' }
       },
       {
+        path: 'dicttype',
+        name: 'DictType',
+        component: () => import('@/views/system/dicttype/index'),
+        meta: { title: 'dictTypeMgr' }
+      },
+      {
         path: 'cfg',
         name: 'Config',
         component: () => import('@/views/system/cfg/index'),

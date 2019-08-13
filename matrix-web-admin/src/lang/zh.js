@@ -18,6 +18,7 @@ export default {
     taskGroupMgr: '任务分组管理',
     taskhistory: '任务日志',
     dictMgr: '字典管理',
+    dictTypeMgr: '字典分类',
     loginLog: '登录日志',
     bussinessLog: '业务日志',
     configMgr: '参数管理',

@@ -25,8 +25,8 @@
         type_id, type_name, type_describe, remarks
     </sql>
 
-    <select id="selectPageSysLog" resultType="io.github.forezp.modules.system.entity.SysLog">
-        SELECT <include refid="Base_Column_List"></include> from sys_log
+    <select id="selectPageSysLog" resultType="io.github.forezp.modules.system.entity.SysDictType">
+        SELECT <include refid="Base_Column_List"></include> from sys_dict_type
         <where>
             <if test="typeId != null and typeId!='' ">
                 type_id = #{typeId}
