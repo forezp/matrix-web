@@ -1,4 +1,4 @@
-package io.github.forezp.modules.task.controller;
+package io.github.forezp.modules.task.web;
 
 
 import io.github.forezp.common.dto.PageResultsDTO;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 

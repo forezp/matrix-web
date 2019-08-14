@@ -1,34 +1,52 @@
-import { remove, getList, save, update } from '@/api/system/dict'
+import {remove, getList, save, update,getTypeList} from '@/api/system/dict'
 
 export default {
   data() {
     return {
+      showTree: false,
       formVisible: false,
       formTitle: '添加字典',
-      deptList: [],
-      roleList: [],
       isAdd: true,
-      permissons: [],
-      permissonVisible: false,
       form: {
-        name: '',
         id: '',
-        detail: '',
-        details: []
+        codeId: '',
+        codeName: '',
+        typeId: '',
+        typeName: '',
+        sort: '',
+        remarks: ''
       },
       rules: {
-        name: [
-          { required: true, message: '请输入字典名称', trigger: 'blur' },
-          { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
+        codeId: [
+          {required: true, message: '请输入字典名称', trigger: 'blur'},
+          {min: 1, max: 50, message: '长度在 2 到 20 个字符', trigger: 'blur'}
+        ],
+        codeName: [
+          {required: true, message: '请输入字典名称', trigger: 'blur'},
+          {min: 1, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur'}
         ]
-
+      },
+      defaultProps: {
+        label: 'typeName',
+        children: 'children'
+      },
+      typeListQuery: {
+        page: 1,
+        pageSize: 100
       },
       listQuery: {
-        name: undefined
+        page: 1,
+        pageSize: 10,
+        codeId: undefined,
+        codeName: undefined,
+        typeId: undefined,
+        typeName: undefined
       },
       list: null,
+      typeData: null,
       listLoading: true,
-      selRow: {}
+      selRow: {},
+      totalCount: undefined
     }
   },
   filters: {
@@ -47,12 +65,19 @@ export default {
   methods: {
     init() {
       this.fetchData()
+      this.fetchTypeData()
     },
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        this.list = response.data
+        this.list = response.data.list
         this.listLoading = false
+      }).catch(() => {
+      })
+    },
+    fetchTypeData() {
+      getTypeList(this.typeListQuery).then(response => {
+        this.typeData = response.data.list
       }).catch(() => {
       })
     },
@@ -60,7 +85,10 @@ export default {
       this.fetchData()
     },
     reset() {
-      this.listQuery.name = ''
+      this.listQuery.codeId = ''
+      this.listQuery.codeName = ''
+      this.listQuery.typeId = ''
+      this.listQuery.typeName = ''
       this.fetchData()
     },
     handleFilter() {
@@ -76,11 +104,13 @@ export default {
     },
     resetForm() {
       this.form = {
-        name: '',
         id: '',
-        details: [],
-        detail: []
-
+        codeId: '',
+        codeName: '',
+        typeId: '',
+        typeName: '',
+        sort: '',
+        remarks: ''
       }
     },
     add() {
@@ -93,14 +123,9 @@ export default {
       var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          var dictName = self.form.name
-          var dictValues = ''
-          for (var key in self.form.details) {
-            var item = self.form.details[key]
-            dictValues += item['key'] + ':' + item['value'] + ';'
-          }
+
           if (this.form.id !== '') {
-            update({ id: self.form.id, dictName: dictName, dictValues: dictValues }).then(response => {
+            update(this.form.id,this.form).then(response => {
               this.$message({
                 message: '提交成功',
                 type: 'success'
@@ -109,7 +134,7 @@ export default {
               self.formVisible = false
             })
           } else {
-            save({ dictName: dictName, dictValues: dictValues }).then(response => {
+            save(this.form).then(response => {
               this.$message({
                 message: '提交成功',
                 type: 'success'
@@ -137,13 +162,7 @@ export default {
       if (this.checkSel()) {
         this.isAdd = false
         this.formTitle = '修改字典'
-        var detail = this.selRow.detail.split(',')
-        var details = []
-        detail.forEach(function(val, index) {
-          var arr = val.split(':')
-          details.push({ 'key': arr[0], 'value': arr[1] })
-        })
-        this.form = { name: this.selRow.name, id: this.selRow.id, details: details, detail: this.selRow.detail }
+        this.form = this.selRow
         this.formVisible = true
       }
     },
@@ -167,24 +186,10 @@ export default {
         })
       }
     },
-    addDetail() {
-      var details = this.form.details
-
-      details.push({
-        value: '',
-        key: ''
-      })
-      this.form.details = details
-    },
-    removeDetail(detail) {
-      var details = []
-      this.form.details.forEach(function(val, index) {
-        if (detail.key !== val.key) {
-          details.push(val)
-        }
-      })
-      this.form.details = details
+    handleNodeClick(data, node) {
+      this.form.typeId = data.typeId
+      this.form.typeName = data.typeName
+      this.showTree = false
     }
-
   }
 }

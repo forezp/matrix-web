@@ -1,8 +1,16 @@
 import request from '@/utils/request'
 
+export function getTypeList(params) {
+  return request({
+    url: '/sys-dict-type/pagelist',
+    method: 'get',
+    params
+  })
+}
+
 export function getList(params) {
   return request({
-    url: '/dict/list',
+    url: '/sys-dict/pagelist',
     method: 'get',
     params
   })
@@ -10,27 +18,55 @@ export function getList(params) {
 
 export function save(params) {
   return request({
-    url: '/dict',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    transformRequest: [function(data) {
+      data = JSON.stringify(data)
+      console.log(data)
+      return data
+    }],
+    url: '/sys-dict',
     method: 'post',
-    params
+    params: {},
+    data: {
+      'codeId': params.codeId,
+      'codeName': params.codeName,
+      'typeId': params.typeId,
+      'typeName': params.typeName,
+      'sort': params.sort,
+      'remarks': params.remarks
+    }
   })
 }
 
-
-export function update(params) {
+export function update(id,params) {
   return request({
-    url: '/dict',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    transformRequest: [function(data) {
+      data = JSON.stringify(data)
+      console.log(data)
+      return data
+    }],
+    url: `/sys-dict/${id}`,
     method: 'put',
-    params
+    params: {},
+    data: {
+      'codeId': params.codeId,
+      'codeName': params.codeName,
+      'typeId': params.typeId,
+      'typeName': params.typeName,
+      'sort': params.sort,
+      'remarks': params.remarks
+    }
   })
 }
 
 export function remove(id) {
   return request({
-    url: '/dict',
-    method: 'delete',
-    params: {
-      id:id
-    }
+    url: `/sys-dict/${id}`,
+    method: 'delete'
   })
 }

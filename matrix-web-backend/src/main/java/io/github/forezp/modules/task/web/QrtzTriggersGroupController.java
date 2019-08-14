@@ -1,4 +1,4 @@
-package io.github.forezp.modules.task.controller;
+package io.github.forezp.modules.task.web;
 
 
 import io.github.forezp.common.dto.PageResultsDTO;
@@ -9,8 +9,6 @@ import io.github.forezp.common.util.PageUtils;
 import io.github.forezp.modules.task.service.QrtzTriggersGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.stereotype.Controller;
 
 /**
  * <p>

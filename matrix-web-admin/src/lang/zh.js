@@ -15,7 +15,7 @@ export default {
     userMgr: '用户管理',
     roleMgr: '角色管理',
     taskMgr: '任务管理',
-    taskGroupMgr: '任务分组管理',
+    taskGroupMgr: '任务分组',
     taskhistory: '任务日志',
     dictMgr: '字典管理',
     dictTypeMgr: '字典分类',

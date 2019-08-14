@@ -28,7 +28,7 @@
         code_id, code_name, type_id, type_name, sort, remarks, status
     </sql>
 
-    <select id="selectPageSysLog" resultType="io.github.forezp.modules.system.entity.SysDictType">
+    <select id="selectPage" resultType="io.github.forezp.modules.system.entity.SysDict">
         SELECT <include refid="Base_Column_List"></include> from sys_dict
         <where>
             <if test="codeId != null and codeId!='' ">
@@ -44,6 +44,7 @@
                 AND type_name = #{typeName}
             </if>
         </where>
+        order by type_id , sort
     </select>
 
 </mapper>

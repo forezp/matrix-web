@@ -44,7 +44,6 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     @Override
     public Boolean updateDict(Long id, SysDict sysDict) {
-
         sysDict.setId(id);
         int result = sysDictMapper.updateById(sysDict);
         return result == 1 ? true : false;
@@ -58,8 +57,8 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 
     @Override
     public PageResultsDTO selectPage(int page, int pageSize, String codeId, String codeName, String typeId, String typeName) {
-        Page<SysDict> sysLogPage = new Page<>(page, pageSize);
-        IPage<SysDict> sysLogIPage = sysDictMapper.selectPage(page, pageSize, codeId, codeName, typeId, typeName);
+        Page<SysDict> sysDictPage = new Page<>(page, pageSize);
+        IPage<SysDict> sysLogIPage = sysDictMapper.selectPage(sysDictPage, codeId, codeName, typeId, typeName);
         PageResultsDTO result = new PageResultsDTO(page, pageSize);
         result.setTotalCount(sysLogIPage.getTotal());
         result.setList(sysLogIPage.getRecords());

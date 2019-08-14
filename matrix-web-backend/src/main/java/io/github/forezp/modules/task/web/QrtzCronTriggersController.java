@@ -1,4 +1,4 @@
-package io.github.forezp.modules.task.controller;
+package io.github.forezp.modules.task.web;
 
 import io.github.forezp.common.dto.PageResultsDTO;
 import io.github.forezp.common.dto.RespDTO;

@@ -1,4 +1,4 @@
-package io.github.forezp.modules.task.controller;
+package io.github.forezp.modules.task.web;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
