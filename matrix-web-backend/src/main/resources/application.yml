@@ -1,6 +1,8 @@
 server:
   port: 8082
 
+  session:
+    timeout: 3600
 spring:
   profiles:
     active: durid
@@ -10,6 +12,26 @@ spring:
    # password:
     database: 1
     timeout: 0
+
+  freemarker:
+    suffix: .ftl
+    cache: false
+    charset: UTF-8
+    contentType: text/html
+    requestContextAttribute: ctx
+    templateEncoding: UTF-8
+    templateLoaderPath: classpath:/templates/
+    settings:
+      defaultEncoding: UTF-8
+      url_escaping_charset: UTF-8
+      locale: zh_CN
+  http:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+    activiti:
+      check-process-definitions: false
+
 
 #mybatis
 #mybatis-plus:

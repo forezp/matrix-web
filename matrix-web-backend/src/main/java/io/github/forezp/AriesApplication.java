@@ -1,6 +1,7 @@
 package io.github.forezp;
 
 
+import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 
 import org.springframework.boot.SpringApplication;
@@ -12,7 +13,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @MapperScan({"io.github.forezp.modules.system.mapper","io.github.forezp.modules.task.mapper"})
 public class AriesApplication extends SpringBootServletInitializer {
 

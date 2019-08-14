@@ -34,7 +34,7 @@ sharding:
         slave-data-source-names: db-test1,db-test2
     props:
       sql: # 开启SQL显示，默认值: false，注意：仅配置读写分离时不会打印日志！！！
-        show: true
+        show: false
 
 mybatis-plus:
   datasource: dataSource

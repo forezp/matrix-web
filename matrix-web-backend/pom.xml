@@ -34,6 +34,8 @@
 		<jjwt.version>0.7.0</jjwt.version>
 		<lombok.version>1.16.18</lombok.version>
 		<caffeine.version>2.6.2</caffeine.version>
+		<activiti.version>5.22.0</activiti.version>
+		<apache.xmlgraphics.version>1.7</apache.xmlgraphics.version>
 	</properties>
 
 	<dependencies>
@@ -128,13 +130,19 @@
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 			<version>3.1.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.1</version>
+		</dependency>
 
 
-		<!--        <dependency>-->
-		<!--            <groupId>com.baomidou</groupId>-->
-		<!--            <artifactId>mybatis-plus</artifactId>-->
-		<!--            <version>3.1.2</version>-->
-		<!--        </dependency>-->
+<!--		        <dependency>-->
+<!--		            <groupId>com.baomidou</groupId>-->
+<!--		            <artifactId>mybatis-plus</artifactId>-->
+<!--		            <version>3.1.2</version>-->
+<!--		        </dependency>-->
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -192,6 +200,54 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.31</version>
+		</dependency>
+
+
+		<!-- activiti -->
+		        <dependency>
+		            <groupId>org.activiti</groupId>
+		            <artifactId>activiti-spring-boot-starter-basic</artifactId>
+		            <version>${activiti.version}</version>
+		        </dependency>
+
+				<dependency>
+				     <groupId>org.activiti</groupId>
+				     <artifactId>activiti-json-converter</artifactId>
+				     <version>${activiti.version}</version>
+				     <exclusions>
+						<exclusion>
+							<groupId>org.activiti</groupId>
+		      				<artifactId>activiti-bpmn-model</artifactId>
+						</exclusion>
+				     </exclusions>
+		    	</dependency>
+
+			    <dependency>
+				    <groupId>org.apache.xmlgraphics</groupId>
+				    <artifactId>batik-codec</artifactId>
+				    <version>${apache.xmlgraphics.version}</version>
+			    </dependency>
+			    <dependency>
+				    <groupId>org.apache.xmlgraphics</groupId>
+				    <artifactId>batik-css</artifactId>
+				    <version>${apache.xmlgraphics.version}</version>
+			    </dependency>
+			    <dependency>
+				    <groupId>org.apache.xmlgraphics</groupId>
+				    <artifactId>batik-svg-dom</artifactId>
+				    <version>${apache.xmlgraphics.version}</version>
+			    </dependency>
+			    <dependency>
+				    <groupId>org.apache.xmlgraphics</groupId>
+				    <artifactId>batik-svggen</artifactId>
+				    <version>${apache.xmlgraphics.version}</version>
+			    </dependency>
+
+		<!--加载jingtai静态资源-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
 
 	</dependencies>

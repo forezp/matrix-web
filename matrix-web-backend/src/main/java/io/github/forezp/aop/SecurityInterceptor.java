@@ -34,9 +34,9 @@ public class SecurityInterceptor implements HandlerInterceptor {
 
         String token = UserUtils.getCurrentToken();
         LOG.info("requst uri:" + request.getRequestURI() + ",request token:" + token);
-        if (StringUtils.isEmpty(token)) {
-            writeNoPermission(response);
-        }
+//        if (StringUtils.isEmpty(token)) {
+//            writeNoPermission(response);
+//        }
         return true;
     }
 

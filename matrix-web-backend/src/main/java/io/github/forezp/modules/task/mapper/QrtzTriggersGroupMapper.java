@@ -6,7 +6,7 @@ import io.github.forezp.modules.system.entity.SysUser;
 import io.github.forezp.modules.task.entity.QrtzTriggersGroup;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
+
 
 /**
  * <p>
@@ -16,7 +16,6 @@ import org.mapstruct.Mapper;
  * @author forezp
  * @since 2019-08-09
  */
-@Mapper
 public interface QrtzTriggersGroupMapper extends BaseMapper<QrtzTriggersGroup> {
 
 
