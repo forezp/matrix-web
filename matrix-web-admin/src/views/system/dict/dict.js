@@ -1,4 +1,4 @@
-import {remove, getList, save, update,getTypeList} from '@/api/system/dict'
+import {remove, getList, save, update, getTypeList} from '@/api/system/dict'
 
 export default {
   data() {
@@ -125,7 +125,7 @@ export default {
         if (valid) {
 
           if (this.form.id !== '') {
-            update(this.form.id,this.form).then(response => {
+            update(this.form.id, this.form).then(response => {
               this.$message({
                 message: '提交成功',
                 type: 'success'
@@ -190,6 +190,22 @@ export default {
       this.form.typeId = data.typeId
       this.form.typeName = data.typeName
       this.showTree = false
+    },
+    fetchNext() {
+      this.listQuery.page = this.listQuery.page + 1
+      this.fetchData()
+    },
+    fetchPrev() {
+      this.listQuery.page = this.listQuery.page - 1
+      this.fetchData()
+    },
+    fetchPage(page) {
+      this.listQuery.page = page
+      this.fetchData()
+    },
+    changeSize(pageSize) {
+      this.listQuery.pageSize = pageSize
+      this.fetchData()
     }
   }
 }

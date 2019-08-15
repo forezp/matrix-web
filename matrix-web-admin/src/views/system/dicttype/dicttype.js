@@ -184,7 +184,8 @@ export default {
         }
       })
       this.form.details = details
-    }, fetchNext() {
+    },
+    fetchNext() {
       this.listQuery.page = this.listQuery.page + 1
       this.fetchData()
     },

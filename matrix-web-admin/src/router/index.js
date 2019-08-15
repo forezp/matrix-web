@@ -99,25 +99,6 @@ export const asyncRouterMap = [
         meta: { title: 'roleMgr' }
       },
       {
-        path: 'task',
-        name: 'Task',
-        component: () => import('@/views/system/task/index'),
-        meta: { title: 'taskMgr' }
-      },
-      {
-        path: 'taskGroup',
-        name: 'TaskGroup',
-        component: () => import('@/views/system/taskgroup/index'),
-        meta: { title: 'taskGroupMgr' }
-      },
-      {
-        path: 'taskhistory',
-        name: 'taskhistory',
-        component: () => import('@/views/system/taskhistory/index.vue'),
-        hidden: false,
-        meta: { title: 'taskhistory' }
-      },
-      {
         path: 'dict',
         name: 'Dict',
         component: () => import('@/views/system/dict/index'),
@@ -137,6 +118,59 @@ export const asyncRouterMap = [
           title: 'configMgr'
         }
       }
+    ]
+  },
+  {
+    path: '/workflow',
+    component: Layout,
+    redirect: '#',
+    name: 'Workflow',
+    alwaysShow: true,
+    meta: {
+      roles: ['administrator', 'developer'],
+      title: 'workflowMgr',
+      icon: 'documentation'
+    },
+    children: [
+      {
+        path: 'model',
+        name: 'Model',
+        component: () => import('@/views/workflow/model/index'),
+        meta: {title: 'modelMgr'}
+      }
+    ]
+  },
+  {
+    path: '/task',
+    component: Layout,
+    redirect: '#',
+    name: 'Task',
+    alwaysShow: true,
+    meta: {
+      roles: ['administrator', 'developer'],
+      title: 'taskMgr',
+      icon: 'documentation'
+    },
+    children: [
+      {
+        path: 'task',
+        name: 'Task',
+        component: () => import('@/views/system/task/index'),
+        meta: { title: 'taskMgr' }
+      },
+      {
+        path: 'taskGroup',
+        name: 'TaskGroup',
+        component: () => import('@/views/system/taskgroup/index'),
+        meta: { title: 'taskGroupMgr' }
+      },
+      {
+        path: 'taskhistory',
+        name: 'taskhistory',
+        component: () => import('@/views/system/taskhistory/index.vue'),
+        hidden: false,
+        meta: { title: 'taskhistory' }
+      },
     ]
   },
   {

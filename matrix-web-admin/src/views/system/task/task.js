@@ -117,7 +117,7 @@ export default {
     },
     saveOrUpdate(){
       if(this.isAdd){
-        this.add()
+        this.save()
       }else {
         this.update()
       }
