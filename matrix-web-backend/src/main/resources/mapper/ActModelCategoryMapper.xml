@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.forezp.modules.activiti.mapper.ActModelCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="io.github.forezp.modules.activiti.entity.ActModelCategory">
+    <result column="id" property="id" />
+    <result column="create_by" property="createBy" />
+    <result column="create_time" property="createTime" />
+    <result column="update_by" property="updateBy" />
+    <result column="update_time" property="updateTime" />
+        <result column="category_id" property="categoryId" />
+        <result column="category_name" property="categoryName" />
+        <result column="p_category_id" property="pCategoryId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_by,
+        create_time,
+        update_by,
+        update_time,
+        category_id, category_name, p_category_id
+    </sql>
+
+
+    <select id="getTriggerGroupPagelist" resultMap="BaseResultMap">
+        select * from qrtz_triggers_group
+        <where>
+            <if test="groupId != null and groupId!='' ">
+                group_id = #{groupId}
+            </if>
+
+            <if test="groupName != null and groupName!='' ">
+                AND group_name = #{groupName}
+            </if>
+        </where>
+    </select>
+
+</mapper>

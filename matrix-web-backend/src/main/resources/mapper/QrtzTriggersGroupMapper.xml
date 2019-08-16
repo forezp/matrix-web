@@ -23,15 +23,19 @@
         group_id, group_name
     </sql>
 
-    <select id="getTriggerGroupPagelist" resultMap="BaseResultMap">
-        select * from qrtz_triggers_group
+    <select id="selectPagelist" resultMap="BaseResultMap">
+        select * from act_model_activiti
         <where>
-            <if test="groupId != null and groupId!='' ">
-                group_id = #{groupId}
+            <if test="categoryId != null and categoryId!='' ">
+                category_id = #{categoryId}
             </if>
 
-            <if test="groupName != null and groupName!='' ">
-                AND group_name = #{groupName}
+            <if test="categoryName != null and categoryName!='' ">
+                AND category_name = #{categoryName}
+            </if>
+
+            <if test="pCategoryId != null and pCategoryId!='' ">
+                AND p_category_id = #{pCategoryId}
             </if>
         </where>
     </select>
