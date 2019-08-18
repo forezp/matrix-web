@@ -133,10 +133,16 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: 'model',
-        name: 'Model',
-        component: () => import('@/views/workflow/model/index'),
-        meta: {title: 'modelMgr'}
+        path: 'modelx',
+        name: 'Modelx',
+        component: () => import('@/views/workflow/modelx/index'),
+        meta: { title: 'modelxMgr' }
+      },
+      {
+        path: 'category',
+        name: 'Category',
+        component: () => import('@/views/workflow/category/index'),
+        meta: { title: 'categoryMgr' }
       }
     ]
   },

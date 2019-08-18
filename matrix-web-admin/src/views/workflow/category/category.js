@@ -1,4 +1,4 @@
-import { addCategory, updateCategory, categoryList } from '@/api/workflow/category'
+import {addCategory, updateCategory, categoryList} from '@/api/workflow/category'
 
 export default {
   data() {
@@ -16,13 +16,19 @@ export default {
       },
       rules: {
         categoryId: [
-          { required: true, message: '请输入分类ID', trigger: 'blur' },
-          { min: 2, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+          {required: true, message: '请输入分类ID', trigger: 'blur'},
+          {min: 1, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
         ],
         categoryName: [
-          { required: true, message: '请输入分类名', trigger: 'blur' }
+          {required: true, message: '请输入分类名', trigger: 'blur'}
         ]
 
+      },
+      showTree: false,
+      defaultProps: {
+        id: 'id',
+        label: 'categoryName',
+        children: 'children'
       },
       listQuery: {
         categoryId: undefined,
@@ -31,10 +37,19 @@ export default {
         page: 1,
         pageSize: 100
       },
+      listPCategoryQuery: {
+        pCategoryId: 0,
+        page: 1,
+        pageSize: 100
+      },
       totalCount: 0,
       list: null,
+      pCategoryData: null,
       listLoading: true,
-      selRow: {}
+      selRow: {},
+      radio: '2',
+      pCategoryIdDisabled: false,
+      rationDisabled: false
     }
   },
   filters: {
@@ -53,6 +68,7 @@ export default {
   methods: {
     init() {
       this.fetchData()
+      this.fetchPCategoryData()
     },
     fetchData() {
       this.listLoading = true
@@ -62,12 +78,29 @@ export default {
         this.totalCount = response.data.totalCount
       })
     },
+    fetchPCategoryData() {
+      categoryList(this.listPCategoryQuery).then(response => {
+        this.pCategoryData = response.data.list
+      })
+    },
+    rationchangeHandler(value) {
+      console.info(value)
+      if (value === '1') {
+        console.info(value)
+        this.pCategoryIdDisabled = true
+        this.form.pCategoryId = 0
+      } else {
+        this.pCategoryIdDisabled = false
+        this.form.pCategoryId = ''
+      }
+    },
     search() {
       this.fetchData()
     },
     reset() {
-      this.listQuery.groupName = ''
-      this.listQuery.groupId = ''
+      this.listQuery.categoryId = ''
+      this.listQuery.pCategoryId = ''
+      this.listQuery.categoryName = ''
       this.fetchData()
     },
     handleFilter() {
@@ -90,6 +123,8 @@ export default {
       this.isAdd = true
       this.isUpdate = false
       this.groupIdInputDisabled = false
+      this.pCategoryIdDisabled = false
+      this.rationDisabled = false
     },
     fetchNext() {
       this.listQuery.page = this.listQuery.page + 1
@@ -163,7 +198,15 @@ export default {
         this.formVisible = true
         this.groupIdInputDisabled = true
         this.isUpdate = true
+        this.form.pCategoryId = this.selRow.pcategoryId
+        this.pCategoryIdDisabled = true
+        this.rationDisabled = true
       }
+    },
+    handleNodeClick(data, node) {
+      console.log(data)
+      this.form.pCategoryId = data.categoryId
+      this.showTree = false
     }
   }
 }

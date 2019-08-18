@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function addCategory(params) {
   return request({
-    url: '/task-group',
+    url: '/model-category',
     method: 'post',
     params
   })
@@ -10,7 +10,7 @@ export function addCategory(params) {
 
 export function updateCategory(params) {
   return request({
-    url: '/task-group',
+    url: '/model-category',
     method: 'put',
     params
   })
@@ -18,7 +18,7 @@ export function updateCategory(params) {
 
 export function categoryList(params) {
   return request({
-    url: '/task-group/pagelist',
+    url: '/model-category/pagelist',
     method: 'get',
     params
   })

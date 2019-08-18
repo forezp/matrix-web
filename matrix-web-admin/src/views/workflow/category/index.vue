@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-row  :gutter="20">
+      <el-row :gutter="20">
         <el-col :span="6">
           <el-input v-model="listQuery.categoryId" placeholder="请输入分类ID"></el-input>
         </el-col>
@@ -26,20 +26,20 @@
     </div>
 
     <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row
-    @current-change="handleCurrentChange">
+              @current-change="handleCurrentChange">
       <el-table-column label="分类ID">
         <template slot-scope="scope">
           {{scope.row.categoryId}}
         </template>
       </el-table-column>
-      <el-table-column label="分类名称" >
+      <el-table-column label="分类名称">
         <template slot-scope="scope">
           {{scope.row.categoryName}}
         </template>
       </el-table-column>
       <el-table-column label="父分类ID">
         <template slot-scope="scope">
-          {{scope.row.pCategoryId}}
+          {{scope.row.pcategoryId}}
         </template>
       </el-table-column>
 
@@ -58,20 +58,48 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="任务组名" prop="name">
+            <template>
+              是否为父分类
+              <el-radio-group :disabled= "rationDisabled" v-model="radio" @change="rationchangeHandler">
+                <el-radio class="radio" label="1">是</el-radio>
+                <el-radio class="radio" label="2">否</el-radio>
+              </el-radio-group>
+            </template>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="分类ID" prop="categoryId">
               <el-input v-model="form.categoryId" :disabled="groupIdInputDisabled"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="任务组ID" prop="name">
-              <el-input v-model="form.categoryName" ></el-input>
+            <el-form-item label="分类名称" prop="categoryName">
+              <el-input v-model="form.categoryName"></el-input>
             </el-form-item>
           </el-col>
 
-          <el-col :span="12">
-            <el-form-item label="任务组ID" prop="name">
-              <el-input v-model="form.pCategoryId" :disabled="groupIdInputDisabled"></el-input>
+          <el-col :span="12" v-if="pCategoryIdDisabled">
+            <el-form-item   label="父分类ID" prop="pCategoryId">
+              <el-input v-model="form.pCategoryId" :disabled="pCategoryIdDisabled"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="12" v-if="!pCategoryIdDisabled">
+            <el-form-item label="父分类ID" >
+              <el-input
+                placeholder="请选择父分类ID"
+                v-model="form.pCategoryId"
+                @click.native="showTree = !showTree"
+              >
+              </el-input>
+              <el-tree v-if="showTree"
+                       empty-text="暂无数据"
+                       :expand-on-click-node="false"
+                       :data="pCategoryData"
+                       :props="defaultProps"
+                       @node-click="handleNodeClick"
+                       class="input-tree">
+              </el-tree>
             </el-form-item>
           </el-col>
 

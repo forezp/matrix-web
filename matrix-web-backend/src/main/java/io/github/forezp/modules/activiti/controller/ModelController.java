@@ -53,8 +53,8 @@ public class ModelController {
     }
 
     @ApiOperation(value = "更新流程分类", notes = "更新流程分类")
-    @PutMapping("/{id}")
-    public RespDTO updateCategory(@PathVariable("id") String id, @RequestParam String category) {
+    @PutMapping("")
+    public RespDTO updateCategory(@RequestParam("id") String id, @RequestParam String category) {
         if (null == id || null == category) {
             throw new AriesException(ErrorCode.ERROR_ARGS);
         }

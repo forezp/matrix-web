@@ -29,7 +29,8 @@ export default {
     messageTemplate: '消息模板',
     messageSender: '消息发送器',
     workflowMgr: '流程管理',
-    modelMgr: '流程模型'
+    modelxMgr: '模型管理',
+    categoryMgr: '分类管理'
   },
   navbar: {
     logOut: '退出登录',

@@ -1,50 +1,51 @@
-import { getList, save} from '@/api/workflow/model'
+import { getList, save, updateCategory, remove } from '@/api/workflow/model'
+import { categoryList } from '@/api/workflow/category'
 export default {
   data() {
     return {
-      showTree: false,
+      isUpdate: false,
       formVisible: false,
-      formTitle: '添加字典',
+      groupIdInputDisabled: false,
+      formTitle: '添加任务',
       isAdd: true,
-      form: {
-        id: '',
-        name: '',
-        category: '',
-        key: '',
-        desc: '',
-        version: ''
-      },
-      rules: {
-        name: [
-          {required: true, message: '请输入字典名称', trigger: 'blur'},
-          {min: 1, max: 50, message: '长度在 2 到 20 个字符', trigger: 'blur'}
-        ],
-        key: [
-          {required: true, message: '请输入字典名称', trigger: 'blur'},
-          {min: 1, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur'}
-        ]
-      },
+      showTree: false,
       defaultProps: {
-        label: 'typeName',
+        id: 'id',
+        label: 'categoryName',
         children: 'children'
       },
-      typeListQuery: {
+      listCategoryQuery: {
         page: 1,
         pageSize: 100
       },
-      listQuery: {
-        page: 1,
-        pageSize: 10,
-        category: undefined
+      form: {
+        id: '',
+        category: '',
+        name: '',
+        desc: '',
+        key: ''
       },
+      rules: {
+        category: [
+          { required: true, message: '请输入分类ID', trigger: 'blur' },
+          { min: 2, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+        ],
+        name: [
+          { required: true, message: '请输入分类名', trigger: 'blur' }
+        ]
+
+      },
+      listQuery: {
+        category: undefined,
+        page: 1,
+        pageSize: 100
+      },
+      totalCount: 0,
       list: null,
-      typeData: null,
+      categoryData: null,
       listLoading: true,
       selRow: {},
-      totalCount: undefined,
-      href: '',
-      adminApi: process.env.ADMIN_API
-
+      href: ''
     }
   },
   filters: {
@@ -63,23 +64,27 @@ export default {
   methods: {
     init() {
       this.fetchData()
+      this.fetchPCategoryData()
     },
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
         this.list = response.data.list
         this.listLoading = false
-      }).catch(() => {
+        this.totalCount = response.data.totalCount
+      })
+    },
+    fetchPCategoryData() {
+      categoryList(this.listCategoryQuery).then(response => {
+        this.categoryData = response.data.list
       })
     },
     search() {
       this.fetchData()
     },
     reset() {
-      this.listQuery.codeId = ''
-      this.listQuery.codeName = ''
-      this.listQuery.typeId = ''
-      this.listQuery.typeName = ''
+      this.listQuery.groupName = ''
+      this.listQuery.groupId = ''
       this.fetchData()
     },
     handleFilter() {
@@ -89,60 +94,70 @@ export default {
     handleClose() {
 
     },
-
     handleCurrentChange(currentRow, oldCurrentRow) {
       this.selRow = currentRow
     },
     resetForm() {
-      this.form = {
-        id: '',
-        codeId: '',
-        codeName: '',
-        typeId: '',
-        typeName: '',
-        sort: '',
-        remarks: ''
-      }
+      this.form = {}
     },
     add() {
       this.resetForm()
-      this.formTitle = '添加字典'
+      this.formTitle = '添加流程'
       this.formVisible = true
       this.isAdd = true
+      this.isUpdate = false
+      this.groupIdInputDisabled = false
+    },
+    fetchNext() {
+      this.listQuery.page = this.listQuery.page + 1
+      this.fetchData()
+    },
+    fetchPrev() {
+      this.listQuery.page = this.listQuery.page - 1
+      this.fetchData()
+    },
+    fetchPage(page) {
+      this.listQuery.page = page
+      this.fetchData()
+    },
+    changeSize(pageSize) {
+      this.listQuery.pageSize = pageSize
+      this.fetchData()
     },
     save() {
       var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          if (this.form.id !== '') {
-            update(this.form.id,this.form).then(response => {
+          if (this.isUpdate) {
+            updateCategory({
+              id: self.form.id,
+              category: self.form.category
+            }).then(response => {
+              console.log(response)
               this.$message({
                 message: '提交成功',
                 type: 'success'
               })
-              self.fetchData()
-              self.formVisible = false
+              this.fetchData()
+              this.formVisible = false
             })
           } else {
             save(this.form).then(response => {
-              let location = response.data;
-              // window.open(`https://taichi-dev.xiaoantimes.com/static/activiti${location}`);
-              // window.location.href = `https://taichi-dev.xiaoantimes.com/static/activiti${location}`;
-              this.href = `/static/activiti${location}`;
+              console.log(response)
+              var location = response.data
+              this.href = `/static/activiti${location}`
               this.$nextTick(() => {
-                var a = this.$refs.a;
-                var e = document.createEvent('MouseEvents');
-                e.initEvent('click', true, true);
-                a.dispatchEvent(e);
-              });
-              this.$router.back();
-
+                var a = this.$refs.a
+                var e = document.createEvent('MouseEvents')
+                e.initEvent('click', true, true)
+                a.dispatchEvent(e)
+              })
               this.$message({
                 message: '提交成功',
                 type: 'success'
               })
-              self.fetchData()
-              self.formVisible = false
+              this.fetchData()
+              this.formVisible = false
             })
           }
         } else {
@@ -160,18 +175,24 @@ export default {
       })
       return false
     },
+    handleNodeClick(data, node) {
+      console.log(data)
+      this.form.category = data.categoryId
+      this.showTree = false
+    },
     edit() {
       if (this.checkSel()) {
         this.isAdd = false
-        this.formTitle = '修改字典'
         this.form = this.selRow
+        this.formTitle = '修改分类'
         this.formVisible = true
+        this.groupIdInputDisabled = true
+        this.isUpdate = true
       }
     },
     remove() {
       if (this.checkSel()) {
         var id = this.selRow.id
-
         this.$confirm('确定删除该记录?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -187,27 +208,6 @@ export default {
         }).catch(() => {
         })
       }
-    },
-    handleNodeClick(data, node) {
-      this.form.typeId = data.typeId
-      this.form.typeName = data.typeName
-      this.showTree = false
-    },
-    fetchNext() {
-      this.listQuery.page = this.listQuery.page + 1
-      this.fetchData()
-    },
-    fetchPrev() {
-      this.listQuery.page = this.listQuery.page - 1
-      this.fetchData()
-    },
-    fetchPage(page) {
-      this.listQuery.page = page
-      this.fetchData()
-    },
-    changeSize(pageSize) {
-      this.listQuery.pageSize = pageSize
-      this.fetchData()
     }
   }
 }

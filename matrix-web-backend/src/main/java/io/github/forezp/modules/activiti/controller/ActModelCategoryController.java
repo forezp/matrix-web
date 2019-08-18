@@ -21,13 +21,12 @@ import org.springframework.stereotype.Controller;
  * @author forezp
  * @since 2019-08-16
  */
-@Controller
+@RestController
 @RequestMapping("/model-category")
 public class ActModelCategoryController {
 
     @Autowired
     ActModelCategoryService actModelCategoryService;
-
 
     @PostMapping("")
     public RespDTO addCategory(@RequestParam String categoryId, @RequestParam String categoryName, @RequestParam String pCategoryId) {
@@ -39,8 +38,8 @@ public class ActModelCategoryController {
     }
 
     @PutMapping("")
-    public RespDTO updateCategory(@RequestParam Long id, @RequestParam String groupName) {
-        if (actModelCategoryService.updateModelCategory(id, groupName)) {
+    public RespDTO updateCategory(@RequestParam Long id, @RequestParam String categoryName) {
+        if (actModelCategoryService.updateModelCategory(id, categoryName)) {
             return RespDTO.onSuc(null);
         } else {
             throw new AriesException(ErrorCode.UPDATE_DATA_FAIL);

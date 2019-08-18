@@ -16,3 +16,21 @@ export function save(params) {
   })
 }
 
+export function updateCategory(params) {
+  return request({
+    url: '/model',
+    method: 'put',
+    params
+  })
+}
+
+export function remove(params) {
+  return request({
+    url: '/model',
+    method: 'delete',
+    params: {
+      id: params
+    }
+  })
+}
+
