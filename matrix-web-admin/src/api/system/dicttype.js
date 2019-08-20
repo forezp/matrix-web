@@ -16,7 +16,6 @@ export function save(params) {
   })
 }
 
-
 export function update(params) {
   return request({
     url: '/sys-dict-type',
@@ -30,7 +29,7 @@ export function remove(id) {
     url: `/sys-dict-type/${id}`,
     method: 'delete',
     params: {
-      id:id
+      id: id
     }
   })
 }

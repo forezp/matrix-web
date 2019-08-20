@@ -56,7 +56,7 @@
         <template slot-scope="scope">
           <a class="el-button el-button--primary el-button--small is-plain"
              :href="`/static/activiti/modeler.html?modelId=${scope.row.id}`" target="_blank">编辑</a>
-          <el-button size="small" @click="deploy(scope.$index, scope.row)">部署</el-button>
+          <el-button size="small" @click="deploy(scope.row)">部署</el-button>
         </template>
       </el-table-column>
     </el-table>

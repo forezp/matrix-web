@@ -34,3 +34,10 @@ export function remove(params) {
   })
 }
 
+export function deploy(id) {
+  return request({
+    url: `/model/deploy/${id}`,
+    method: 'put'
+  })
+}
+

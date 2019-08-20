@@ -18,7 +18,10 @@ public enum ErrorCode {
     DELETE_DATA_FAIL(1007, "删除数据失败"),
     UPDATE_DATA_FAIL(1009, "更新数据失败"),
     ADD_TASK_FAIL(1010, "创建任务失败"),
-    MODEL_NOT_EXIST(1011,"模型不存在");
+    MODEL_NOT_EXIST(1011, "模型不存在"),
+    FILE_NAME_NOT_EXIST(1013, "文件名称不存在"),
+    FILE_PATTERN_NOT_SUPPORTED(1012, "文件格式不对"),
+    MISSING_ARGS(1014, "参数缺失");
 
 
     private int code;

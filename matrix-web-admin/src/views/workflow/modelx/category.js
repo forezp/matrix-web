@@ -1,5 +1,6 @@
-import { getList, save, updateCategory, remove } from '@/api/workflow/model'
-import { categoryList } from '@/api/workflow/category'
+import {getList, save, updateCategory, remove, deploy } from '@/api/workflow/model'
+import {categoryList} from '@/api/workflow/category'
+
 export default {
   data() {
     return {
@@ -27,11 +28,11 @@ export default {
       },
       rules: {
         category: [
-          { required: true, message: '请输入分类ID', trigger: 'blur' },
-          { min: 2, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+          {required: true, message: '请输入分类ID', trigger: 'blur'},
+          {min: 2, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
         ],
         name: [
-          { required: true, message: '请输入分类名', trigger: 'blur' }
+          {required: true, message: '请输入分类名', trigger: 'blur'}
         ]
 
       },
@@ -208,6 +209,23 @@ export default {
         }).catch(() => {
         })
       }
+    },
+    deploy(data) {
+      var id = data.id
+      this.$confirm('确定部署吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deploy(id).then(response => {
+          this.$message({
+            message: '操作成功',
+            type: 'success'
+          })
+          this.fetchData()
+        })
+      }).catch(() => {
+      })
     }
   }
 }

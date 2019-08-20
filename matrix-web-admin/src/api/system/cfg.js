@@ -8,7 +8,6 @@ export function getList(params) {
   })
 }
 
-
 export function exportXls(params) {
   return request({
     url: '/cfg/export',
@@ -16,7 +15,6 @@ export function exportXls(params) {
     params
   })
 }
-
 
 export function save(params) {
   return request({
