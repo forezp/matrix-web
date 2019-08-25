@@ -1,12 +1,12 @@
 package io.github.forezp.common.util;
 
 
-
 import io.github.forezp.common.exception.AriesException;
 import io.github.forezp.common.exception.ErrorCode;
 import io.github.forezp.modules.activiti.vo.dto.ProcessDTO;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +19,7 @@ public class ActivitiUtils {
 
     /**
      * 节点对应的中文名称
+     *
      * @param type
      * @return
      */
@@ -37,6 +38,7 @@ public class ActivitiUtils {
 
     /**
      * 抽取流程实例需要返回的内容
+     *
      * @param processDefinition
      * @param deployment
      * @return
@@ -56,8 +58,8 @@ public class ActivitiUtils {
         dto.picName = processDefinition.getDiagramResourceName();
         dto.deploymentId = deployment.getId();
         dto.suspend = processDefinition.isSuspended();
+        dto.suspendStr = processDefinition.isSuspended() == true ? "未激活" : "激活";
         dto.description = processDefinition.getDescription();
         return dto;
     }
-
 }

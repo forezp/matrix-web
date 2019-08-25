@@ -15,6 +15,7 @@ public class ProcessDTO {
     public String picName;
     public String deploymentId;
     public Boolean suspend;
+    public String suspendStr;
     public String description;
 
 }

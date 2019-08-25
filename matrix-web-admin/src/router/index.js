@@ -143,6 +143,12 @@ export const asyncRouterMap = [
         name: 'Category',
         component: () => import('@/views/workflow/category/index'),
         meta: { title: 'categoryMgr' }
+      },
+      {
+        path: 'process',
+        name: 'Process',
+        component: () => import('@/views/workflow/process/index'),
+        meta: { title: 'processMgr' }
       }
     ]
   },
@@ -176,7 +182,7 @@ export const asyncRouterMap = [
         component: () => import('@/views/system/taskhistory/index.vue'),
         hidden: false,
         meta: { title: 'taskhistory' }
-      },
+      }
     ]
   },
   {

@@ -1,4 +1,5 @@
-import {addCategory, updateCategory, categoryList} from '@/api/workflow/category'
+import {processList, updateState, updateCategory} from '@/api/workflow/process'
+import {categoryList} from '@/api/workflow/category'
 
 export default {
   data() {
@@ -10,9 +11,12 @@ export default {
       isAdd: true,
       form: {
         id: '',
-        categoryId: '',
-        categoryName: '',
-        pCategoryId: ''
+        category: '',
+        procDefId: ''
+      },
+      listCategoryQuery: {
+        page: 1,
+        pageSize: 100
       },
       rules: {
         categoryId: [
@@ -42,7 +46,7 @@ export default {
       },
       totalCount: 0,
       list: null,
-      pCategoryData: null,
+      categoryData: null,
       listLoading: true,
       selRow: {},
       radio: '2',
@@ -70,27 +74,21 @@ export default {
     },
     fetchData() {
       this.listLoading = true
-      categoryList(this.listQuery).then(response => {
+      processList(this.listQuery).then(response => {
         this.list = response.data.list
         this.listLoading = false
         this.totalCount = response.data.totalCount
       })
     },
     fetchPCategoryData() {
-      categoryList(this.listPCategoryQuery).then(response => {
-        this.pCategoryData = response.data.list
+      categoryList(this.listCategoryQuery).then(response => {
+        this.categoryData = response.data.list
       })
     },
-    rationchangeHandler(value) {
-      console.info(value)
-      if (value === '1') {
-        console.info(value)
-        this.pCategoryIdDisabled = true
-        this.form.pCategoryId = 0
-      } else {
-        this.pCategoryIdDisabled = false
-        this.form.pCategoryId = ''
-      }
+    handleNodeClick(data, node) {
+      console.log(data)
+      this.form.category = data.categoryId
+      this.showTree = false
     },
     search() {
       this.fetchData()
@@ -140,46 +138,25 @@ export default {
       this.listQuery.pageSize = pageSize
       this.fetchData()
     },
-    save() {
-      var self = this
+    updateCategoryVue() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          if (this.isUpdate) {
-            updateCategory({
-              id: self.form.id,
-              categoryName: self.form.categoryName
-            }).then(response => {
-              console.log(response)
-              this.$message({
-                message: '提交成功',
-                type: 'success'
-              })
-              this.fetchData()
-              this.formVisible = false
+          updateCategory(this.form.procDefId, this.form.category).then(response => {
+            console.log(response)
+            this.$message({
+              message: '提交成功',
+              type: 'success'
             })
-          } else {
-            addCategory({
-              id: self.form.id,
-              categoryId: self.form.categoryId,
-              categoryName: self.form.categoryName,
-              pCategoryId: self.form.pCategoryId
-            }).then(response => {
-              console.log(response)
-              this.$message({
-                message: '提交成功',
-                type: 'success'
-              })
-              this.fetchData()
-              this.formVisible = false
-            })
-          }
+            this.fetchData()
+            this.formVisible = false
+          })
         } else {
           return false
         }
       })
     },
     checkSel() {
-      if (this.selRow && this.selRow.id) {
+      if (this.selRow && this.selRow.processonDefinitionId) {
         return true
       }
       this.$message({
@@ -192,19 +169,52 @@ export default {
       if (this.checkSel()) {
         this.isAdd = false
         this.form = this.selRow
+        this.form.procDefId = this.selRow.processonDefinitionId
         this.formTitle = '修改分类'
         this.formVisible = true
         this.groupIdInputDisabled = true
         this.isUpdate = true
-        this.form.pCategoryId = this.selRow.pcategoryId
         this.pCategoryIdDisabled = true
         this.rationDisabled = true
       }
     },
-    handleNodeClick(data, node) {
-      console.log(data)
-      this.form.pCategoryId = data.categoryId
-      this.showTree = false
+    updateStateVue(data) {
+      var suspend = data.suspend
+      var state
+      console.info(suspend)
+      if (suspend) {
+        state = 'active'
+        this.$confirm('确定激活吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          updateState(state, data.processonDefinitionId).then(response => {
+            this.$message({
+              message: '操作成功',
+              type: 'success'
+            })
+            this.fetchData()
+          })
+        }).catch(() => {
+        })
+      } else {
+        state = 'suspend'
+        this.$confirm('确定挂载吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          updateState(state, data.processonDefinitionId).then(response => {
+            this.$message({
+              message: '操作成功',
+              type: 'success'
+            })
+            this.fetchData()
+          })
+        }).catch(() => {
+        })
+      }
     }
   }
 }

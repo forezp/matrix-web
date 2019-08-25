@@ -13,34 +13,19 @@
       <br>
       <el-row>
         <el-col :span="24">
-          <el-button type="success" icon="el-icon-plus" @click.native="add">{{ $t('button.add') }}</el-button>
           <el-button type="primary" icon="el-icon-edit" @click.native="edit">{{ $t('button.edit') }}</el-button>
+          <el-button type="primary" icon="el-icon-edit" @click.native="transferModel"> 转模型 </el-button>
+          <el-button type="danger" icon="el-icon-edit" @click.native="remove">{{ $t('button.delete') }}</el-button>
         </el-col>
       </el-row>
     </div>
 
-    
-    public String processonDefinitionId;
-    public String key;
-    public String name;
-    public Integer revision;
-    public Long deploymentTime;
-    public String xmlName;
-    public String picName;
-    public String deploymentId;
-    public Boolean suspend;
-    public String description;
-
     <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row
               @current-change="handleCurrentChange">
-      <el-table-column label="流程ID">
+
+      <el-table-column label="流程发布ID">
         <template slot-scope="scope">
           {{scope.row.deploymentId}}
-        </template>
-      </el-table-column>
-      <el-table-column label="分类名称">
-        <template slot-scope="scope">
-          {{scope.row.category}}
         </template>
       </el-table-column>
       <el-table-column label="名称">
@@ -48,15 +33,49 @@
           {{scope.row.name}}
         </template>
       </el-table-column>
-      <el-table-column label="父分类ID">
+      <el-table-column label="流程key">
         <template slot-scope="scope">
-          {{scope.row.pcategoryId}}
+          {{scope.row.key}}
+        </template>
+      </el-table-column>
+      <el-table-column label="版本">
+        <template slot-scope="scope">
+          {{scope.row.revision}}
+        </template>
+      </el-table-column>
+      <el-table-column label="分类名称">
+        <template slot-scope="scope">
+          {{scope.row.category}}
+        </template>
+      </el-table-column>
+      <el-table-column label="状态">
+        <template slot-scope="scope">
+          {{scope.row.suspendStr}}
         </template>
       </el-table-column>
 
-      <el-table-column label="创建时间">
+      <el-table-column label="发布时间">
         <template slot-scope="scope">
-          {{scope.row.createTime}}
+          {{scope.row.deploymentTime}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="xmlName" label="流程XML" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <a :href="`http://localhost:8082/process/resource?resType=xml&procDefId=${scope.row.processonDefinitionId}`" target="_blank">{{scope.row.xmlName}}</a>
+        </template>
+      </el-table-column>
+      <el-table-column prop="picName" label="流程图片" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <a :href="`http://localhost:8082/process/resource?resType=image&procDefId=${scope.row.processonDefinitionId}`" target="_blank">{{scope.row.picName}}</a>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" >
+        <template slot-scope="scope">
+
+          <el-button size="small" @click="updateStateVue(scope.row)" type="danger" round
+                     v-if="!scope.row.suspend">挂起</el-button>
+          <el-button size="small" @click="updateStateVue(scope.row)" type="primary" round
+                     v-if="scope.row.suspend ">激活</el-button>
         </template>
       </el-table-column>
 
@@ -69,59 +88,31 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <template>
-              是否为父分类
-              <el-radio-group :disabled= "rationDisabled" v-model="radio" @change="rationchangeHandler">
-                <el-radio class="radio" label="1">是</el-radio>
-                <el-radio class="radio" label="2">否</el-radio>
-              </el-radio-group>
-            </template>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="分类ID" prop="categoryId">
-              <el-input v-model="form.categoryId" :disabled="groupIdInputDisabled"></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="分类名称" prop="categoryName">
-              <el-input v-model="form.categoryName"></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12" v-if="pCategoryIdDisabled">
-            <el-form-item   label="父分类ID" prop="pCategoryId">
-              <el-input v-model="form.pCategoryId" :disabled="pCategoryIdDisabled"></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12" v-if="!pCategoryIdDisabled">
-            <el-form-item label="父分类ID" >
+            <el-form-item label="流程分类">
               <el-input
-                placeholder="请选择父分类ID"
-                v-model="form.pCategoryId"
+                placeholder="请选择流程分类"
+                v-model="form.category"
                 @click.native="showTree = !showTree"
               >
               </el-input>
               <el-tree v-if="showTree"
                        empty-text="暂无数据"
                        :expand-on-click-node="false"
-                       :data="pCategoryData"
+                       :data="categoryData"
                        :props="defaultProps"
                        @node-click="handleNodeClick"
                        class="input-tree">
               </el-tree>
             </el-form-item>
           </el-col>
-
         </el-row>
         <el-form-item>
-          <el-button type="primary" @click="save">{{ $t('button.submit') }}</el-button>
+          <el-button type="primary" @click="updateCategoryVue">{{ $t('button.submit') }}</el-button>
           <el-button @click.native="formVisible = false">{{ $t('button.cancel') }}</el-button>
         </el-form-item>
-
       </el-form>
     </el-dialog>
+
     <el-pagination
       background
       layout="total, sizes, prev, pager, next, jumper"

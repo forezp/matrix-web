@@ -32,7 +32,7 @@ public class ProcessController {
 	ProcessService processService;
 
 	@ApiOperation(value = "分页查询流程实例", notes = "分页查询流程实例")
-	@GetMapping("")
+	@GetMapping("/pagelist")
 	public RespDTO getProcessByPage(@RequestParam(required = false) String category,
 									@RequestParam int page, @RequestParam int pageSize) {
         PageUtils.check(page, pageSize);
@@ -41,7 +41,7 @@ public class ProcessController {
 	}
 
     @ApiOperation(value = "分页查询运行中的实例列表", notes = "分页查询运行中的实例列表")
-	@GetMapping("/running")
+	@GetMapping("/running/pagelist")
 	public RespDTO runningList(@RequestParam(required = false) String procInsId,
                                @RequestParam(required = false) String title,
                                @RequestParam(required = false) String category,
