@@ -1,15 +1,9 @@
 //package io.github.forezp.modules.activiti.controller;
 //
-//import com.xiaoantimes.taichi.dto.RespDTO;
-//import com.xiaoantimes.taichi.exception.ErrorCode;
-//import com.xiaoantimes.taichi.exception.TaiChiException;
-//import com.xiaoantimes.taichi.service.TaichiTaskService;
-//import com.xiaoantimes.taichi.service.TaskCrlService;
-//import com.xiaoantimes.taichi.util.PageUtils;
-//import com.xiaoantimes.taichi.vo.form.CompleteTask;
-//import com.xiaoantimes.taichi.vo.form.StartTask;
-//import com.xiaoleilu.hutool.util.StrUtil;
+//
+//import io.github.forezp.common.dto.RespDTO;
 //import io.swagger.annotations.ApiOperation;
+//import org.apache.commons.lang3.StringUtils;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.*;
 //
@@ -156,7 +150,7 @@
 //    @ApiOperation(value = "跟踪流程实例信息", notes = "跟踪流程，需要实例id")
 //	@GetMapping(value = "/trace/info/{proInsId}")
 //	public RespDTO traceInfo(@PathVariable("proInsId") String proInsId) {
-//        if (StrUtil.isBlank(proInsId)){
+//        if (StringUtils.isBlank(proInsId)){
 //            throw new TaiChiException(ErrorCode.ERROR_ARGS);
 //        }
 //		return RespDTO.onSuc(taichiTaskService.traceProcess(proInsId));
