@@ -31,7 +31,8 @@ export default {
     workflowMgr: '流程管理',
     modelxMgr: '模型管理',
     categoryMgr: '分类管理',
-    processMgr: '流程管理'
+    processMgr: '流程管理',
+    newProcessMgr: '新建流程'
   },
   navbar: {
     logOut: '退出登录',
