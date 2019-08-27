@@ -155,6 +155,13 @@ export const asyncRouterMap = [
         name: 'NewProcess',
         component: () => import('@/views/workflow/newprocess/index'),
         meta: { title: 'newProcessMgr' }
+      },
+      {
+        path: 'commonvaction',
+        name: 'VactionApply',
+        component: () => import('@/views/workflow/biz/vactionApply'),
+        hidden: true,
+        meta: { title: 'vactionApplyMgr' }
       }
     ]
   },

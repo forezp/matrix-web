@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     launch(list) {
-      this.$router.push({ path: `/works/flow/${list.key}`, query: {uid: this.uid, key: list.key}})
+      this.$router.push({ path: `/workflow/${list.key}`, query: {uid: this.uid, key: list.key}})
     },
     init() {
       this.fetchData()

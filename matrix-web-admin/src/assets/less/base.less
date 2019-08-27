@@ -1,0 +1,204 @@
+@import './variables.less';
+
+html, body {
+  height: 100%;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif !important;
+  background-color: #eef1f6;
+  color: @font-text-color;
+  font-size: 14px;
+  overflow: hidden;
+}
+#nprogress .bar {
+  background: #fff;
+}
+#nprogress .peg{
+  box-shadow: 0 0 10px #fff, 0 0 5px #fff;
+
+}
+.icon {
+  width: 1em; height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+a {
+  text-decoration: none;
+  color: @color-primary
+}
+
+::-webkit-scrollbar{
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px rgba(0,0,0,.2);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(0,0,0,.2);
+}
+
+//.router-link-active {
+//  color: #fff;
+//}
+
+// 分页器包裹层样式
+.@{css-prefix}page-wrapper{
+  text-align: center;
+  padding: @layout-gap;
+}
+
+.works-flows-form {
+  width: @works-flows-form-width + 3;
+  min-height: 400px;
+  margin: auto;
+  font-size: 0px;
+  overflow: hidden;
+  .works-flows-form-container{
+    position: relative;
+    &:before{
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-color: @border-color;
+    }
+    &:after{
+      content: '';
+      position: absolute;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      height: 1px;
+      background-color: @border-color;
+    }
+  }
+  .title{
+    text-align: center;
+    line-height: 60px;
+    font-size: @font-main-head-size;
+  }
+  .tips {
+    height: 40px;
+    color: @font-help-color;
+    font-size: @font-text-size;
+  }
+  .form-item {
+    margin: 0 !important;
+    border: 1px solid @border-color;
+    border-bottom-width: 0;
+    border-right-width: 0;
+    .el-form-item__content{
+      border-left: 1px solid @border-color;
+      box-sizing: border-box;
+      .el-form-item__error{
+        top: 8px;
+        right: 10px;
+        left: auto;
+      }
+    }
+    .item{
+      box-sizing: border-box;
+      > .el-input__inner{
+        border-width: 0;
+      }
+      > .el-input > .el-input__inner{
+        border-width: 0;
+      }
+      > .el-textarea__inner{
+        border-width: 0;
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif !important;
+        padding: 5px 15px;
+      }
+      .el-col{
+        .el-input__inner{
+          border-width: 0;
+        }
+      }
+    }
+    &.no-label{
+      .el-form-item__content{
+        border-left: 0;
+        box-sizing: border-box;
+      }
+    }
+  }
+  .col-3 {
+    width: @works-flows-form-width / 10 * 3;
+    .item{
+      width: @works-flows-form-width / 10 * 3 - 121px;
+    }
+    &.no-label{
+      .item{
+        width:@works-flows-form-width / 10 * 3 - 1;
+      }
+    }
+  }
+  .col-4 {
+    width: @works-flows-form-width / 10 * 4;
+    .item{
+      width: @works-flows-form-width / 10 * 4 - 121px;
+    }
+    &.no-label{
+      .item{
+        width:@works-flows-form-width / 10 * 4;
+      }
+    }
+  }
+  .col-5 {
+    width: @works-flows-form-width / 10 * 5;
+    .item{
+      width: @works-flows-form-width / 10 * 5 - 121px;
+    }
+    &.no-label{
+      .item{
+        width:@works-flows-form-width / 10 * 5;
+      }
+    }
+  }
+  .col-10{
+    width: @works-flows-form-width + 1;
+    .item{
+      width: @works-flows-form-width - 120px;
+    }
+  }
+  .fill {
+    height: 36px;
+    line-height: 36px;
+    display: inline-block;
+    text-align: center;
+    span{
+      font-size: 14px;
+      cursor: pointer;
+    }
+  }
+}
+
+.@{css-prefix}app__menu{
+  box-shadow: 0 3px 10px rgba(0,0,0,.156863), 0 3px 10px rgba(0,0,0,.227451);
+  overflow: inherit;
+  a {
+    color: white;
+    display: block;
+    &.router-link-active{
+      color: #ffd04b
+    }
+  }
+  &:not(.el-menu--collapse) {
+    flex: 0 0 256px;
+    width: 256px;
+  }
+}
+.el-container{
+  height: 100%;
+}
+// 全局字体类
+.@{css-prefix}app__font--tips{
+  color: #B4BCCC
+}
+.@{css-prefix}app__font--error-tips{
+  color: #fa5555;
+}

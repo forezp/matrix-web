@@ -32,7 +32,8 @@ export default {
     modelxMgr: '模型管理',
     categoryMgr: '分类管理',
     processMgr: '流程管理',
-    newProcessMgr: '新建流程'
+    newProcessMgr: '新建流程',
+    vactionApplyMgr: '休假申请'
   },
   navbar: {
     logOut: '退出登录',
