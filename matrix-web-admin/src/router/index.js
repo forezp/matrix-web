@@ -159,7 +159,7 @@ export const asyncRouterMap = [
       {
         path: 'commonvaction',
         name: 'VactionApply',
-        component: () => import('@/views/workflow/biz/vactionApply'),
+        component: () => import('@/views/workflow/biz/vacation/index'),
         hidden: true,
         meta: { title: 'vactionApplyMgr' }
       }
