@@ -15,7 +15,7 @@ PanJiaChen同学提供了全面的文档，开发过程可以参考这里：[htt
 # Install dependencies 
 # 建议不要用cnpm  安装有各种诡异的bug 可以通过如下操作解决npm速度慢的问题
 npm install --registry=https://registry.npm.taobao.org
-
+npm install less less-loader --save
 # Serve with hot reload at localhost:9528
 npm run dev
 

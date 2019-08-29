@@ -1,3 +1,5 @@
+import {getCurrentUser,getList} from '@/api/system/user'
+
 export default {
   data() {
     return {
@@ -11,19 +13,20 @@ export default {
         approveComments: '',
         procDefKey: '',
         applyDate: +new Date(),
-        employeeId: '',
-        employeeName: '',
-        orgId: '',
-        orgName: '',
-        jobId: '',
-        jobName: '',
         processId: '',
         type: '',
         startTime: '',
         endTime: '',
         rangetime: [],
         dateLong: ''
-
+      },
+      listQuery: {
+        page: 1,
+        pageSize: 999
+      },
+      currentUser: {
+        userId: '',
+        realname: ''
       },
       rules: {
         rangetime: [
@@ -49,16 +52,14 @@ export default {
       showApproveButton: false,
       showReApplyButton: false,
       showSaveButton: false,
-      nextStep: 'audit1'
+      nextStep: 'audit1',
+      approvers: Array
     }
   },
   created() {
     this.init()
   },
   methods: {
-    change() {
-      this.$emit('timeChange')
-    },
     submitForm(formName, isApprove) {
       if (isApprove === 1) {
         Object.assign(this.rules, {nextUserId: [{required: true, message: '请选择审批人!'}]});
@@ -72,9 +73,22 @@ export default {
         } else {
           console.log('error submit!!')
           this.errorAlert = true
-          return false;
+          return false
         }
       })
+    },
+    getCurrentUser() {
+      getCurrentUser().then(response => {
+        this.currentUser = response.data
+        this.form.name = response.data.realname
+      })
+    },
+    getApproves() {
+      getList(this.listQuery).then(response => {
+        this.approvers = response.data.list
+      })
+    },
+    change() {
     },
     init() {
       var step = this.$route.query.step
@@ -115,7 +129,9 @@ export default {
         this.showApproveButton = false,
         this.showReApplyButton = false,
         this.showSaveButton = false,
-        this.nextStep = 'audit1'
+        this.nextStep = 'audit1',
+        this.getCurrentUser()
+        this.getApproves()
       }
     }
   }

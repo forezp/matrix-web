@@ -57,6 +57,11 @@ public class SysUserController {
     @Autowired
     SysLoginLogService sysLoginLogService;
 
+    @GetMapping("/currentUser")
+    public RespDTO getCurrenUser() {
+        return RespDTO.onSuc(sysUserService.getCurrentUser());
+    }
+
     @GetMapping("/pagelist")
     public RespDTO searchUsers(@RequestParam int page, @RequestParam int pageSize, @RequestParam(required = false) String userId, @RequestParam(required = false) String realname) {
         PageUtils.check(page, pageSize);

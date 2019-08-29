@@ -10,6 +10,7 @@ import io.github.forezp.common.exception.AriesException;
 import io.github.forezp.common.exception.ErrorCode;
 import io.github.forezp.common.util.BeanUtils;
 import io.github.forezp.common.util.MD5Utils;
+import io.github.forezp.common.util.UserUtils;
 import io.github.forezp.modules.system.entity.*;
 import io.github.forezp.modules.system.mapper.SysRoleMapper;
 import io.github.forezp.modules.system.mapper.SysUserMapper;
@@ -151,5 +152,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 }
             }
         }
+    }
+
+    @Override
+    public SysUser getCurrentUser() {
+        String userId = UserUtils.getCurrentUser();
+        if (StringUtils.isEmpty(userId)) {
+            throw new AriesException(ErrorCode.FAIL);
+        }
+        QueryWrapper queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        SysUser sysUser = sysUserMapper.selectOne(queryWrapper);
+        return sysUser;
     }
 }

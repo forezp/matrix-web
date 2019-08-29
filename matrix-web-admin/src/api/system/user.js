@@ -62,3 +62,10 @@ export function setRole(params) {
     params
   })
 }
+
+export function getCurrentUser() {
+  return request({
+    url: '/user/currentUser',
+    method: 'get'
+  })
+}

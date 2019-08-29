@@ -25,6 +25,8 @@ public interface SysUserService extends IService<SysUser> {
 
     void setUserRoles(String userId,String roleId);
 
+    SysUser getCurrentUser();
+
 
 
 }

@@ -1,15 +1,18 @@
-<template>
-  <el-form ref="form" :inline="true" :model="form" :rules="rules" label-width="120px" >
+<template >
+  <el-form ref="form" :inline="true" :model="form" :rules="rules" label-width="100px" class="works-flows-form" >
     <h2 class="title">
       休假申请
     </h2>
-    <div >
+    <div class="works-flows-form-container">
+      <el-col>
       <el-form-item label="姓名:" prop="userId">
         <el-input disabled class="item" v-model="form.name"/>
       </el-form-item>
       <el-form-item class="form-item col-5" label="提交日期:">
         <el-date-picker disabled class="item" v-model="form.applyDate" ></el-date-picker>
       </el-form-item>
+      </el-col>
+      <el-col>
       <el-form-item class="form-item col-10" label="请假日期:" prop="rangetime">
         <el-date-picker
           class="item"
@@ -23,16 +26,19 @@
         >
         </el-date-picker >
       </el-form-item>
-      <el-form-item class="form-item col-10" label="实际请假天数:" prop="dateLong">
-        <el-input  disabled class="item"  v-model="form.dateLong+'天'" ></el-input>
-      </el-form-item>
+      </el-col>
+      <el-col>
       <el-form-item class="form-item col-10" label="请假原因:" prop="reason">
         <el-input :disabled="disabledReason" class="item" type="textarea" v-model="form.reason" ></el-input>
       </el-form-item>
+      </el-col>
+      <el-col>
       <el-form-item class="form-item col-10" label="备注:" prop="remarks">
         <el-input :disabled="disabledRemarks" class="item" type="textarea" v-model="form.remarks" ></el-input>
       </el-form-item>
-      <el-form-item class="form-item col-10" label="请选择审批人:" prop="nextUserId" v-if="showApprover">
+      </el-col>
+      <el-col>
+      <el-form-item class="form-item col-10" label="审批人:" prop="nextUserId" v-if="showApprover">
         <el-select class="item" v-model="form.nextUserId" placeholder="请选择审批人">
           <el-option
             v-for="item in approvers"
@@ -45,8 +51,9 @@
       <el-form-item class="form-item col-10" label="审批意见:" v-show="showApproveComment">
         <el-input class="item" type="textarea" v-model="form.approveComments"></el-input>
       </el-form-item>
+      </el-col>
     </div>
-    <el-form-item style="margin-top: 20px;float:right;">
+    <el-form-item style="margin-top: 20px;float:start;">
       <el-button v-if="showSubmitButton" type="primary" @click="submitForm('form',1)">提交</el-button>
       <el-button v-if="showApproveButton" type="primary" @click="submitForm('form', 1)">同意</el-button>
       <el-button v-if="showSaveButton" type="primary" @click="submitForm('form', 1)">存档</el-button>
@@ -59,12 +66,14 @@
 </template>
 
 <script src="./vactionApply.js"></script>
+
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "src/styles/common.scss";
   .form-wrapper {
     .form {
       width: 824px;
       margin: auto;
+      padding: 20px;
       .title{
         text-align: center;
         line-height: 60px;
