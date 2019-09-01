@@ -165,4 +165,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = sysUserMapper.selectOne(queryWrapper);
         return sysUser;
     }
+
+    @Override
+    public SysUser getUserById(String userId) {
+        if (StringUtils.isEmpty(userId)) {
+            throw new AriesException(ErrorCode.FAIL);
+        }
+        QueryWrapper queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        SysUser sysUser = sysUserMapper.selectOne(queryWrapper);
+        return sysUser;
+
+    }
 }

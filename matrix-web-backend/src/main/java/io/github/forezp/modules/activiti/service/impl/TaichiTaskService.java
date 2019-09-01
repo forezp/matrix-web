@@ -1,8 +1,19 @@
 package io.github.forezp.modules.activiti.service.impl;
 
 import com.google.common.collect.Lists;
+import io.github.forezp.common.dto.PageResultsDTO;
+import io.github.forezp.common.exception.AriesException;
+import io.github.forezp.common.exception.ErrorCode;
 import io.github.forezp.common.util.UserUtils;
+import io.github.forezp.modules.activiti.constant.ActivitiConstants;
+import io.github.forezp.modules.activiti.util.ActivitiUtils;
+import io.github.forezp.modules.activiti.vo.dto.ActivityDTO;
+import io.github.forezp.modules.activiti.vo.dto.HistoricDTO;
+import io.github.forezp.modules.activiti.vo.dto.TaskDTO;
+import io.github.forezp.modules.activiti.vo.dto.TaskListDTO;
+import io.github.forezp.modules.activiti.vo.form.CompleteTask;
 import io.github.forezp.modules.activiti.vo.form.StartTask;
+import io.github.forezp.modules.system.entity.SysUser;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.*;
@@ -67,8 +78,9 @@ public class TaichiTaskService {
 	private RepositoryService repositoryService;
 	@Autowired
 	private IdentityService identityService;
-    @Autowired
-    private SendMessageClient sendMessageClient;
+	//发送邮件
+//    @Autowired
+//    private SendMessageClient sendMessageClient;
 
     /**
      * 待办任务
@@ -79,7 +91,7 @@ public class TaichiTaskService {
      * @return
      */
     public TaskListDTO getTodoTasks(String title, String category, int page, int pageSize) {
-        String userId = UserUtils.getCurrentPrinciple();
+        String userId = UserUtils.getCurrentUser();
         List<TaskDTO> tasks = new ArrayList<>();
         TaskQuery taskQuery = taskService.createTaskQuery().taskCandidateOrAssigned(userId)
                 .active().includeProcessVariables().orderByTaskCreateTime().desc();
@@ -110,7 +122,7 @@ public class TaichiTaskService {
      * @return
      */
     public TaskListDTO getFinishTasks(String title, String category, int page, int pageSize) {
-        String userId = UserUtils.getCurrentPrinciple();
+        String userId = UserUtils.getCurrentUser();
         List<TaskDTO> tasks = new ArrayList<>();
         HistoricTaskInstanceQuery histTaskQuery = historyService.createHistoricTaskInstanceQuery().taskAssignee(userId)
                 .finished().includeProcessVariables().orderByHistoricTaskInstanceEndTime().desc();
@@ -146,7 +158,7 @@ public class TaichiTaskService {
      * @return
      */
     public TaskListDTO getTasksByStarter(String title, String category, int page, int pageSize) {
-        String userId = UserUtils.getCurrentPrinciple();
+        String userId = UserUtils.getCurrentUser();
         List<TaskDTO> tasks = new ArrayList<>();
         HistoricProcessInstanceQuery histProcessInstanceQuery = historyService.createHistoricProcessInstanceQuery().startedBy(userId)
                 .includeProcessVariables().orderByProcessInstanceStartTime().desc();
@@ -186,8 +198,7 @@ public class TaichiTaskService {
     /**
      * 获取流转历史列表
      * @param procInsId 流程实例
-     * @param startAct 开始活动节点名称
-     * @param endAct 结束活动节点名称
+     *
      */
     public List<HistoricDTO> historicFlowList(String procInsId) {
         List<HistoricDTO> result = new ArrayList<>();
@@ -197,12 +208,12 @@ public class TaichiTaskService {
                 .forEach(task -> {
                     HistoricDTO dto = new HistoricDTO();
                     dto.setAssignee(task.getAssignee());
-                    UserInfo userInfo = ActivitiUtils.getUserInfo(task.getAssignee());
-                    if (ObjectUtil.isNull(userInfo) || ObjectUtil.isNull(userInfo.getSysUser())) {
-                        throw new TaiChiException(ErrorCode.USER_IS_NOT_EXIST);
+                    SysUser sysUser = ActivitiUtils.getUserInfo(task.getAssignee());
+                    if (sysUser==null) {
+                        throw new AriesException(ErrorCode.USER_IS_NOT_EXIST);
                     }
-                    dto.setAssigneeName(userInfo.getSysUser().getRealname());
-                    dto.setAvatar(userInfo.getSysUser().getAvatar());
+                    dto.setAssigneeName(sysUser.getRealname());
+                    dto.setAvatar(sysUser.getAvatar());
                     if (StringUtils.isNotBlank(task.getId())){
                         List<Comment> commentList = taskService.getTaskComments(task.getId());
                         if (commentList.size()>0){
@@ -456,7 +467,7 @@ public class TaichiTaskService {
 	 */
 	@Transactional(readOnly = false, rollbackFor = Exception.class)
 	public void claim(String taskId){
-        String userId = UserUtils.getCurrentPrinciple();
+        String userId = UserUtils.getCurrentUser();
         taskService.claim(taskId, userId);
 	}
 
@@ -475,10 +486,10 @@ public class TaichiTaskService {
         } else if ((form.flag + "").startsWith(ActivitiConstants.TASK_AUDIT_BACK)) {
             addComment(form.taskId, form.procInsId, "【退回】 ", form.comment, vars);
         } else {
-            throw new TaiChiException(ErrorCode.TASK_AUDIT_PARAM);
+            throw new AriesException(ErrorCode.TASK_AUDIT_PARAM);
         }
         vars.put("pass", form.flag);
-        if (StrUtil.isNotBlank(form.comment)) {
+        if (StringUtils.isNotBlank(form.comment)) {
             vars.put("comment", form.comment);
         }
         // 提交任务
@@ -487,7 +498,7 @@ public class TaichiTaskService {
         Task task = getTaskByPid(form.procInsId);
         Optional.ofNullable(task)
                 .ifPresent(t ->{
-                    if (StrUtil.isNotBlank(form.userId)) {
+                    if (StringUtils.isNotBlank(form.userId)) {
                         taskService.setAssignee(task.getId(), form.userId);
                         sendSysMessage(form.userId, (String) taskService.getVariable(task.getId(), "title"), "");
                     }
@@ -497,12 +508,12 @@ public class TaichiTaskService {
 	private void sendSysMessage(String userId, String title, String content) {
 	    List<String> recieverIds = new ArrayList<>();
         recieverIds.add(userId);
-        sendMessageClient.addSysMessage(recieverIds, MessageTypeEnum.NEW_WAIT.getCode(), title, content, null, false);
+       // sendMessageClient.addSysMessage(recieverIds, MessageTypeEnum.NEW_WAIT.getCode(), title, content, null, false);
     }
 
 	private void addComment(String taskId, String processInstanceId, String judgment, String message, Map<String, Object> vars) {
 	    String comment;
-	    if (StrUtil.isNotBlank(message)) {
+	    if (StringUtils.isNotBlank(message)) {
 	        comment = judgment + message;
         } else {
 	        comment = judgment;
@@ -828,20 +839,20 @@ public class TaichiTaskService {
                     if (ActivitiConstants.ACTIVITI_TYPE_START_EVENT.equals(historicActivityInstance.getActivityType())) {
                         HistoricProcessInstance historicProcessInstance = historyService.createHistoricProcessInstanceQuery()
                                 .processInstanceId(processInstanceId).singleResult();
-                        UserInfo userInfo = ActivitiUtils.getUserInfo(historicProcessInstance.getStartUserId());
-                        if (ObjectUtil.isNull(userInfo) || ObjectUtil.isNull(userInfo.getSysUser())) {
-                            throw new TaiChiException(ErrorCode.USER_IS_NOT_EXIST);
+                        SysUser sysUser = ActivitiUtils.getUserInfo(historicProcessInstance.getStartUserId());
+                        if (sysUser==null) {
+                            throw new AriesException(ErrorCode.USER_IS_NOT_EXIST);
                         }
-                        vo.setAssigneeName(userInfo.getSysUser().getRealname());
-                        vo.setAvatar(userInfo.getSysUser().getAvatar());
+                        vo.setAssigneeName(sysUser.getRealname());
+                        vo.setAvatar(sysUser.getAvatar());
                     } else {
-                        if (!StrUtil.isEmpty(vo.getAssignee())) {
-                            UserInfo userInfo = ActivitiUtils.getUserInfo(vo.getAssignee());
-                            if (ObjectUtil.isNull(userInfo) || ObjectUtil.isNull(userInfo.getSysUser())) {
-                                throw new TaiChiException(ErrorCode.USER_IS_NOT_EXIST);
+                        if (!StringUtils.isEmpty(vo.getAssignee())) {
+                            SysUser sysUser = ActivitiUtils.getUserInfo(vo.getAssignee());
+                            if (sysUser==null) {
+                                throw new AriesException(ErrorCode.USER_IS_NOT_EXIST);
                             }
-                            vo.setAssigneeName(userInfo.getSysUser().getRealname());
-                            vo.setAvatar(userInfo.getSysUser().getAvatar());
+                            vo.setAssigneeName(sysUser.getRealname());
+                            vo.setAvatar(sysUser.getAvatar());
                         } else {
                             vo.setAssigneeName("待定");
                         }
@@ -949,7 +960,7 @@ public class TaichiTaskService {
     public Map<String, String> getApproveMap(HistoricActivityInstance activityInstance) {
         //审批结果和审批意见为Local变量
         Map<String, String> map = new HashMap<>();
-        if (StrUtil.isEmpty(activityInstance.getTaskId())) {
+        if (StringUtils.isEmpty(activityInstance.getTaskId())) {
             return map;
         }
         List<HistoricVariableInstance> variableInstances = historyService.createHistoricVariableInstanceQuery()
@@ -1015,14 +1026,14 @@ public class TaichiTaskService {
                                 try {
                                     assignee = (String) taskDefinition.getAssigneeExpression().getValue(execution);
                                 } catch (Exception ex) {
-                                    logger.error("获取收理人出错：" + ex.getMessage());
+                                    log.error("获取收理人出错：" + ex.getMessage());
                                     assignee = null;
                                 }
-                                UserInfo userInfo = ActivitiUtils.getUserInfo(assignee);
-                                if (ObjectUtil.isNull(userInfo) || ObjectUtil.isNull(userInfo.getSysUser())) {
-                                    throw new TaiChiException(ErrorCode.USER_IS_NOT_EXIST);
+                                SysUser sysUser = ActivitiUtils.getUserInfo(assignee);
+                                if (sysUser==null) {
+                                    throw new AriesException(ErrorCode.USER_IS_NOT_EXIST);
                                 }
-                                retNames = assignee != null ? userInfo.getSysUser().getRealname() : "待定";
+                                retNames = assignee != null ? sysUser.getRealname() : "待定";
                                 return retNames;
                             }
                             return retNames;
@@ -1035,7 +1046,7 @@ public class TaichiTaskService {
     /**
      * 判断当前是否是合适的路径
      *
-     * @param expressionText    表达式
+     * @param     表达式
      * @param processInstanceId 实例ID
      * @return true符合条件条件的路径
      */

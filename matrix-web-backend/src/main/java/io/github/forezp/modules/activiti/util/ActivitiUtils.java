@@ -1,6 +1,18 @@
 package io.github.forezp.modules.activiti.util;
 
 import com.alibaba.fastjson.JSON;
+import io.github.forezp.AriesApplication;
+import io.github.forezp.common.dto.PageResultsDTO;
+import io.github.forezp.common.exception.AriesException;
+import io.github.forezp.common.exception.ErrorCode;
+import io.github.forezp.common.util.Application;
+import io.github.forezp.modules.activiti.vo.dto.ProcessDTO;
+import io.github.forezp.modules.activiti.vo.dto.TaskDTO;
+import io.github.forezp.modules.activiti.vo.dto.TaskListDTO;
+import io.github.forezp.modules.system.entity.SysUser;
+import io.github.forezp.modules.system.service.SysUserService;
+import io.github.forezp.modules.system.vo.dto.SysRoleDTO;
+import io.github.forezp.modules.system.vo.dto.SysUserDTO;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.impl.persistence.entity.GroupEntity;
 import org.activiti.engine.impl.persistence.entity.UserEntity;
@@ -8,53 +20,37 @@ import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.TaskInfo;
 import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 
 public class ActivitiUtils {
 
-    static UserDetailDao userDetailDao = Application.getBean(UserDetailDao.class);
-
-    static UserServiceClient userServiceClient = Application.getBean(UserServiceClient.class);
+    static SysUserService userService = Application.getBean(SysUserService.class);
 
     static HistoryService historyService = Application.getBean(HistoryService.class);
 
     /**
      * 获取用户信息
+     *
      * @param userId
      * @return
      */
-    public static UserInfo getUserInfo(String userId) {
-        if (userDetailDao.has(userId)) {
-            return parseUserInfo(userDetailDao.get(userId));
+    public static SysUser getUserInfo(String userId) {
+        if (StringUtils.isEmpty(userId)) {
+            throw new AriesException(ErrorCode.ERROR_ARGS);
         }
-        RespDTO resp = userServiceClient.getUser(userId);
-        return Optional.ofNullable(resp.data)
-                .map(data -> {
-                    userDetailDao.set(JSON.toJSONString(data), userId);
-                    return parseUserInfo(JSON.toJSONString(data));
-                })
-                .orElseThrow(() ->new TaiChiException(ErrorCode.FAIL, "get user from user service error"));
+        return userService.getUserById(userId);
+
     }
 
-    private static UserInfo parseUserInfo(String json) {
-        return JSON.parseObject(json, UserInfo.class);
-    }
-
-    /**
-     * 删除缓存
-     * @param userId
-     */
-    public static void delUserCache(String userId) {
-        if (userDetailDao.has(userId)) {
-            userDetailDao.del(userId);
-        }
-    }
 
     /**
      * 节点对应的中文名称
+     *
      * @param type
      * @return
      */
@@ -72,10 +68,11 @@ public class ActivitiUtils {
 
     /**
      * 将dto转为activiti的entity
+     *
      * @param role
      * @return
      */
-    public static GroupEntity toActivitiGroup(SysRoleDTO role){
+    public static GroupEntity toActivitiGroup(SysRoleDTO role) {
         GroupEntity groupEntity = new GroupEntity();
         groupEntity.setId(role.getRoleId());
         groupEntity.setName(role.getName());
@@ -86,10 +83,11 @@ public class ActivitiUtils {
 
     /**
      * 将dto转为activiti的entity
+     *
      * @param user
      * @return
      */
-    public static UserEntity toActivitiUser(SysUserDTO user){
+    public static UserEntity toActivitiUser(SysUserDTO user) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(user.getUserId());
         userEntity.setFirstName(user.getRealname());
@@ -102,13 +100,14 @@ public class ActivitiUtils {
 
     /**
      * 抽取流程实例需要返回的内容
+     *
      * @param processDefinition
      * @param deployment
      * @return
      */
     public static ProcessDTO toProcessDTO(ProcessDefinition processDefinition, Deployment deployment) {
         if (null == processDefinition || null == deployment) {
-            throw new TaiChiException(ErrorCode.ERROR_ARGS);
+            throw new AriesException(ErrorCode.ERROR_ARGS);
         }
         ProcessDTO dto = new ProcessDTO();
         dto.category = processDefinition.getCategory();

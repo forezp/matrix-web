@@ -27,6 +27,8 @@ public interface SysUserService extends IService<SysUser> {
 
     SysUser getCurrentUser();
 
+    SysUser getUserById(String userId);
+
 
 
 }

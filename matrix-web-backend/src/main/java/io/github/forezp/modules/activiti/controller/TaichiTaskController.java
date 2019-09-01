@@ -2,9 +2,13 @@ package io.github.forezp.modules.activiti.controller;
 
 
 import io.github.forezp.common.dto.RespDTO;
+import io.github.forezp.common.exception.AriesException;
+import io.github.forezp.common.exception.ErrorCode;
 import io.github.forezp.common.util.PageUtils;
 import io.github.forezp.modules.activiti.service.impl.TaichiTaskService;
 import io.github.forezp.modules.activiti.service.impl.TaskCrlService;
+import io.github.forezp.modules.activiti.vo.form.CompleteTask;
+import io.github.forezp.modules.activiti.vo.form.StartTask;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,9 +103,9 @@ public class TaichiTaskController {
     @ApiOperation(value = "开始流程", notes = "开始任务")
 	@PostMapping("/start")
 	public RespDTO start(@RequestBody StartTask form) {
-	    if (null == form || StrUtil.isBlank(form.procDefKey) || StrUtil.isBlank(form.title)
-                || StrUtil.isBlank(form.entityId) || StrUtil.isBlank(form.userId)) {
-	        throw new TaiChiException(ErrorCode.MISSING_ARGS);
+	    if (null == form || StringUtils.isBlank(form.procDefKey) || StringUtils.isBlank(form.title)
+                || StringUtils.isBlank(form.entityId) || StringUtils.isBlank(form.userId)) {
+	        throw new AriesException(ErrorCode.MISSING_ARGS);
         }
 		return RespDTO.onSuc(taichiTaskService.startProcess(form));
 	}
@@ -116,8 +120,8 @@ public class TaichiTaskController {
     @ApiOperation(value = "完成任务", notes = "完成任务")
 	@PostMapping(value = "/complete")
 	public RespDTO complete(@RequestBody CompleteTask form) {
-        if (null == form || StrUtil.isBlank(form.taskId) || StrUtil.isBlank(form.procInsId) || null == form.flag) {
-            throw new TaiChiException(ErrorCode.MISSING_ARGS);
+        if (null == form || StringUtils.isBlank(form.taskId) || StringUtils.isBlank(form.procInsId) || null == form.flag) {
+            throw new AriesException(ErrorCode.MISSING_ARGS);
         }
 		taichiTaskService.complete(form);
 		return RespDTO.onSuc(null);
@@ -126,8 +130,8 @@ public class TaichiTaskController {
     @ApiOperation(value = "删除任务", notes = "删除任务")
     @DeleteMapping("/{taskId}")
     public RespDTO deleteTask(@PathVariable("taskId") String taskId, @RequestParam String reason) {
-        if (StrUtil.isBlank(reason) || StrUtil.isBlank(taskId)) {
-            throw new TaiChiException(ErrorCode.ERROR_ARGS);
+        if (StringUtils.isBlank(reason) || StringUtils.isBlank(taskId)) {
+            throw new AriesException(ErrorCode.ERROR_ARGS);
         }
         taichiTaskService.deleteTask(taskId, reason);
         return RespDTO.onSuc(null);
@@ -154,7 +158,7 @@ public class TaichiTaskController {
 	@GetMapping(value = "/trace/info/{proInsId}")
 	public RespDTO traceInfo(@PathVariable("proInsId") String proInsId) {
         if (StringUtils.isBlank(proInsId)){
-            throw new TaiChiException(ErrorCode.ERROR_ARGS);
+            throw new AriesException(ErrorCode.ERROR_ARGS);
         }
 		return RespDTO.onSuc(taichiTaskService.traceProcess(proInsId));
 	}

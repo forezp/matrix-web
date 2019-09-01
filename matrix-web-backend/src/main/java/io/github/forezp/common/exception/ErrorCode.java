@@ -21,7 +21,10 @@ public enum ErrorCode {
     MODEL_NOT_EXIST(1011, "模型不存在"),
     FILE_NAME_NOT_EXIST(1013, "文件名称不存在"),
     FILE_PATTERN_NOT_SUPPORTED(1012, "文件格式不对"),
-    MISSING_ARGS(1014, "参数缺失");
+    MISSING_ARGS(1014, "参数缺失"),
+    USER_IS_NOT_EXIST(1015,"用户不存在"),
+
+    TASK_AUDIT_PARAM(5004, "流程判断节点参数错误");
 
 
     private int code;
