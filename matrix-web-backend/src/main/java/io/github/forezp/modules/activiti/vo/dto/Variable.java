@@ -3,6 +3,8 @@ package io.github.forezp.modules.activiti.vo.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Maps;
 
+import io.github.forezp.modules.activiti.util.DateConverter;
+import io.github.forezp.modules.activiti.util.PropertyType;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
 

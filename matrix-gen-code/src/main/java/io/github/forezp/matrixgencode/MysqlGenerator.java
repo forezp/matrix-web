@@ -44,9 +44,9 @@ public class MysqlGenerator {
 //        throw new MybatisPlusException("请输入正确的" + tip + "！");
 //    }
 
-   public static String[] tableNames={"act_model_category"};
+   public static String[] tableNames={"pl_vacation"};
 
-   public static String packageName="io.github.forezp.modules.activiti";
+   public static String packageName="io.github.forezp.modules.personnel";
     /**
      * RUN THIS
      */
@@ -70,11 +70,11 @@ public class MysqlGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://119.23.221.204:3306/aries?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false&useSSL=false&serverTimezone=GMT");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/aries?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false&useSSL=false&serverTimezone=GMT");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("Fzp!23@2009");
+        dsc.setPassword("123456");
 
         mpg.setDataSource(dsc);
 

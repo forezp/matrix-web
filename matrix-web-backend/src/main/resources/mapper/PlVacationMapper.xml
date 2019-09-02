@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.forezp.modules.personnel.mapper.PlVacationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="io.github.forezp.modules.personnel.entity.PlVacation">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="create_by" property="createBy" />
+    <result column="update_time" property="updateTime" />
+    <result column="update_by" property="updateBy" />
+        <result column="user_id" property="userId" />
+        <result column="name" property="name" />
+        <result column="reason" property="reason" />
+        <result column="remarks" property="remarks" />
+        <result column="proc_def_key" property="procDefKey" />
+        <result column="apply_date" property="applyDate" />
+        <result column="process_id" property="processId" />
+        <result column="vacation_type" property="vacationType" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="step" property="step" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        create_by,
+        update_time,
+        update_by,
+        user_id, name, reason, remarks, proc_def_key, apply_date, process_id, vacation_type, start_time, end_time, step
+    </sql>
+
+</mapper>

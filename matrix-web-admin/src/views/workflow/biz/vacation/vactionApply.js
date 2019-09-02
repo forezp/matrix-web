@@ -1,4 +1,5 @@
-import {getCurrentUser,getList} from '@/api/system/user'
+import { getCurrentUser, getList } from '@/api/system/user'
+import { postVacation } from '@/api/workflow/vacation'
 
 export default {
   data() {
@@ -18,7 +19,8 @@ export default {
         startTime: '',
         endTime: '',
         rangetime: [],
-        dateLong: ''
+        dateLong: '',
+        step: ''
       },
       listQuery: {
         page: 1,
@@ -68,14 +70,36 @@ export default {
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.errorAlert = false
-          this.$emit('submit', isApprove)
+          this.submit()
         } else {
           console.log('error submit!!')
-          this.errorAlert = true
           return false
         }
       })
+    },
+    submit() {
+      var rangetime = this.form.rangetime
+      var startTime, endTime;
+      if (rangetime) {
+        startTime = new Date(rangetime[0]).getTime();
+        endTime = new Date(rangetime[1]).getTime();
+      }
+      let {step, processInstanceId, key} = this.$route.query;
+      this.form.processId = processInstanceId
+      this.form.procDefKey = key
+      this.form.step = step
+      this.form.startTime = startTime
+      this.form.endTime = endTime
+      if (step) {
+        console.info(step)
+      } else {
+        postVacation(this.form).then(response => {
+          this.$message({
+            message: '提交成功',
+            type: 'success'
+          })
+        })
+      }
     },
     getCurrentUser() {
       getCurrentUser().then(response => {
