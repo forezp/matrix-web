@@ -15,7 +15,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @MapperScan({"io.github.forezp.modules.system.mapper"
-        ,"io.github.forezp.modules.task.mapper","io.github.forezp.modules.activiti.mapper"})
+        ,"io.github.forezp.modules.task.mapper","io.github.forezp.modules.activiti.mapper","io.github.forezp.modules.personnel.mapper"})
 public class AriesApplication extends SpringBootServletInitializer {
 
 

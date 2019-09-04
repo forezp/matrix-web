@@ -9,7 +9,7 @@
  Target Server Version : 50718
  File Encoding         : utf-8
 
- Date: 09/02/2019 23:40:15 PM
+ Date: 09/04/2019 23:01:11 PM
 */
 
 SET NAMES utf8;
@@ -73,7 +73,7 @@ CREATE TABLE `ACT_GE_PROPERTY` (
 --  Records of `ACT_GE_PROPERTY`
 -- ----------------------------
 BEGIN;
-INSERT INTO `ACT_GE_PROPERTY` VALUES ('next.dbid', '30001', '13'), ('schema.history', 'create(5.22.0.0)', '1'), ('schema.version', '5.22.0.0', '1');
+INSERT INTO `ACT_GE_PROPERTY` VALUES ('next.dbid', '32501', '14'), ('schema.history', 'create(5.22.0.0)', '1'), ('schema.version', '5.22.0.0', '1');
 COMMIT;
 
 -- ----------------------------
@@ -101,6 +101,13 @@ CREATE TABLE `ACT_HI_ACTINST` (
   KEY `ACT_IDX_HI_ACT_INST_PROCINST` (`PROC_INST_ID_`,`ACT_ID_`),
   KEY `ACT_IDX_HI_ACT_INST_EXEC` (`EXECUTION_ID_`,`ACT_ID_`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+--  Records of `ACT_HI_ACTINST`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_HI_ACTINST` VALUES ('30003', 'commonvaction:1:27504', '30001', '30001', 'startEvent', null, null, null, 'startEvent', null, '2019-09-04 21:24:48.019', '2019-09-04 21:24:48.109', '90', ''), ('30006', 'commonvaction:1:27504', '30001', '30001', 'aduit1', '30007', null, null, 'userTask', 'fangzhipeng', '2019-09-04 21:24:48.115', null, null, '');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `ACT_HI_ATTACHMENT`
@@ -139,6 +146,13 @@ CREATE TABLE `ACT_HI_COMMENT` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
+--  Records of `ACT_HI_COMMENT`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_HI_COMMENT` VALUES ('30008', 'event', '2019-09-04 21:24:48.810', 'fangzhipeng', '30007', null, 'AddUserLink', 'fangzhipeng_|_assignee', null);
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `ACT_HI_DETAIL`
 -- ----------------------------
 DROP TABLE IF EXISTS `ACT_HI_DETAIL`;
@@ -167,6 +181,13 @@ CREATE TABLE `ACT_HI_DETAIL` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
+--  Records of `ACT_HI_DETAIL`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_HI_DETAIL` VALUES ('30005', 'VariableUpdate', '30001', '30001', null, '30003', 'title', 'string', '0', '2019-09-04 21:24:48.020', null, null, null, 'fzp请假申请', null);
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `ACT_HI_IDENTITYLINK`
 -- ----------------------------
 DROP TABLE IF EXISTS `ACT_HI_IDENTITYLINK`;
@@ -182,6 +203,13 @@ CREATE TABLE `ACT_HI_IDENTITYLINK` (
   KEY `ACT_IDX_HI_IDENT_LNK_TASK` (`TASK_ID_`),
   KEY `ACT_IDX_HI_IDENT_LNK_PROCINST` (`PROC_INST_ID_`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+--  Records of `ACT_HI_IDENTITYLINK`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_HI_IDENTITYLINK` VALUES ('30002', null, 'starter', 'fangzhipeng', null, '30001');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `ACT_HI_PROCINST`
@@ -207,6 +235,13 @@ CREATE TABLE `ACT_HI_PROCINST` (
   KEY `ACT_IDX_HI_PRO_INST_END` (`END_TIME_`),
   KEY `ACT_IDX_HI_PRO_I_BUSKEY` (`BUSINESS_KEY_`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+--  Records of `ACT_HI_PROCINST`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_HI_PROCINST` VALUES ('30001', '30001', '1169239788639391745', 'commonvaction:1:27504', '2019-09-04 21:24:48.018', null, null, 'fangzhipeng', 'startEvent', null, null, null, '', null);
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `ACT_HI_TASKINST`
@@ -238,6 +273,13 @@ CREATE TABLE `ACT_HI_TASKINST` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
+--  Records of `ACT_HI_TASKINST`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_HI_TASKINST` VALUES ('30007', 'commonvaction:1:27504', 'aduit1', '30001', '30001', null, null, null, null, 'fangzhipeng', '2019-09-04 21:24:48.123', null, null, null, null, '50', null, null, 'common_vacttion', '');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `ACT_HI_VARINST`
 -- ----------------------------
 DROP TABLE IF EXISTS `ACT_HI_VARINST`;
@@ -261,6 +303,13 @@ CREATE TABLE `ACT_HI_VARINST` (
   KEY `ACT_IDX_HI_PROCVAR_NAME_TYPE` (`NAME_`,`VAR_TYPE_`),
   KEY `ACT_IDX_HI_PROCVAR_TASK_ID` (`TASK_ID_`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+--  Records of `ACT_HI_VARINST`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_HI_VARINST` VALUES ('30004', '30001', '30001', null, 'title', 'string', '0', null, null, null, 'fzp请假申请', null, '2019-09-04 21:24:48.020', '2019-09-04 21:24:48.020');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `ACT_ID_GROUP`
@@ -476,6 +525,13 @@ CREATE TABLE `ACT_RU_EXECUTION` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
+--  Records of `ACT_RU_EXECUTION`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_RU_EXECUTION` VALUES ('30001', '1', '30001', '1169239788639391745', null, 'commonvaction:1:27504', null, 'aduit1', '1', '0', '1', '0', '1', '2', '', null, null);
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `ACT_RU_IDENTITYLINK`
 -- ----------------------------
 DROP TABLE IF EXISTS `ACT_RU_IDENTITYLINK`;
@@ -498,6 +554,13 @@ CREATE TABLE `ACT_RU_IDENTITYLINK` (
   CONSTRAINT `ACT_FK_IDL_PROCINST` FOREIGN KEY (`PROC_INST_ID_`) REFERENCES `ACT_RU_EXECUTION` (`ID_`),
   CONSTRAINT `ACT_FK_TSKASS_TASK` FOREIGN KEY (`TASK_ID_`) REFERENCES `ACT_RU_TASK` (`ID_`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+--  Records of `ACT_RU_IDENTITYLINK`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_RU_IDENTITYLINK` VALUES ('30002', '1', null, 'starter', 'fangzhipeng', null, '30001', null);
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `ACT_RU_JOB`
@@ -561,6 +624,13 @@ CREATE TABLE `ACT_RU_TASK` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
+--  Records of `ACT_RU_TASK`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_RU_TASK` VALUES ('30007', '3', '30001', '30001', 'commonvaction:1:27504', null, null, null, 'aduit1', null, 'fangzhipeng', null, '50', '2019-09-04 21:24:48.116', null, 'common_vacttion', '1', '', null);
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `ACT_RU_VARIABLE`
 -- ----------------------------
 DROP TABLE IF EXISTS `ACT_RU_VARIABLE`;
@@ -586,6 +656,13 @@ CREATE TABLE `ACT_RU_VARIABLE` (
   CONSTRAINT `ACT_FK_VAR_EXE` FOREIGN KEY (`EXECUTION_ID_`) REFERENCES `ACT_RU_EXECUTION` (`ID_`),
   CONSTRAINT `ACT_FK_VAR_PROCINST` FOREIGN KEY (`PROC_INST_ID_`) REFERENCES `ACT_RU_EXECUTION` (`ID_`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+--  Records of `ACT_RU_VARIABLE`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ACT_RU_VARIABLE` VALUES ('30004', '1', 'string', 'title', '30001', '30001', null, null, null, null, 'fzp请假申请', null);
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `QRTZ_BLOB_TRIGGERS`
@@ -778,7 +855,7 @@ CREATE TABLE `QRTZ_TRIGGERS` (
 --  Records of `QRTZ_TRIGGERS`
 -- ----------------------------
 BEGIN;
-INSERT INTO `QRTZ_TRIGGERS` VALUES ('SchedulerFactory', 'io.github.forezp.modules.task.job.CleanLogJob', 'common_task', 'io.github.forezp.modules.task.job.CleanLogJob', 'common_task', null, '1567438200000', '1567437600000', '5', 'WAITING', 'CRON', '1566129884000', '0', null, '0', '');
+INSERT INTO `QRTZ_TRIGGERS` VALUES ('SchedulerFactory', 'io.github.forezp.modules.task.job.CleanLogJob', 'common_task', 'io.github.forezp.modules.task.job.CleanLogJob', 'common_task', null, '1567609800000', '1567609200000', '5', 'WAITING', 'CRON', '1566129884000', '0', null, '0', '');
 COMMIT;
 
 -- ----------------------------
@@ -814,19 +891,26 @@ CREATE TABLE `pl_vacation` (
   `name` varchar(66) NOT NULL,
   `reason` varchar(256) DEFAULT NULL,
   `remarks` varchar(256) DEFAULT NULL,
-  `proc_def_key` varchar(66) NOT NULL,
-  `apply_date` datetime NOT NULL,
-  `process_id` varchar(66) NOT NULL,
-  `vacation_type` varchar(255) NOT NULL,
-  `start_time` datetime NOT NULL,
-  `end_time` datetime NOT NULL,
-  `step` varchar(66) NOT NULL,
-  `create_time` datetime NOT NULL,
-  `create_by` varchar(66) NOT NULL,
-  `update_time` datetime NOT NULL,
-  `update_by` varchar(255) NOT NULL,
+  `proc_def_key` varchar(66) DEFAULT NULL,
+  `apply_date` datetime DEFAULT NULL,
+  `process_id` varchar(66) DEFAULT NULL,
+  `vacation_type` varchar(255) DEFAULT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `step` varchar(66) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `create_by` varchar(66) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `update_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `pl_vacation`
+-- ----------------------------
+BEGIN;
+INSERT INTO `pl_vacation` VALUES ('1169239788639391745', 'fangzhipeng', 'fzp', '11', '1', 'commonvaction', '2019-09-04 21:22:25', '30001', null, '2019-09-03 00:00:00', '2019-09-05 00:00:00', null, '2019-09-04 21:24:24', 'fangzhipeng', '2019-09-04 21:24:24', 'fangzhipeng');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `qrtz_triggers_group`
@@ -871,7 +955,7 @@ CREATE TABLE `qrtz_triggers_history` (
 --  Records of `qrtz_triggers_history`
 -- ----------------------------
 BEGIN;
-INSERT INTO `qrtz_triggers_history` VALUES ('1168544105989062657', 'io.github.forezp.modules.task.job.CleanLogJob', 'common_task', null, null, 'stranger', 'stranger', '2019-09-02 23:20:00', '2019-09-02 23:20:00');
+INSERT INTO `qrtz_triggers_history` VALUES ('1169263848505106434', 'io.github.forezp.modules.task.job.CleanLogJob', 'common_task', null, null, 'stranger', 'stranger', '2019-09-04 23:00:00', '2019-09-04 23:00:00');
 COMMIT;
 
 -- ----------------------------
@@ -974,13 +1058,6 @@ CREATE TABLE `sys_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Records of `sys_log`
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_log` VALUES ('1168544940038995969', '69e104d2-3ba6-9c9b-2254-bfa5206bfa49', 'GET', '/user/info', '127.0.0.1', '{}', '0', '{\"code\":0,\"data\":{\"roles\":\"administrator\",\"menus\":[{\"code\":\"system\",\"icon\":\"fa-cog\",\"id\":1,\"ismenu\":1,\"isopen\":1,\"levels\":1,\"name\":\"系统管理\",\"num\":4,\"pcode\":\"0\",\"pcodes\":\"[0],\",\"status\":1,\"url\":\"/system\"},{\"code\":\"cms\",\"icon\":\"\",\"id\":2,\"ismenu\":1,\"levels\":1,\"name\":\"CMS管理\",\"num\":5,\"pcode\":\"0\",\"pcodes\":\"[0],\",\"status\":1,\"updateBy\":\"1\",\"updateTime\":1552314338000,\"url\":\"/cms\"},{\"code\":\"operationMgr\",\"icon\":\"null\",\"id\":3,\"ismenu\":1,\"levels\":1,\"name\":\"运维管理\",\"num\":3,\"pcode\":\"0\",\"pcodes\":\"[0],\",\"status\":1,', '180', 'fangzhipeng', '2019-09-02 23:23:19', 'fangzhipeng', '2019-09-02 23:23:19'), ('1168544945114103810', '9ba194ee-da04-556d-f92d-4961fe8805f2', 'GET', '/user/currentUser', '127.0.0.1', '{}', '0', '{\"code\":0,\"data\":{\"createBy\":\"1\",\"createTime\":1564502320000,\"email\":\"miles02@163.com\",\"id\":1,\"mobile\":\"15009223222\",\"password\":\"6c7e90436b7f48db03488510cd6ac480\",\"realname\":\"fzp\",\"remarks\":\"qq124746406\",\"sex\":1,\"status\":true,\"type\":0,\"updateBy\":\"1\",\"updateTime\":1564502325000,\"userId\":\"fangzhipeng\"},\"message\":\"sucess\",\"requestId\":\"9ba194ee-da04-556d-f92d-4961fe8805f2\"}', '18', 'fangzhipeng', '2019-09-02 23:23:20', 'fangzhipeng', '2019-09-02 23:23:20'), ('1168544945223155713', 'aa73f3f0-c36b-f791-abff-fdca4f1133e8', 'GET', '/user/pagelist', '127.0.0.1', '{page=1, pageSize=999}', '0', '{\"code\":0,\"data\":{\"list\":[{\"createBy\":\"1\",\"createTime\":1564502320000,\"email\":\"miles02@163.com\",\"id\":1,\"menus\":[],\"mobile\":\"15009223222\",\"orgName\":\"总公司\",\"orgs\":[{\"orgId\":\"1\",\"simpleName\":\"总公司\"}],\"password\":\"6c7e90436b7f48db03488510cd6ac480\",\"realname\":\"fzp\",\"remarks\":\"qq124746406\",\"roleName\":\"管理员,普通用户\",\"roles\":[{\"name\":\"管理员\",\"roleId\":\"ROLE_ADMIN\"},{\"name\":\"普通用户\",\"roleId\":\"ROLE_USER\"}],\"sex\":1,\"sexName\":\"男\",\"status\":true,\"type\":0,\"updateBy\":\"1\",\"updateTime\":1564502325000,\"userId\":\"fangzhipeng\",\"us', '42', 'fangzhipeng', '2019-09-02 23:23:20', 'fangzhipeng', '2019-09-02 23:23:20'), ('1168546092205940737', '1da5d89a-8252-b076-fe02-27940d784a75', 'POST', '/vacation', '127.0.0.1', '{}', '0', '{\"code\":0,\"message\":\"sucess\",\"requestId\":\"1da5d89a-8252-b076-fe02-27940d784a75\"}', '177440', 'fangzhipeng', '2019-09-02 23:27:44', 'fangzhipeng', '2019-09-02 23:27:44'), ('1168546092235300866', 'dbb1712e-070e-e378-e3bf-fd5b6358b39f', 'GET', '/user/pagelist', '127.0.0.1', '{page=1, pageSize=999}', '0', '{\"code\":0,\"data\":{\"list\":[{\"createBy\":\"1\",\"createTime\":1564502320000,\"email\":\"miles02@163.com\",\"id\":1,\"menus\":[],\"mobile\":\"15009223222\",\"orgName\":\"总公司\",\"orgs\":[{\"orgId\":\"1\",\"simpleName\":\"总公司\"}],\"password\":\"6c7e90436b7f48db03488510cd6ac480\",\"realname\":\"fzp\",\"remarks\":\"qq124746406\",\"roleName\":\"管理员,普通用户\",\"roles\":[{\"name\":\"管理员\",\"roleId\":\"ROLE_ADMIN\"},{\"name\":\"普通用户\",\"roleId\":\"ROLE_USER\"}],\"sex\":1,\"sexName\":\"男\",\"status\":true,\"type\":0,\"updateBy\":\"1\",\"updateTime\":1564502325000,\"userId\":\"fangzhipeng\",\"us', '1330', 'fangzhipeng', '2019-09-02 23:27:44', 'fangzhipeng', '2019-09-02 23:27:44'), ('1168546092243689474', 'd611c956-df36-6cae-f8b0-211d2f36c149', 'GET', '/user/currentUser', '127.0.0.1', '{}', '0', '{\"code\":0,\"data\":{\"createBy\":\"1\",\"createTime\":1564502320000,\"email\":\"miles02@163.com\",\"id\":1,\"mobile\":\"15009223222\",\"password\":\"6c7e90436b7f48db03488510cd6ac480\",\"realname\":\"fzp\",\"remarks\":\"qq124746406\",\"sex\":1,\"status\":true,\"type\":0,\"updateBy\":\"1\",\"updateTime\":1564502325000,\"userId\":\"fangzhipeng\"},\"message\":\"sucess\",\"requestId\":\"d611c956-df36-6cae-f8b0-211d2f36c149\"}', '1324', 'fangzhipeng', '2019-09-02 23:27:44', 'fangzhipeng', '2019-09-02 23:27:44'), ('1168546092243689475', '984b5465-22d8-bf48-ba9c-54cbbf51865b', 'GET', '/user/currentUser', '127.0.0.1', '{}', '0', '{\"code\":0,\"data\":{\"createBy\":\"1\",\"createTime\":1564502320000,\"email\":\"miles02@163.com\",\"id\":1,\"mobile\":\"15009223222\",\"password\":\"6c7e90436b7f48db03488510cd6ac480\",\"realname\":\"fzp\",\"remarks\":\"qq124746406\",\"sex\":1,\"status\":true,\"type\":0,\"updateBy\":\"1\",\"updateTime\":1564502325000,\"userId\":\"fangzhipeng\"},\"message\":\"sucess\",\"requestId\":\"984b5465-22d8-bf48-ba9c-54cbbf51865b\"}', '1309', 'fangzhipeng', '2019-09-02 23:27:44', 'fangzhipeng', '2019-09-02 23:27:44'), ('1168546092252078081', 'cc482817-a775-3aba-d1a7-42d5ad6a48aa', 'GET', '/user/pagelist', '127.0.0.1', '{page=1, pageSize=999}', '0', '{\"code\":0,\"data\":{\"list\":[{\"createBy\":\"1\",\"createTime\":1564502320000,\"email\":\"miles02@163.com\",\"id\":1,\"menus\":[],\"mobile\":\"15009223222\",\"orgName\":\"总公司\",\"orgs\":[{\"orgId\":\"1\",\"simpleName\":\"总公司\"}],\"password\":\"6c7e90436b7f48db03488510cd6ac480\",\"realname\":\"fzp\",\"remarks\":\"qq124746406\",\"roleName\":\"管理员,普通用户\",\"roles\":[{\"name\":\"管理员\",\"roleId\":\"ROLE_ADMIN\"},{\"name\":\"普通用户\",\"roleId\":\"ROLE_USER\"}],\"sex\":1,\"sexName\":\"男\",\"status\":true,\"type\":0,\"updateBy\":\"1\",\"updateTime\":1564502325000,\"userId\":\"fangzhipeng\",\"us', '1328', 'fangzhipeng', '2019-09-02 23:27:44', 'fangzhipeng', '2019-09-02 23:27:44'), ('1168546162523447297', '53ec1708-5b28-c2ef-66c9-1cffd91dd92e', 'GET', '/user/info', '127.0.0.1', '{}', '0', '{\"code\":0,\"data\":{\"roles\":\"administrator\",\"menus\":[{\"code\":\"system\",\"icon\":\"fa-cog\",\"id\":1,\"ismenu\":1,\"isopen\":1,\"levels\":1,\"name\":\"系统管理\",\"num\":4,\"pcode\":\"0\",\"pcodes\":\"[0],\",\"status\":1,\"url\":\"/system\"},{\"code\":\"cms\",\"icon\":\"\",\"id\":2,\"ismenu\":1,\"levels\":1,\"name\":\"CMS管理\",\"num\":5,\"pcode\":\"0\",\"pcodes\":\"[0],\",\"status\":1,\"updateBy\":\"1\",\"updateTime\":1552314338000,\"url\":\"/cms\"},{\"code\":\"operationMgr\",\"icon\":\"null\",\"id\":3,\"ismenu\":1,\"levels\":1,\"name\":\"运维管理\",\"num\":3,\"pcode\":\"0\",\"pcodes\":\"[0],\",\"status\":1,', '125', 'fangzhipeng', '2019-09-02 23:28:10', 'fangzhipeng', '2019-09-02 23:28:10'), ('1168546165547540481', '1b68d2f2-5807-8e42-572d-bbd6151f7b4d', 'GET', '/user/currentUser', '127.0.0.1', '{}', '0', '{\"code\":0,\"data\":{\"createBy\":\"1\",\"createTime\":1564502320000,\"email\":\"miles02@163.com\",\"id\":1,\"mobile\":\"15009223222\",\"password\":\"6c7e90436b7f48db03488510cd6ac480\",\"realname\":\"fzp\",\"remarks\":\"qq124746406\",\"sex\":1,\"status\":true,\"type\":0,\"updateBy\":\"1\",\"updateTime\":1564502325000,\"userId\":\"fangzhipeng\"},\"message\":\"sucess\",\"requestId\":\"1b68d2f2-5807-8e42-572d-bbd6151f7b4d\"}', '16', 'fangzhipeng', '2019-09-02 23:28:11', 'fangzhipeng', '2019-09-02 23:28:11'), ('1168546165614649346', 'e2495c84-3118-9452-e9c0-226baae82bc5', 'GET', '/user/pagelist', '127.0.0.1', '{page=1, pageSize=999}', '0', '{\"code\":0,\"data\":{\"list\":[{\"createBy\":\"1\",\"createTime\":1564502320000,\"email\":\"miles02@163.com\",\"id\":1,\"menus\":[],\"mobile\":\"15009223222\",\"orgName\":\"总公司\",\"orgs\":[{\"orgId\":\"1\",\"simpleName\":\"总公司\"}],\"password\":\"6c7e90436b7f48db03488510cd6ac480\",\"realname\":\"fzp\",\"remarks\":\"qq124746406\",\"roleName\":\"管理员,普通用户\",\"roles\":[{\"name\":\"管理员\",\"roleId\":\"ROLE_ADMIN\"},{\"name\":\"普通用户\",\"roleId\":\"ROLE_USER\"}],\"sex\":1,\"sexName\":\"男\",\"status\":true,\"type\":0,\"updateBy\":\"1\",\"updateTime\":1564502325000,\"userId\":\"fangzhipeng\",\"us', '27', 'fangzhipeng', '2019-09-02 23:28:11', 'fangzhipeng', '2019-09-02 23:28:11'), ('1168546347051851777', 'ad29d3a9-ce1f-b59c-130f-5f7d0415a780', 'POST', '/vacation', '127.0.0.1', '{}', '0', '{\"code\":0,\"message\":\"sucess\",\"requestId\":\"ad29d3a9-ce1f-b59c-130f-5f7d0415a780\"}', '30778', 'fangzhipeng', '2019-09-02 23:28:54', 'fangzhipeng', '2019-09-02 23:28:54');
-COMMIT;
-
--- ----------------------------
 --  Table structure for `sys_login_log`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_login_log`;
@@ -997,7 +1074,7 @@ CREATE TABLE `sys_login_log` (
 --  Records of `sys_login_log`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_login_log` VALUES ('1155132840004497409', '127.0.0.1', '2', 'admin', '2019-07-27 23:08:15', null), ('1155132863119306753', '127.0.0.1', '2', 'admin', '2019-07-27 23:08:31', null), ('1155132909013381121', '127.0.0.1', '2', 'admin', '2019-07-27 23:08:41', null), ('1155133012012904450', '127.0.0.1', '1', 'fangzhipeng', '2019-07-27 23:09:06', 'fzp'), ('1155862811052277762', '127.0.0.1', '1', 'fangzhipeng', '2019-07-29 23:28:54', 'fzp'), ('1155862831323348994', '127.0.0.1', '1', 'fangzhipeng', '2019-07-29 23:29:09', 'fzp'), ('1156216732610420737', '127.0.0.1', '1', 'fangzhipeng', '2019-07-30 22:55:15', 'fzp'), ('1156216772154318849', '127.0.0.1', '1', 'fangzhipeng', '2019-07-30 22:55:35', 'fzp'), ('1156581085008297986', '127.0.0.1', '1', 'fangzhipeng', '2019-07-31 23:03:04', 'fzp'), ('1156581099440898049', '127.0.0.1', '1', 'fangzhipeng', '2019-07-31 23:03:17', 'fzp'), ('1156937859473289217', '127.0.0.1', '1', 'fangzhipeng', '2019-08-01 22:40:45', 'fzp'), ('1156965933862510594', '127.0.0.1', '1', 'fangzhipeng', '2019-08-02 00:32:19', 'fzp'), ('1156967911451725825', '127.0.0.1', '1', 'fangzhipeng', '2019-08-02 00:40:10', 'fzp'), ('1158391320257728513', '127.0.0.1', '1', 'fangzhipeng', '2019-08-05 22:56:17', 'fzp'), ('1159486786827419650', '127.0.0.1', '1', 'fangzhipeng', '2019-08-08 23:29:17', 'fzp'), ('1160388589270036481', '127.0.0.1', '1', 'fangzhipeng', '2019-08-11 11:12:43', 'fzp'), ('1160394861897781249', '127.0.0.1', '1', 'fangzhipeng', '2019-08-11 11:37:49', 'fzp'), ('1160739349044535297', '127.0.0.1', '1', 'fangzhipeng', '2019-08-12 10:26:40', 'fzp'), ('1161217208645255169', '127.0.0.1', '1', 'fangzhipeng', '2019-08-13 18:05:32', 'fzp'), ('1161672417955500033', '127.0.0.1', '1', 'fangzhipeng', '2019-08-15 00:14:22', 'fzp'), ('1162654984280092674', '127.0.0.1', '1', 'fangzhipeng', '2019-08-17 17:18:34', 'fzp'), ('1162692577868902401', '127.0.0.1', '1', 'fangzhipeng', '2019-08-17 19:48:07', 'fzp'), ('1162692738808541185', '127.0.0.1', '1', 'fangzhipeng', '2019-08-17 19:48:45', 'fzp'), ('1162693299696037889', '127.0.0.1', '1', 'fangzhipeng', '2019-08-17 19:50:59', 'fzp'), ('1162908331914498049', '127.0.0.1', '1', 'fangzhipeng', '2019-08-18 10:05:17', 'fzp'), ('1166364932453355521', '127.0.0.1', '1', 'fangzhipeng', '2019-08-27 23:00:45', 'fzp'), ('1168521587580399617', '127.0.0.1', '1', 'fangzhipeng', '2019-09-02 21:50:31', 'fzp');
+INSERT INTO `sys_login_log` VALUES ('1155132840004497409', '127.0.0.1', '2', 'admin', '2019-07-27 23:08:15', null), ('1155132863119306753', '127.0.0.1', '2', 'admin', '2019-07-27 23:08:31', null), ('1155132909013381121', '127.0.0.1', '2', 'admin', '2019-07-27 23:08:41', null), ('1155133012012904450', '127.0.0.1', '1', 'fangzhipeng', '2019-07-27 23:09:06', 'fzp'), ('1155862811052277762', '127.0.0.1', '1', 'fangzhipeng', '2019-07-29 23:28:54', 'fzp'), ('1155862831323348994', '127.0.0.1', '1', 'fangzhipeng', '2019-07-29 23:29:09', 'fzp'), ('1156216732610420737', '127.0.0.1', '1', 'fangzhipeng', '2019-07-30 22:55:15', 'fzp'), ('1156216772154318849', '127.0.0.1', '1', 'fangzhipeng', '2019-07-30 22:55:35', 'fzp'), ('1156581085008297986', '127.0.0.1', '1', 'fangzhipeng', '2019-07-31 23:03:04', 'fzp'), ('1156581099440898049', '127.0.0.1', '1', 'fangzhipeng', '2019-07-31 23:03:17', 'fzp'), ('1156937859473289217', '127.0.0.1', '1', 'fangzhipeng', '2019-08-01 22:40:45', 'fzp'), ('1156965933862510594', '127.0.0.1', '1', 'fangzhipeng', '2019-08-02 00:32:19', 'fzp'), ('1156967911451725825', '127.0.0.1', '1', 'fangzhipeng', '2019-08-02 00:40:10', 'fzp'), ('1158391320257728513', '127.0.0.1', '1', 'fangzhipeng', '2019-08-05 22:56:17', 'fzp'), ('1159486786827419650', '127.0.0.1', '1', 'fangzhipeng', '2019-08-08 23:29:17', 'fzp'), ('1160388589270036481', '127.0.0.1', '1', 'fangzhipeng', '2019-08-11 11:12:43', 'fzp'), ('1160394861897781249', '127.0.0.1', '1', 'fangzhipeng', '2019-08-11 11:37:49', 'fzp'), ('1160739349044535297', '127.0.0.1', '1', 'fangzhipeng', '2019-08-12 10:26:40', 'fzp'), ('1161217208645255169', '127.0.0.1', '1', 'fangzhipeng', '2019-08-13 18:05:32', 'fzp'), ('1161672417955500033', '127.0.0.1', '1', 'fangzhipeng', '2019-08-15 00:14:22', 'fzp'), ('1162654984280092674', '127.0.0.1', '1', 'fangzhipeng', '2019-08-17 17:18:34', 'fzp'), ('1162692577868902401', '127.0.0.1', '1', 'fangzhipeng', '2019-08-17 19:48:07', 'fzp'), ('1162692738808541185', '127.0.0.1', '1', 'fangzhipeng', '2019-08-17 19:48:45', 'fzp'), ('1162693299696037889', '127.0.0.1', '1', 'fangzhipeng', '2019-08-17 19:50:59', 'fzp'), ('1162908331914498049', '127.0.0.1', '1', 'fangzhipeng', '2019-08-18 10:05:17', 'fzp'), ('1166364932453355521', '127.0.0.1', '1', 'fangzhipeng', '2019-08-27 23:00:45', 'fzp'), ('1168521587580399617', '127.0.0.1', '1', 'fangzhipeng', '2019-09-02 21:50:31', 'fzp'), ('1169238146573602818', '127.0.0.1', '1', 'fangzhipeng', '2019-09-04 21:17:52', 'fzp'), ('1169257594827202562', '127.0.0.1', '1', 'fangzhipeng', '2019-09-04 22:34:59', 'fzp');
 COMMIT;
 
 -- ----------------------------

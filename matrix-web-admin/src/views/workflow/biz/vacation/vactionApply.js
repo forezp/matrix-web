@@ -8,6 +8,7 @@ export default {
       education: [],
       form: {
         name: '',
+        userId: '',
         reason: '',
         remarks: '',
         nextUserId: '',
@@ -90,6 +91,7 @@ export default {
       this.form.step = step
       this.form.startTime = startTime
       this.form.endTime = endTime
+      this.form.userId = this.currentUser.userId
       if (step) {
         console.info(step)
       } else {
@@ -98,6 +100,7 @@ export default {
             message: '提交成功',
             type: 'success'
           })
+          this.$router.back()
         })
       }
     },

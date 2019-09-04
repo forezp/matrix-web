@@ -33,7 +33,10 @@ export default {
     categoryMgr: '分类管理',
     processMgr: '流程管理',
     newProcessMgr: '新建流程',
-    vactionApplyMgr: '休假申请'
+    vactionApplyMgr: '休假申请',
+    myprocessMgr: '我的申请',
+    todpprocessMgr: '我的代办',
+    finishprocessMgr: '我的已办'
   },
   navbar: {
     logOut: '退出登录',

@@ -2,6 +2,7 @@ package io.github.forezp.modules.personnel.service;
 
 import io.github.forezp.modules.personnel.entity.PlVacation;
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.github.forezp.modules.personnel.vo.domain.VacationDomain;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PlVacationService extends IService<PlVacation> {
 
+    void statVacation(VacationDomain vacationDomain);
 }

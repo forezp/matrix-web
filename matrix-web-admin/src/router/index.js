@@ -162,6 +162,24 @@ export const asyncRouterMap = [
         component: () => import('@/views/workflow/biz/vacation/index'),
         hidden: true,
         meta: { title: 'vactionApplyMgr' }
+      },
+      {
+        path: 'myprocess',
+        name: 'myprocess',
+        component: () => import('@/views/workflow/myprocess/index'),
+        meta: { title: 'myprocessMgr' }
+      },
+      {
+        path: 'todoprocess',
+        name: 'todoprocess',
+        component: () => import('@/views/workflow/todoprocess/index'),
+        meta: { title: 'todpprocessMgr' }
+      },
+      {
+        path: 'finishprocess',
+        name: 'finishprocess',
+        component: () => import('@/views/workflow/finishprocess/index'),
+        meta: { title: 'finishprocessMgr' }
       }
     ]
   },
