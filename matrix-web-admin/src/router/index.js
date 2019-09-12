@@ -54,9 +54,6 @@ export default new Router({
   routes: constantRouterMap
 })
 
-
-
-
 export const asyncRouterMap = [
   {
     path: '/system',
@@ -216,59 +213,59 @@ export const asyncRouterMap = [
       }
     ]
   },
-  {
-    path: '/cms',
-    component: Layout,
-    redirect: '#',
-    name: 'Cms',
-    alwaysShow: true,
-    meta: {
-      roles: ['administrator', 'developer'],
-      title: 'cmsMgr',
-      icon: 'documentation'
-    },
-    children: [
-      {
-        path: 'banner',
-        name: 'Banner',
-        component: () => import('@/views/cms/banner/index'),
-        meta: { title: 'bannerMgr' }
-      },
-      {
-        path: 'channel',
-        name: 'Channel',
-        component: () => import('@/views/cms/channel/index'),
-        meta: { title: 'channelMgr' }
-      },
-      {
-        path: 'article',
-        name: 'Article',
-        component: () => import('@/views/cms/article/index'),
-        meta: { title: 'articleMgr' }
-      },
-      {
-        path: 'article/edit',
-        name: 'Edit Article',
-        component: () => import('@/views/cms/article/edit.vue'),
-        hidden: true,
-        meta: { title: 'editArticle' }
-      },
-      {
-        path: 'contacts',
-        name: 'Contacts',
-        component:() => import('@/views/cms/contacts/index'),
-        meta: { title: 'contactsMgr' }
-      },
-      {
-        path: 'file',
-        name: 'File',
-        component:  () => import('@/views/cms/file/index'),
-        meta: {
-          title: 'fileMgr'
-        }
-      }
-    ]
-  },
+  // {
+  //   path: '/cms',
+  //   component: Layout,
+  //   redirect: '#',
+  //   name: 'Cms',
+  //   alwaysShow: true,
+  //   meta: {
+  //     roles: ['administrator', 'developer'],
+  //     title: 'cmsMgr',
+  //     icon: 'documentation'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'banner',
+  //       name: 'Banner',
+  //       component: () => import('@/views/cms/banner/index'),
+  //       meta: { title: 'bannerMgr' }
+  //     },
+  //     {
+  //       path: 'channel',
+  //       name: 'Channel',
+  //       component: () => import('@/views/cms/channel/index'),
+  //       meta: { title: 'channelMgr' }
+  //     },
+  //     {
+  //       path: 'article',
+  //       name: 'Article',
+  //       component: () => import('@/views/cms/article/index'),
+  //       meta: { title: 'articleMgr' }
+  //     },
+  //     {
+  //       path: 'article/edit',
+  //       name: 'Edit Article',
+  //       component: () => import('@/views/cms/article/edit.vue'),
+  //       hidden: true,
+  //       meta: { title: 'editArticle' }
+  //     },
+  //     {
+  //       path: 'contacts',
+  //       name: 'Contacts',
+  //       component:() => import('@/views/cms/contacts/index'),
+  //       meta: { title: 'contactsMgr' }
+  //     },
+  //     {
+  //       path: 'file',
+  //       name: 'File',
+  //       component:  () => import('@/views/cms/file/index'),
+  //       meta: {
+  //         title: 'fileMgr'
+  //       }
+  //     }
+  //   ]
+  // },
   {
     path: '/optionMgr',
     component: Layout,
@@ -307,38 +304,6 @@ export const asyncRouterMap = [
       }
     ]
   },
-  {
-    path: '/message',
-    component: Layout,
-    redirect: '#',
-    name: 'messageMgr',
-    alwaysShow: true,
-    meta: {
-      roles: ['administrator', 'developer'],
-      title: 'messageMgr',
-      icon: 'message'
-    },
-    children: [
-      {
-        path: 'history',
-        name: 'message',
-        component:() => import('@/views/message/message/index'),
-        meta: { title: 'historyMessage' }
-      },
-      {
-        path: 'template',
-        name: 'template',
-        component:() => import('@/views/message/template/index'),
-        meta: { title: 'messageTemplate' }
-      },
-      {
-        path: 'sender',
-        name: 'Message Sender',
-        component: () => import('@/views/message/sender/index'),
-        meta: { title: 'messageSender' }
-      }
-    ]
-  },
-  {path: '/404', component: () => import('@/views/404'), hidden: true}
-];
+  { path: '/404', component: () => import('@/views/404'), hidden: true }
+]
 

@@ -24,18 +24,27 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<druid.boot.version>1.1.10</druid.boot.version>
-		<mybatisplus.spring.boot.version>3.1.2</mybatisplus.spring.boot.version>
-		<mybatisplus.version>3.1.2</mybatisplus.version>
 		<mysql.version>5.1.38</mysql.version>
 		<swagger.version>2.2.2</swagger.version>
 		<scrorpio.version>1.0.1</scrorpio.version>
 		<velocity.version>2.0</velocity.version>
 		<freemaker.version>2.3.23</freemaker.version>
 		<jjwt.version>0.7.0</jjwt.version>
-		<lombok.version>1.16.18</lombok.version>
 		<caffeine.version>2.6.2</caffeine.version>
 		<activiti.version>5.22.0</activiti.version>
 		<apache.xmlgraphics.version>1.7</apache.xmlgraphics.version>
+		<c3p0.version>0.9.5.2</c3p0.version>
+		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version>
+		<matrix-threadpool.version>1.2</matrix-threadpool.version>
+		<dozer.version>5.5.1</dozer.version>
+		<durid.version>1.1.10</durid.version>
+		<fastjson.version>1.2.31</fastjson.version>
+		<lombok.version>1.16.20</lombok.version>
+		<mybatis.version>3.5.1</mybatis.version>
+		<mybatisplus.spring.boot.version>3.1.2</mybatisplus.spring.boot.version>
+		<mybatisplus.version>3.1.2</mybatisplus.version>
+		<sharding-jdbc.version>3.1.0.M1</sharding-jdbc.version>
+		<HikariCP.version>3.3.1</HikariCP.version>
 	</properties>
 
 	<dependencies>
@@ -43,14 +52,13 @@
 		<dependency>
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
-			<version>0.9.5.2</version>
+			<version>${c3p0.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-quartz</artifactId>
 		</dependency>
-
 
 		<dependency>
 			<groupId>com.github.ben-manes.caffeine</groupId>
@@ -61,19 +69,19 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>5.3.4.Final</version>
+			<version>${hibernate-validator.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>io.github.forezp</groupId>
 			<artifactId>matrix-threadpool-starter</artifactId>
-			<version>1.2</version>
+			<version>${matrix-threadpool.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>net.sf.dozer</groupId>
 			<artifactId>dozer</artifactId>
-			<version>5.5.1</version>
+			<version>${dozer.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -91,14 +99,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
-
-		<!--<dependency>-->
-			<!--<groupId>mysql</groupId>-->
-			<!--<artifactId>mysql-connector-java</artifactId>-->
-			<!--<version>${mysql.version}</version>-->
-		<!--</dependency>-->
-
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -108,33 +108,32 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>1.1.10</version>
+			<version>${durid.version}</version>
 		</dependency>
 
 
 		<!--<dependency>-->
 			<!--<groupId>com.zaxxer</groupId>-->
 			<!--<artifactId>HikariCP</artifactId>-->
-			<!--<version>3.3.1</version>-->
+			<!--<version>${HikariCP.version}</version>-->
 		<!--</dependency>-->
 
 
 		<dependency>
 			<groupId>io.shardingsphere</groupId>
 			<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-			<version>3.1.0.M1</version>
+			<version>${sharding-jdbc.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
-			<version>3.1.2</version>
+			<version>${mybatisplus.spring.boot.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.5.1</version>
+			<version>${mybatis.version}</version>
 		</dependency>
 
 
@@ -144,12 +143,7 @@
 <!--		            <version>3.1.2</version>-->
 <!--		        </dependency>-->
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.20</version>
-			<scope>provided</scope>
-		</dependency>
+
 		<!--swagger-->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -177,13 +171,14 @@
 		</dependency>
 
 		<!--lombok-->
+
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
 		<!--redis-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -199,7 +194,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.31</version>
+			<version>${fastjson.version}</version>
 		</dependency>
 
 
@@ -254,7 +249,7 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
+
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid-spring-boot-starter</artifactId>
