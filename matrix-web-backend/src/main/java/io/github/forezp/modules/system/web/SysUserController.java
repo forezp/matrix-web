@@ -78,14 +78,11 @@ public class SysUserController {
 
     @PostMapping("/login")
     public RespDTO login(@RequestParam String username, @RequestParam String password) {
-
-        log.info("login parmas: {},{}", username, password);
-        long startTime = System.currentTimeMillis();
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", username);
         SysUser user = sysUserService.getOne(queryWrapper);
-        log.info("slect user takes {}ms ", System.currentTimeMillis() - startTime);
         if (user == null) {
+            //异步存储登陆日志
             saveSysLoginLog(username, null, false);
             throw new AriesException(USER_NOT_EXIST);
         }
@@ -103,7 +100,7 @@ public class SysUserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        //异步存储登陆日志
         saveSysLoginLog(username, user.getRealname(), true);
         return RespDTO.onSuc(result);
     }
