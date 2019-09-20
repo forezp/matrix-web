@@ -1,8 +1,8 @@
-# flash-vue-admin
+# matrix-web-admin
 
 该模块提供了一个基于Vue.js的纯静态后台管理系统的界面方案，
 
-flash-vue-admin（前端）和flash-api（后端）搭配使用提供了一套成熟简洁的后台管理系统
+该模块代码参考了web-flash的代码，感谢作者。
 
 该模块克隆自：[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)，感谢PanJiaChen，欢迎大家给他点赞。
 
