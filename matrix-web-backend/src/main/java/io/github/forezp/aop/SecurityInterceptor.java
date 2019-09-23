@@ -31,12 +31,11 @@ public class SecurityInterceptor implements HandlerInterceptor {
         if (ApiConstants.HTTP_METHOD_OPTIONS.equals(method)) {
             return true;
         }
-
         String token = UserUtils.getCurrentToken();
         LOG.info("requst uri:" + request.getRequestURI() + ",request token:" + token);
-//        if (StringUtils.isEmpty(token)) {
-//            writeNoPermission(response);
-//        }
+        if (StringUtils.isEmpty(token)) {
+            writeNoPermission(response);
+        }
         return true;
     }
 
