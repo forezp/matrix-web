@@ -136,14 +136,6 @@
 			<version>${mybatis.version}</version>
 		</dependency>
 
-
-<!--		        <dependency>-->
-<!--		            <groupId>com.baomidou</groupId>-->
-<!--		            <artifactId>mybatis-plus</artifactId>-->
-<!--		            <version>3.1.2</version>-->
-<!--		        </dependency>-->
-
-
 		<!--swagger-->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -171,14 +163,13 @@
 		</dependency>
 
 		<!--lombok-->
-
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<!--redis-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -196,7 +187,6 @@
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
 		</dependency>
-
 
 		<!-- activiti -->
 		        <dependency>

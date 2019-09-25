@@ -43,6 +43,5 @@ public class ActivitiConfig {
         configuration.setLabelFontName("宋体");
         configuration.setTransactionManager(transactionManager);
         return configuration;
-
     }
 }

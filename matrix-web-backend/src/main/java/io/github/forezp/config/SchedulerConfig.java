@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * @Author: zhang_cq
+ * @Author:
  */
 @Configuration
 public class SchedulerConfig {

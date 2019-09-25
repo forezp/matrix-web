@@ -25,28 +25,11 @@ import java.util.Scanner;
  */
 public class MysqlGenerator {
 
-//    /**
-//     * <p>
-//     * 读取控制台内容
-//     * </p>
-//     */
-//    public static String scanner(String tip) {
-//        Scanner scanner = new Scanner(System.in);
-//        StringBuilder help = new StringBuilder();
-//        help.append("请输入" + tip + "：");
-//        System.out.println(help.toString());
-//        if (scanner.hasNext()) {
-//            String ipt = scanner.next();
-//            if (StringUtils.isNotEmpty(ipt)) {
-//                return ipt;
-//            }
-//        }
-//        throw new MybatisPlusException("请输入正确的" + tip + "！");
-//    }
 
-   public static String[] tableNames={"pl_vacation"};
 
-   public static String packageName="io.github.forezp.modules.personnel";
+   public static String[] tableNames={"sys_user"};
+
+   public static String packageName="io.github.forezp.modules.system";
     /**
      * RUN THIS
      */
