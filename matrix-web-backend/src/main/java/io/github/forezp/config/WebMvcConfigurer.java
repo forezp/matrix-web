@@ -100,5 +100,4 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         jackson2HttpMessageConverter.setObjectMapper(objectMapper);
         converters.add(jackson2HttpMessageConverter);
     }
-
 }
