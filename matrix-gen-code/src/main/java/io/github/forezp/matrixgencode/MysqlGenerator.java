@@ -27,9 +27,9 @@ public class MysqlGenerator {
 
 
 
-   public static String[] tableNames={"sys_user"};
+   public static String[] tableNames={"book"};
 
-   public static String packageName="io.github.forezp.modules.system";
+   public static String packageName="io.github.forezp.admin";
     /**
      * RUN THIS
      */
@@ -53,7 +53,7 @@ public class MysqlGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/aries?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false&useSSL=false&serverTimezone=GMT");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/blog-spider?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false&useSSL=false&serverTimezone=GMT");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
