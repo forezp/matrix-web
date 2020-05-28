@@ -50,7 +50,7 @@ public class ValidatorUtils {
         if (result.isHasErrors()) {
             logger.error("校验实体有错误,错误为{}", result.toString());
             if (result.getErrorMsg().size() > 0) {
-                //throw new TaiChiException(ErrorCode.ERROR_ARGS, result.getErrorMsg().toString());
+
                 throw new AriesException(ErrorCode.ERROR_ARGS, mapValueToString(result.getErrorMsg()));
             }
             throw new AriesException(ErrorCode.ERROR_ARGS);
