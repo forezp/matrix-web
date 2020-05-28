@@ -23,7 +23,7 @@ Matrxi-Web具备基本的管理系统的基本功能，后端CRUD代码只需要
 
 - matrix-web-backend 后端代码模块
 - matrix-web-admin 前端代码模块
-- matrix-gen-code 代码生成模块
+- matrix-gen-code 后端代码生成模块
 
 ##  使用的技术栈
 
@@ -74,20 +74,39 @@ Matrix-Web融合了开源界的优秀技术，旨在为开发者迅速搭建一�
 - Webstorm
 - node v10.16.0 ，npm v6.9.0
 
-## 如何使用Matrix-Web
+## 如何运行Matrix-Web
 
 - git clone git@github.com:forezp/matrix-web.git
-- 在MySQL数据库中创建数据库aries，初始化matyrix-web-backend/src/resource/sql的三个sql文件，依次执行ac522.sql、task.sql、matrix-web.sql
+- 在MySQL数据库中创建数据库aries，初始化matyrix-web-backend/src/resource/sql的2个sql文件，依次执行task.sql、matrix-web.sql
 - 在application配置文件配置MySQL
 - 启动后端matrix-web-backend的Spring Boot工程
+- Spring Boot工程执行成功之后，再执行sql文件夹中的ac522.sql，导入样例工作流数据
 - 前端模块需要安装ndoe.js、vue。然后进入matrix-web-admin目录下，执行以下步骤：
-  - 运行 npm install --registry=[https://registry.npm.taobao.org](https://registry.npm.taobao.org/)
+  - 运行 npm install --registry=https://registry.npm.taobao.org
+  - 运行npm install --unsafe-perm node-sass
   - 运行npm run dev
   - 启动成功后访问 [http://localhost:9528](http://localhost:9528/) ,登录，用户名密码:fangzhipeng/123456
 
+## 项目截图
 
+系统管理页面：
+
+![](https://static.javajike.com/img/2020/05/matrix/matrix-web01.png)
+
+流程管理界面：
+
+![](https://static.javajike.com/img/2020/05/matrix/matrix-web002.png)
+
+任务管理界面： 
+![](https://static.javajike.com/img/2020/05/matrix/matrix-web003.png)
+
+运维管理界面：
+![](https://static.javajike.com/img/2020/05/matrix/matrix-web004.png)
 
 ##  鸣谢
 
 本项目的前端页面参考了[web-flash](https://github.com/enilu/web-flash)和[vue-element-admin](https://panjiachen.github.io/vue-element-admin-site/zh/)，感谢二位前端大佬。
 
+## 源码下载
+
+https://github.com/forezp/matrix-web
