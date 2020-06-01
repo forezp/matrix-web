@@ -77,8 +77,8 @@ Matrix-Web融合了开源界的优秀技术，旨在为开发者迅速搭建一�
 ## 如何运行Matrix-Web
 
 - git clone git@github.com:forezp/matrix-web.git
-- 在MySQL数据库中创建数据库aries，初始化matyrix-web-backend/src/resource/sql的2个sql文件，依次执行task.sql、matrix-web.sql
-- 在application配置文件配置MySQL
+- 在MySQL数据库中创建数据库aries，初始化matyrix-web-backend/src/resource/sql的2个sql文件，依次执行task.sql、matrix-web.sql，此时不导入ac522.sql。
+- 在application配置文件配置MySQL，修改logback.xml的LOG_HOME的目录。
 - 启动后端matrix-web-backend的Spring Boot工程
 - Spring Boot工程执行成功之后，再执行sql文件夹中的ac522.sql，导入样例工作流数据
 - 前端模块需要安装ndoe.js、vue。然后进入matrix-web-admin目录下，执行以下步骤：
