@@ -7,5 +7,5 @@
 在plugin-sketon-vue工程下，做以下的配置：
 
 - 在resource/db.setting，配置数据库，目前只支持mysql类型的。
-- 在App.class目录tableName，即要生成的表名；generatePath，生成文件的路径
+- 在App.class配置tableName，即要生成的表名；generatePath，生成文件的路径
 - 执行main函数。
