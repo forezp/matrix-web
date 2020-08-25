@@ -1,0 +1,96 @@
+package com.nepxion.skeleton.engine.generator;
+
+/**
+ * <p>Title: Nepxion Skeleton</p>
+ * <p>Description: Nepxion Skeleton For Freemarker</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Haojun Ren
+ * @version 1.0
+ */
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.nepxion.skeleton.engine.context.SkeletonContext;
+import com.nepxion.skeleton.engine.entity.SkeletonFileType;
+import com.nepxion.skeleton.engine.exception.SkeletonException;
+import com.nepxion.skeleton.engine.property.SkeletonProperties;
+import com.nepxion.skeleton.engine.util.SkeletonUtil;
+
+public abstract class SkeletonFileGenerator extends AbstractSkeletonGenerator {
+    private static final Logger LOG = LoggerFactory.getLogger(SkeletonFileGenerator.class);
+
+    protected String defaultOutputPath;
+
+    public SkeletonFileGenerator(SkeletonContext skeletonContext, SkeletonProperties skeletonProperties) {
+        super(skeletonContext, skeletonProperties);
+
+        initialize();
+    }
+
+    public SkeletonFileGenerator(String generatePath, String projectType, String prefixTemplatePath, String reducedTemplatePath, Class<?> generatorClass, SkeletonProperties skeletonProperties) {
+        super(generatePath, projectType, prefixTemplatePath, reducedTemplatePath, generatorClass, skeletonProperties);
+
+        initialize();
+    }
+
+    public SkeletonFileGenerator(String generatePath, String projectType, String baseTemplatePath, SkeletonFileType fileType, SkeletonProperties skeletonProperties) {
+        super(generatePath, projectType, baseTemplatePath, fileType, skeletonProperties);
+
+        initialize();
+    }
+
+    private void initialize() {
+        // SkeletonFileType fileType = skeletonContext.getFileType();
+        // if (fileType != null && fileType == SkeletonFileType.JAVA) {
+        //    throw new SkeletonException("Invalid file type for " + fileType);
+        // }
+
+        String generatePath = skeletonContext.getGeneratePath();
+        String projectType = skeletonContext.getProjectType();
+
+        defaultOutputPath = SkeletonUtil.getOutputPath(generatePath, projectType, skeletonProperties);
+    }
+
+    public String getDefaultOutputPath() {
+        return defaultOutputPath;
+    }
+
+    @Override
+    protected String getPath() throws SkeletonException {
+        String fileName = null;
+        String outputPath = null;
+        Object dataModel = null;
+
+        try {
+            fileName = getFileName();
+            outputPath = getOutputPath();
+            dataModel = getDataModel();
+        } catch (Exception e) {
+            throw new SkeletonException(e.getMessage(), e);
+        }
+
+        String fullTemplatePath = getFullTemplatePath();
+        String fullOutputPath = SkeletonUtil.formatGeneratePath(outputPath) + fileName;
+
+        LOG.debug("--------------- File Generator Information ---------------");
+        LOG.debug("Template Path : {}", fullTemplatePath);
+        LOG.debug("Output Path : {}", fullOutputPath);
+        LOG.debug("Data Model : {}", dataModel);
+        LOG.debug("----------------------------------------------------------");
+
+        return fullOutputPath;
+    }
+
+    protected String getOutputPath() {
+        if (StringUtils.isEmpty(defaultOutputPath)) {
+            throw new IllegalArgumentException("Default output path is null or empty");
+        }
+
+        return defaultOutputPath;
+    }
+
+    protected abstract String getFileName();
+}

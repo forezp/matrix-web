@@ -1,0 +1,13 @@
+url = jdbc:mysql://127.0.0.1:3306/sys_user
+user = root
+pass = 123456
+
+## 可选配置
+# 是否在日志中显示执行的SQL
+showSql = true
+# 是否格式化显示的SQL
+formatSql = false
+# 是否显示SQL参数
+showParams = true
+# 打印SQL的日志等级，默认debug，可以是info、warn、error
+sqlLevel = debug
