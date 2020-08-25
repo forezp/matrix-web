@@ -7,24 +7,24 @@ sharding:
       db-test0: #org.apache.tomcat.jdbc.pool.DataSource
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://119.23.221.221:3306/matrix?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false&useSSL=false&serverTimezone=GMT
+        url: jdbc:mysql://119.23.221.204:3306/matrix?useUnicode=true&characterEncoding=utf8&tinyInt1isBit=false&useSSL=false&serverTimezone=GMT
         username: root
-        password: TCCXCCD
+        password: Tcdn@2007
         #最大连接数
         maxPoolSize: 20
       db-test1: # 配置第一个从库
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://119.23.221.221:3306/matrix?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT
+        url: jdbc:mysql://119.23.221.204:3306/matrix?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT
         username: root
-        password: TCCXCCD
+        password: Tcdn@2007
         maxPoolSize: 20
       db-test2: # 配置第二个从库
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://119.23.221.221:3306/matrix?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT
+        url: jdbc:mysql://119.23.221.204:3306/matrix?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT
         username: root
-        password: TCCXCCD
+        password: Tcdn@2007
         maxPoolSize: 20
     config:
       masterslave: # 配置读写分离
