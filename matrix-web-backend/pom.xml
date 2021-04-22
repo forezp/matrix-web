@@ -40,7 +40,7 @@
 		<durid.version>1.1.10</durid.version>
 		<fastjson.version>1.2.31</fastjson.version>
 		<lombok.version>1.16.20</lombok.version>
-		<mybatis.version>3.5.1</mybatis.version>
+		<mybatis.version>3.5.6</mybatis.version>
 		<mybatisplus.spring.boot.version>3.1.2</mybatisplus.spring.boot.version>
 		<mybatisplus.version>3.1.2</mybatisplus.version>
 		<sharding-jdbc.version>3.1.0.M1</sharding-jdbc.version>
