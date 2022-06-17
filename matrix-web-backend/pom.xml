@@ -38,7 +38,7 @@
 		<matrix-threadpool.version>1.2</matrix-threadpool.version>
 		<dozer.version>5.5.1</dozer.version>
 		<durid.version>1.1.10</durid.version>
-		<fastjson.version>1.2.31</fastjson.version>
+		<fastjson.version>1.2.83</fastjson.version>
 		<lombok.version>1.16.20</lombok.version>
 		<mybatis.version>3.5.1</mybatis.version>
 		<mybatisplus.spring.boot.version>3.1.2</mybatisplus.spring.boot.version>
