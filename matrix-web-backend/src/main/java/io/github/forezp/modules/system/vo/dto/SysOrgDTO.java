@@ -1,13 +1,20 @@
 package io.github.forezp.modules.system.vo.dto;
 
 import io.github.forezp.modules.system.entity.SysOrg;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.List;
 
 /**
  * Created by forezp on 2019/7/21.
+ * 使用父类的toString方法 @ToString(callSuper = true)
  */
-public class  SysOrgDTO extends SysOrg {
+@EqualsAndHashCode(callSuper = true)
+@Data
+@ToString(callSuper = true)
+public class SysOrgDTO extends SysOrg {
 
 
     List<SysOrgDTO> children;

@@ -7,7 +7,8 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ * 允许使用链式编程 @Accessors(chain = true)
+ * 如：new SysOrg().setOrgId("1").setPid("0");
  * </p>
  *
  * @author forezp

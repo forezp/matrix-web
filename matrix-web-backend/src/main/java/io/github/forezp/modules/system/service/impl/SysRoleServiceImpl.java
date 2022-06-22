@@ -43,10 +43,14 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     public SysUserRoleDTO getUserRoleDTO(String userId) {
 
         SysUserRoleDTO sysUserRoleDTO = new SysUserRoleDTO();
+        // 角色id列表
         List<Long> selectIds = new ArrayList<>();
         List<SysRoleDTO> roleDTOList = new ArrayList<>();
+        // 系统中所有角色
         List<SysRole> sysRoles = getBaseMapper().selectList(null);
+
         QueryWrapper queryWrapper = new QueryWrapper();
+        // 条件查询 user_id='xxx'
         queryWrapper.eq("user_id", userId);
         List<SysUserRole> sysUserRoleList = sysUserRoleMapper.selectList(queryWrapper);
         if (!CollectionUtils.isEmpty(sysRoles)) {
@@ -54,6 +58,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
                 SysRoleDTO sysRoleDTO = new SysRoleDTO();
                 BeanUtils.copy(sysRole, sysRoleDTO);
                 for (SysUserRole sysUserRole : sysUserRoleList) {
+                    // 判断用户的角色id在系统角色表中是否存在
                     if (sysRole.getRoleId().equals(sysUserRole.getRoleId())) {
                         selectIds.add(sysRole.getId());
                         sysRoleDTO.setChecked(true);

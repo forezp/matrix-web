@@ -35,9 +35,9 @@ public class SysOrgServiceImpl extends ServiceImpl<SysOrgMapper, SysOrg> impleme
 
     /**
      * 递归遍历树
-     *
-     * @param sysOrgs
-     * @param
+     * @param sysOrgs 菜单编号列表
+     * @param pid 当前深度的父节点(从0开始)
+     * @param depth 当前深度(从1开始)
      * @return
      */
     public List<SysOrgDTO> treeSort(List<SysOrg> sysOrgs, String pid, int depth) {
@@ -49,10 +49,12 @@ public class SysOrgServiceImpl extends ServiceImpl<SysOrgMapper, SysOrg> impleme
 
                 sysOrgDTO.setDepth(depth);
 
-
+                // 把sysOrg的属性值拷贝给sysOrgDTO
                 BeanUtils.copyProperties(sysOrg, sysOrgDTO);
 
+                // 当前节点的父节点与传入的父节点相等，说明当前节点属于目前要找的那一层的节点
                 if (pid.equals(sysOrg.getPid())) {
+                    // 把当前菜单编号设置为下一级父节点，深度+1
                     sysOrgDTO.setChildren(treeSort(sysOrgs, sysOrg.getOrgId(), depth + 1));
                     sysOrgDTOs.add(sysOrgDTO);
                 }

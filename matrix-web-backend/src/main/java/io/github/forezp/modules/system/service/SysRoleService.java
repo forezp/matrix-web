@@ -18,7 +18,9 @@ import java.util.List;
  */
 public interface SysRoleService extends IService<SysRole> {
 
-
+    /**
+     * 根据user_id查询用户有哪些角色
+     */
     SysUserRoleDTO getUserRoleDTO(String userId);
 
     PageResultsDTO searchRolePage(int page, int pageSize, String userid, String realname);
