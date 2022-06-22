@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_HOME" value="/Users/nickelfang/Downloads/log" />
+    <!--<property name="LOG_HOME" value="/Users/nickelfang/Downloads/log" />-->
+    <property name="LOG_HOME" value="D:\\Mycode\\matrix-web\\logback" />
     <property name="APP_NAME" value="matrix-web-backend" />
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
